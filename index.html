@@ -500,18 +500,44 @@ function save(){try{localStorage.setItem('buneo_local',JSON.stringify(state))}ca
 function load(){try{const s=localStorage.getItem('buneo_local');if(s)Object.assign(state,JSON.parse(s))}catch(e){}}
 load();
 
-// ===================== API =====================
-async function api(accion, data={}) {
-  if(!API_URL) throw new Error('Sin URL configurada');
-  const url = API_URL + '?accion=' + accion;
-  const res = await fetch(url, {
-    method: Object.keys(data).length ? 'POST' : 'GET',
-    body:   Object.keys(data).length ? JSON.stringify({accion,...data}) : undefined,
-    headers:{'Content-Type':'application/json'}
+// ===================== API (JSONP — sin CORS) =====================
+function jsonp(params) {
+  return new Promise((resolve, reject) => {
+    if(!API_URL) return reject(new Error('Sin URL configurada'));
+    const cbName = 'buneoCB_' + Date.now();
+    const timeout = setTimeout(() => {
+      delete window[cbName];
+      if(script.parentNode) script.parentNode.removeChild(script);
+      reject(new Error('Timeout — verifica la URL del script'));
+    }, 12000);
+
+    window[cbName] = (data) => {
+      clearTimeout(timeout);
+      delete window[cbName];
+      if(script.parentNode) script.parentNode.removeChild(script);
+      if(data.ok === false) reject(new Error(data.error || 'Error en script'));
+      else resolve(data.data !== undefined ? data.data : data);
+    };
+
+    // Construir URL con todos los parámetros como query string
+    let qs = '?callback=' + cbName;
+    for(const [k,v] of Object.entries(params)) {
+      qs += '&' + k + '=' + encodeURIComponent(typeof v === 'object' ? JSON.stringify(v) : v);
+    }
+
+    const script = document.createElement('script');
+    script.src = API_URL + qs;
+    script.onerror = () => {
+      clearTimeout(timeout);
+      delete window[cbName];
+      reject(new Error('No se pudo conectar con el script'));
+    };
+    document.head.appendChild(script);
   });
-  const json = await res.json();
-  if(!json.ok) throw new Error(json.error || 'Error API');
-  return json.data;
+}
+
+async function api(accion, data={}) {
+  return jsonp({ accion, ...data });
 }
 
 function status(msg, tipo='loading', dur=0) {
