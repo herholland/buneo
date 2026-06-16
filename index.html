@@ -62,8 +62,6 @@ nav{background:var(--profundo);border-bottom:2px solid var(--lima);position:stic
 .splash-card p{font-size:.72rem;color:var(--text3);font-weight:600}
 
 /* ---- SYNC BANNER ---- */
-.sync-banner{display:flex;align-items:center;justify-content:space-between;gap:.5rem;background:var(--accent-light);border:1px solid rgba(168,255,0,.25);border-radius:var(--radius-sm);padding:8px 12px;margin-bottom:1rem;font-size:12px;font-weight:700;color:var(--lima);flex-wrap:wrap}
-#sync-status-text{flex:1}
 
 /* ---- CARDS ---- */
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.3rem;margin-bottom:.9rem}
@@ -191,7 +189,7 @@ tr:hover td{background:var(--bg3)}
       <button class="tab-btn" onclick="showSection('calculadora')">🧮</button>
       <button class="tab-btn" onclick="showSection('inventario')">📦</button>
       <button class="tab-btn" onclick="showSection('pedidos')">📋</button>
-      <button class="tab-btn" onclick="abrirConfig()" title="Configurar">⚙️</button>
+      
     </div>
   </div>
 </nav>
@@ -228,9 +226,6 @@ tr:hover td{background:var(--bg3)}
 
 <!-- ===== CALCULADORA ===== -->
 <div id="sec-calculadora" class="section">
-  <div class="sync-banner">
-    <span id="sync-status-text">☁️ Conectando con Google Sheets...</span>
-    <button class="btn btn-secondary btn-sm" onclick="sincronizar()">🔄 Sync</button>
   </div>
   <h2 class="section-title">🧮 Calculadora</h2>
   <div class="card">
@@ -287,7 +282,7 @@ tr:hover td{background:var(--bg3)}
   <div class="section-actions">
     <h2 class="section-title" style="margin:0">📦 Inventario</h2>
     <div style="display:flex;gap:.4rem;flex-wrap:wrap">
-      <button class="btn btn-secondary btn-sm" onclick="guardarInventarioSheets()">☁️ Guardar</button>
+      
       <button class="btn btn-primary btn-sm" onclick="abrirModalItem(null)">+ Nuevo</button>
     </div>
   </div>
@@ -315,7 +310,7 @@ tr:hover td{background:var(--bg3)}
   <div class="section-actions">
     <h2 class="section-title" style="margin:0">📋 Pedido</h2>
     <div style="display:flex;gap:.4rem;flex-wrap:wrap">
-      <button class="btn btn-secondary btn-sm" onclick="guardarPedidosSheets()">☁️ Guardar</button>
+      
       <button class="btn btn-secondary btn-sm" onclick="limpiarPedido()">↺ Vaciar</button>
       <button class="btn btn-primary btn-sm" onclick="abrirModalProducto()">+ Agregar</button>
     </div>
@@ -459,7 +454,7 @@ tr:hover td{background:var(--bg3)}
 <script>
 // ===================== CONFIG =====================
 const FIL1=13500,FIL2=22000,IVA=1.19;
-let API_URL = localStorage.getItem('buneo_api_url') || '';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzXL-iwB5NBNxQ7A6DJH_4S7_hpUkRDa2nwkFBd38TdbFpL8KoEaNSk3hGT_cIqWN5a/exec';
 
 // ===================== STATE =====================
 let state={
@@ -496,7 +491,30 @@ let state={
   nextPedidoId:1
 };
 
-function save(){try{localStorage.setItem('buneo_local',JSON.stringify(state))}catch(e){}}
+function save(){
+  try{localStorage.setItem('buneo_local',JSON.stringify(state))}catch(e){}
+  autoSync();
+}
+let _syncTimer=null;
+function autoSync(){
+  clearTimeout(_syncTimer);
+  _syncTimer=setTimeout(()=>{ pushToSheets(); },1500);
+}
+async function pushToSheets(){
+  try{
+    await api('setInventario',{items:state.inventario});
+    await api('setPedidos',{pedidos:state.pedido});
+    showSyncDot('ok');
+  }catch(e){
+    showSyncDot('err');
+  }
+}
+function showSyncDot(tipo){
+  const el=document.getElementById('status-bar');
+  if(tipo==='ok'){el.textContent='✅ Guardado en Sheets';el.className='show ok';}
+  else{el.textContent='⚠️ Sin conexión — local';el.className='show err';}
+  setTimeout(()=>el.classList.remove('show'),2500);
+}
 function load(){try{const s=localStorage.getItem('buneo_local');if(s)Object.assign(state,JSON.parse(s))}catch(e){}}
 load();
 
@@ -548,7 +566,6 @@ function status(msg, tipo='loading', dur=0) {
 }
 
 async function sincronizar() {
-  if(!API_URL){abrirConfig();return}
   status('☁️ Sincronizando...','loading');
   try {
     const inv = await api('getInventario');
@@ -566,7 +583,6 @@ async function sincronizar() {
 }
 
 async function guardarInventarioSheets() {
-  if(!API_URL){abrirConfig();return}
   status('☁️ Guardando inventario...','loading');
   try {
     await api('setInventario',{items:state.inventario});
@@ -575,7 +591,6 @@ async function guardarInventarioSheets() {
 }
 
 async function guardarPedidosSheets() {
-  if(!API_URL){abrirConfig();return}
   status('☁️ Guardando pedido...','loading');
   try {
     await api('setPedidos',{pedidos:state.pedido});
@@ -583,19 +598,6 @@ async function guardarPedidosSheets() {
   } catch(e) { status('❌ '+e.message,'err',4000); }
 }
 
-// ===================== CONFIG =====================
-function abrirConfig(){
-  document.getElementById('cfg-url').value = API_URL || '';
-  abrirModal('modal-config');
-}
-function guardarConfig(){
-  const url = document.getElementById('cfg-url').value.trim();
-  if(!url) return alert('Pega la URL del script');
-  API_URL = url;
-  localStorage.setItem('buneo_api_url', url);
-  cerrarModal('modal-config');
-  sincronizar();
-}
 
 // ===================== NAV =====================
 function irSplash(){
@@ -802,9 +804,8 @@ document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click
 
 // Init
 calcular();
-if(!API_URL){
-  document.getElementById('sync-status-text').textContent='⚙️ Configura tu Google Sheet (toca el ⚙️)';
-}
+// Cargar datos desde Sheets al iniciar
+sincronizar();
 </script>
 </body>
 </html>
