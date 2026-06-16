@@ -21,31 +21,37 @@
   --accent-light:rgba(168,255,0,.1);
   --radius:12px;--radius-sm:7px;--tr:.18s ease;
 }
-body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.5;padding-bottom:env(safe-area-inset-bottom)}
+body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.5;padding-bottom:calc(72px + env(safe-area-inset-bottom))}
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 
 /* NAV */
+/* TOP BAR - solo logo */
 nav{background:var(--profundo);border-bottom:2px solid var(--lima);position:sticky;top:0;z-index:200;padding:0 .8rem;padding-top:env(safe-area-inset-top)}
-.nav-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;height:52px;gap:.3rem}
-.nav-logo{display:flex;align-items:center;gap:7px;cursor:pointer;margin-right:auto;flex-shrink:0}
-.nav-logo svg{width:30px;height:30px}
+.nav-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;height:48px}
+.nav-logo{display:flex;align-items:center;gap:7px;cursor:pointer;flex-shrink:0}
+.nav-logo svg{width:28px;height:28px}
 .nav-brand{font-size:1.1rem;font-weight:900;color:#fff;letter-spacing:-.5px}
 .nav-brand span{color:var(--lima)}
-.nav-tabs{display:flex;gap:2px}
-.tab-btn{background:none;border:none;padding:6px 10px;border-radius:var(--radius-sm);cursor:pointer;font-size:12px;font-weight:800;color:var(--text2);transition:var(--tr);white-space:nowrap;font-family:'Nunito Sans',sans-serif}
-.tab-btn.active{background:var(--lima);color:var(--profundo)}
-.tab-btn:hover{background:var(--accent-light);color:var(--lima)}
+/* BOTTOM BAR */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--profundo);border-top:2px solid var(--lima);padding:0 .5rem;padding-bottom:env(safe-area-inset-bottom)}
+.bottom-bar-inner{max-width:980px;margin:0 auto;display:flex;justify-content:space-around;align-items:center;height:58px}
+.tab-btn{background:none;border:none;padding:6px 12px;border-radius:var(--radius-sm);cursor:pointer;font-size:11px;font-weight:800;color:var(--text2);transition:var(--tr);white-space:nowrap;font-family:'Nunito Sans',sans-serif;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:60px}
+.tab-btn .tab-icon{font-size:1.3rem;line-height:1}
+.tab-btn .tab-label{font-size:10px;font-weight:800;letter-spacing:.02em}
+.tab-btn.active{color:var(--lima)}
+.tab-btn.active .tab-icon{filter:drop-shadow(0 0 4px rgba(168,255,0,.5))}
+.tab-btn:hover{color:var(--lima)}
 
 /* TOAST */
-#toast{display:none;position:fixed;bottom:20px;right:16px;z-index:999;background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700;color:var(--text2);box-shadow:0 4px 16px rgba(0,0,0,.4)}
+#toast{display:none;position:fixed;bottom:80px;right:16px;z-index:999;background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700;color:var(--text2);box-shadow:0 4px 16px rgba(0,0,0,.4)}
 #toast.show{display:flex;align-items:center;gap:6px}
 #toast.ok{border-color:rgba(100,221,23,.4);color:var(--vivo)}
 #toast.err{border-color:rgba(255,77,77,.4);color:var(--danger)}
 #toast.spin{border-color:rgba(168,255,0,.3);color:var(--lima)}
 
 /* SECTIONS */
-.section{display:none;max-width:980px;margin:0 auto;padding:1.1rem .9rem 5rem}
+.section{display:none;max-width:980px;margin:0 auto;padding:1.1rem .9rem 6rem}
 .section.active{display:block}
 
 /* SPLASH */
@@ -216,12 +222,7 @@ tr:hover td{background:var(--bg3)}
       </svg>
       <div class="nav-brand">Buneo<span>.cl</span></div>
     </div>
-    <div class="nav-tabs">
-      <button class="tab-btn" id="tab-calculadora" onclick="showSection('calculadora')">🧮 Calc</button>
-      <button class="tab-btn" id="tab-inventario" onclick="showSection('inventario')">📦 Inv</button>
-      <button class="tab-btn" id="tab-pedidos" onclick="showSection('pedidos')">📋 Ped</button>
-      <button class="tab-btn" id="tab-portafolio" onclick="showSection('portafolio')">🗂 Port</button>
-    </div>
+
   </div>
 </nav>
 
@@ -556,6 +557,24 @@ tr:hover td{background:var(--bg3)}
   </div>
 </div>
 
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
+  <div class="bottom-bar-inner">
+    <button class="tab-btn" id="tab-calculadora" onclick="showSection('calculadora')">
+      <span class="tab-icon">🧮</span><span class="tab-label">Calc</span>
+    </button>
+    <button class="tab-btn" id="tab-inventario" onclick="showSection('inventario')">
+      <span class="tab-icon">📦</span><span class="tab-label">Inv</span>
+    </button>
+    <button class="tab-btn" id="tab-pedidos" onclick="showSection('pedidos')">
+      <span class="tab-icon">📋</span><span class="tab-label">Ped</span>
+    </button>
+    <button class="tab-btn" id="tab-portafolio" onclick="showSection('portafolio')">
+      <span class="tab-icon">🗂</span><span class="tab-label">Port</span>
+    </button>
+  </div>
+</div>
+
 <script>
 // ===================== CONFIG =====================
 const FIL1=13500,FIL2=22000,IVA=1.19;
@@ -829,6 +848,10 @@ function guardarItem(){
 function rmItem(id){if(!confirm('¿Eliminar?'))return;state.inventario=state.inventario.filter(x=>x.id!==id);save();autoSync();renderInventario();}
 
 // ===================== PEDIDOS =====================
+function selPu(pr){
+  const s=state.pedPrecioSel||1;
+  return s===1?pr.p1:s===2?pr.p2:pr.p3;
+}
 function calcProd(p){
   const fp=p.filamento===1?FIL1:FIL2;
   const cFil=p.peso/1000*fp;
@@ -850,6 +873,7 @@ function renderPedido(){
   if(!state.pedido.length){lista.innerHTML='';empty.style.display='block';tots.style.display='none';return;}
   empty.style.display='none';tots.style.display='block';
   let sP1=0,sP2=0,sP3=0;
+  const sel=state.pedPrecioSel||1;
   lista.innerHTML=state.pedido.map((p,idx)=>{
     const pr=calcProd(p);
     sP1+=pr.p1*p.qty;sP2+=pr.p2*p.qty;sP3+=pr.p3*p.qty;
@@ -873,8 +897,8 @@ function renderPedido(){
           <span style="font-size:11px;color:var(--text3);font-weight:600">unid.</span>
         </div>
         <div style="display:flex;gap:.8rem;text-align:right">
-          <div><div style="font-size:10px;color:var(--text3);font-weight:700">P1 unit</div><div style="font-weight:800;font-size:12px">${fmtCLP(pr.p1)}</div></div>
-          <div><div style="font-size:10px;color:var(--text3);font-weight:700">P1 ×${p.qty}</div><div style="font-weight:900;color:var(--lima);font-size:13px">${fmtCLP(pr.p1*p.qty)}</div></div>
+          <div><div style="font-size:10px;color:var(--text3);font-weight:700">P${state.pedPrecioSel} unit</div><div style="font-weight:800;font-size:12px">${fmtCLP(sel===1?pr.p1:sel===2?pr.p2:pr.p3)}</div></div>
+          <div><div style="font-size:10px;color:var(--text3);font-weight:700">P${state.pedPrecioSel} ×${p.qty}</div><div style="font-weight:900;color:var(--lima);font-size:13px">${fmtCLP((sel===1?pr.p1:sel===2?pr.p2:pr.p3)*p.qty)}</div></div>
         </div>
       </div>
     </div>`;
@@ -894,6 +918,43 @@ function selPrecio(n){
     const el=$('sel-p'+i);
     if(el)el.classList.toggle('selected',i===n);
   });
+  // Re-render items para mostrar precio correcto
+  const lista=$('lista-pedido');
+  if(lista&&state.pedido.length){
+    const sel=n;
+    let sP1=0,sP2=0,sP3=0;
+    lista.innerHTML=state.pedido.map((p,idx)=>{
+      const pr=calcProd(p);
+      sP1+=pr.p1*p.qty;sP2+=pr.p2*p.qty;sP3+=pr.p3*p.qty;
+      const ads=p.adicionales&&p.adicionales.length?' · +'+p.adicionales.map(a=>esc(a.nombre)+'×'+a.cantidad).join(', '):'';
+      const pu=selPu(pr);
+      return`<div class="pedido-item">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.3rem">
+        <div>
+          <div class="pedido-item-name">${esc(p.nombre)}</div>
+          <div class="pedido-item-detail">${p.peso}g · ${p.horas}h · Fil.${p.filamento}${ads}</div>
+        </div>
+        <div style="display:flex;gap:3px;flex-shrink:0">
+          <button class="btn btn-secondary btn-icon btn-sm" onclick="editPed(${idx})">✏️</button>
+          <button class="btn btn-danger btn-icon btn-sm" onclick="rmPed(${idx})">🗑</button>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.4rem">
+        <div class="pedido-qty">
+          <button class="qty-btn" onclick="chQty(${idx},-1)">−</button>
+          <span class="qty-num">${p.qty}</span>
+          <button class="qty-btn" onclick="chQty(${idx},1)">+</button>
+          <span style="font-size:11px;color:var(--text3);font-weight:600">unid.</span>
+        </div>
+        <div style="display:flex;gap:.8rem;text-align:right">
+          <div><div style="font-size:10px;color:var(--text3);font-weight:700">P${sel} unit</div><div style="font-weight:800;font-size:12px">${fmtCLP(pu)}</div></div>
+          <div><div style="font-size:10px;color:var(--text3);font-weight:700">P${sel} ×${p.qty}</div><div style="font-weight:900;color:var(--lima);font-size:13px">${fmtCLP(pu*p.qty)}</div></div>
+        </div>
+      </div>
+    </div>`;
+    }).join('');
+    state._sP1=sP1;state._sP2=sP2;state._sP3=sP3;
+  }
   recalcFinal();
 }
 
@@ -1018,7 +1079,7 @@ function finalizarPedido(){
   let itemsHTML='';
   state.pedido.forEach(p=>{
     const pr=calcProd(p);
-    const pu=sel===1?pr.p1:sel===2?pr.p2:pr.p3;
+    const pu=selPu(pr);
     const pt=pu*p.qty;
     const ads=p.adicionales&&p.adicionales.length?
       `<div style="font-size:11px;color:#888;margin-top:2px">+ ${p.adicionales.map(a=>a.nombre+'×'+a.cantidad).join(', ')}</div>`:'';
@@ -1048,7 +1109,7 @@ function finalizarPedido(){
     </div>
     <div class="ticket-footer">Buneo.cl · Gracias por tu compra 😊</div>
     <div class="ticket-actions">
-      <button class="btn btn-primary btn-sm" onclick="compartirTicket()">📤 Compartir / WhatsApp</button>
+      <button class="btn btn-primary btn-sm" onclick="compartirTicket()">🖨️ PDF + 📤 WhatsApp</button>
       <button class="btn btn-secondary btn-sm" onclick="$('ticket-overlay').classList.remove('open')">✕ Cerrar</button>
     </div>
   `;
@@ -1056,20 +1117,75 @@ function finalizarPedido(){
 }
 
 function compartirTicket(){
+  // Generar PDF del ticket e invitar a compartir
+  const ticketEl=document.getElementById('ticket-content');
+  // Crear ventana de impresión con el ticket formateado
   const sel=state.pedPrecioSel||1;
   const fecha=new Date().toLocaleString('es-CL');
-  let txt=`*Buneo.cl* 🟢\n📅 ${fecha}\n\n*Pedido:*\n`;
+  let itemsRows='';
   state.pedido.forEach(p=>{
     const pr=calcProd(p);
-    const pu=sel===1?pr.p1:sel===2?pr.p2:pr.p3;
-    txt+=`• ${p.nombre} ×${p.qty} — ${fmtCLP(pu*p.qty)}\n`;
-    if(p.adicionales&&p.adicionales.length) txt+=`  _+${p.adicionales.map(a=>a.nombre+'×'+a.cantidad).join(', ')}_\n`;
+    const pu=selPu(pr);
+    const pt=pu*p.qty;
+    const ads=p.adicionales&&p.adicionales.length?`<div style="font-size:11px;color:#888;margin-top:2px">+ ${p.adicionales.map(a=>a.nombre+'×'+a.cantidad).join(', ')}</div>`:'';
+    itemsRows+=`<tr><td style="padding:7px 4px;border-bottom:1px solid #f0f0f0"><strong>${esc(p.nombre)}</strong>${ads}</td><td style="padding:7px 4px;border-bottom:1px solid #f0f0f0;text-align:center;color:#666">×${p.qty}</td><td style="padding:7px 4px;border-bottom:1px solid #f0f0f0;text-align:right;font-weight:800">${fmtCLP(pt)}</td></tr>`;
   });
-  if(state._finalDesc>0) txt+=`\n💸 Descuento: -${fmtCLP(state._finalDesc)}`;
-  if(state._finalEnvio>0) txt+=`\n🚚 Envío: ${fmtCLP(state._finalEnvio)}`;
-  txt+=`\n\n*TOTAL: ${fmtCLP(state._finalTotal)}* 🧾`;
-  const url='https://wa.me/?text='+encodeURIComponent(txt);
-  window.open(url,'_blank');
+  const descRow=state._finalDesc>0?`<tr><td colspan="2" style="padding:6px 4px;color:#e55;font-size:13px">Descuento</td><td style="padding:6px 4px;text-align:right;color:#e55;font-weight:800">-${fmtCLP(state._finalDesc)}</td></tr>`:'';
+  const envioRow=state._finalEnvio>0?`<tr><td colspan="2" style="padding:6px 4px;font-size:13px">Envío</td><td style="padding:6px 4px;text-align:right;font-weight:800">${fmtCLP(state._finalEnvio)}</td></tr>`:'';
+  const pdfHTML=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Boleta Buneo.cl</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Helvetica Neue',Arial,sans-serif;background:#fff;color:#111;padding:0}
+    .wrap{max-width:380px;margin:0 auto;padding:24px 20px}
+    .logo{text-align:center;padding-bottom:14px;margin-bottom:14px;border-bottom:2px dashed #ddd}
+    .logo h1{font-size:26px;font-weight:900;color:#1A2E05;letter-spacing:-1px}
+    .logo h1 span{color:#64DD17}
+    .logo p{font-size:12px;color:#999;margin-top:3px}
+    table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:8px}
+    th{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#999;padding:6px 4px;border-bottom:2px solid #eee;text-align:left}
+    th:last-child{text-align:right}
+    .total-box{background:#1A2E05;color:#fff;border-radius:10px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+    .total-box .lbl{font-size:12px;color:#a8d8a8;font-weight:700}
+    .total-box .amt{font-size:22px;font-weight:900;color:#A8FF00}
+    .footer{text-align:center;margin-top:14px;font-size:11px;color:#bbb}
+    @media print{body{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+  </style></head><body>
+  <div class="wrap">
+    <div class="logo"><h1>Buneo<span>.cl</span></h1><p>Impresión 3D · ${fecha}</p></div>
+    <table>
+      <thead><tr><th>Producto</th><th style="text-align:center">Cant.</th><th style="text-align:right">Precio</th></tr></thead>
+      <tbody>${itemsRows}${descRow}${envioRow}</tbody>
+    </table>
+    <div class="total-box"><div><div class="lbl">TOTAL A PAGAR</div></div><div class="amt">${fmtCLP(state._finalTotal)}</div></div>
+    <div class="footer">Buneo.cl · Gracias por tu compra 😊</div>
+  </div>
+  <script>window.onload=function(){window.print();}<\/script>
+  </body></html>`;
+  // Construir texto WhatsApp
+  let waTxt=`*Buneo.cl* 🟢\n📅 ${fecha}\n\n*Pedido:*\n`;
+  state.pedido.forEach(p=>{
+    const pr=calcProd(p);
+    const pu=selPu(pr);
+    waTxt+=`• ${p.nombre} ×${p.qty} — ${fmtCLP(pu*p.qty)}\n`;
+    if(p.adicionales&&p.adicionales.length) waTxt+=`  +${p.adicionales.map(a=>a.nombre+'×'+a.cantidad).join(', ')}\n`;
+  });
+  if(state._finalDesc>0) waTxt+=`\n💸 Descuento: -${fmtCLP(state._finalDesc)}`;
+  if(state._finalEnvio>0) waTxt+=`\n🚚 Envío: ${fmtCLP(state._finalEnvio)}`;
+  waTxt+=`\n\n*TOTAL: ${fmtCLP(state._finalTotal)}* 🧾`;
+  const waURL='https://wa.me/?text='+encodeURIComponent(waTxt);
+  // Inyectar botones en el HTML del PDF
+  const pdfWithBtns=pdfHTML.replace('<\/script>',
+    `document.body.insertAdjacentHTML('beforeend','<div style="max-width:380px;margin:0 auto;padding:0 20px 24px;display:flex;gap:10px">'
+    +'<button onclick="window.print()" style="flex:1;padding:12px;background:#A8FF00;color:#1A2E05;font-weight:900;font-size:14px;border:none;border-radius:8px;cursor:pointer;font-family:Arial,sans-serif">🖨️ Guardar PDF</button>'
+    +'<a href="${waURL}" target="_blank" style="flex:1;padding:12px;background:#25D366;color:#fff;font-weight:900;font-size:14px;border:none;border-radius:8px;cursor:pointer;font-family:Arial,sans-serif;text-decoration:none;display:flex;align-items:center;justify-content:center">📲 WhatsApp</a>'
+    +'</div>');<\/script>`
+  );
+  const win=window.open('','_blank','width=460,height=750');
+  if(win){win.document.write(pdfWithBtns);win.document.close();}
+  else{
+    // Fallback si popups bloqueados: abrir WA directo
+    window.open(waURL,'_blank');
+  }
 }
 
 $('ticket-overlay').addEventListener('click',e=>{if(e.target===$('ticket-overlay'))$('ticket-overlay').classList.remove('open');});
