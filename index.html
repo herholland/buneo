@@ -793,7 +793,7 @@ function guardarEnPortafolio(){
     notas:'',
     adicionales:[...state.adicionales]
   });
-  save();toast('🗂 Guardado en portafolio','ok',2000);
+  save();autoSync();toast('🗂 Guardado en portafolio','ok',2000);
 }
 
 // ===================== INVENTARIO =====================
@@ -1121,18 +1121,13 @@ function finalizarPedido(){
 }
 
 function compartirTicket(){
-  // Generar PDF del ticket e invitar a compartir
-  const ticketEl=document.getElementById('ticket-content');
-  // Crear ventana de impresión con el ticket formateado
-  const sel=state.pedPrecioSel||1;
   const fecha=new Date().toLocaleString('es-CL');
   let itemsRows='';
   state.pedido.forEach(p=>{
     const pr=calcProd(p);
     const pu=selPu(pr);
     const pt=pu*p.qty;
-    const ads=p.adicionales&&p.adicionales.length?`<div style="font-size:11px;color:#888;margin-top:2px">+ ${p.adicionales.map(a=>a.nombre+'×'+a.cantidad).join(', ')}</div>`:'';
-    itemsRows+=`<tr><td style="padding:7px 4px;border-bottom:1px solid #f0f0f0"><strong>${esc(p.nombre)}</strong>${ads}</td><td style="padding:7px 4px;border-bottom:1px solid #f0f0f0;text-align:center;color:#666">×${p.qty}</td><td style="padding:7px 4px;border-bottom:1px solid #f0f0f0;text-align:right;font-weight:800">${fmtCLP(pt)}</td></tr>`;
+    itemsRows+=`<tr><td style="padding:7px 4px;border-bottom:1px solid #f0f0f0"><strong>${esc(p.nombre)}</strong></td><td style="padding:7px 4px;border-bottom:1px solid #f0f0f0;text-align:center;color:#666">×${p.qty}</td><td style="padding:7px 4px;border-bottom:1px solid #f0f0f0;text-align:right;font-weight:800">${fmtCLP(pt)}</td></tr>`;
   });
   const descRow=state._finalDesc>0?`<tr><td colspan="2" style="padding:6px 4px;color:#e55;font-size:13px">Descuento</td><td style="padding:6px 4px;text-align:right;color:#e55;font-weight:800">-${fmtCLP(state._finalDesc)}</td></tr>`:'';
   const envioRow=state._finalEnvio>0?`<tr><td colspan="2" style="padding:6px 4px;font-size:13px">Envío</td><td style="padding:6px 4px;text-align:right;font-weight:800">${fmtCLP(state._finalEnvio)}</td></tr>`:'';
@@ -1177,18 +1172,38 @@ function compartirTicket(){
   if(state._finalEnvio>0) waTxt+=`\n🚚 Envío: ${fmtCLP(state._finalEnvio)}`;
   waTxt+=`\n\n*TOTAL: ${fmtCLP(state._finalTotal)}* 🧾`;
   const waURL='https://wa.me/?text='+encodeURIComponent(waTxt);
-  // Inyectar botones en el HTML del PDF
-  const pdfWithBtns=pdfHTML.replace('<\/script>',
-    `document.body.insertAdjacentHTML('beforeend','<div style="max-width:380px;margin:0 auto;padding:0 20px 24px;display:flex;gap:10px">'
-    +'<button onclick="window.print()" style="flex:1;padding:12px;background:#A8FF00;color:#1A2E05;font-weight:900;font-size:14px;border:none;border-radius:8px;cursor:pointer;font-family:Arial,sans-serif">🖨️ Guardar PDF</button>'
-    +'<a href="${waURL}" target="_blank" style="flex:1;padding:12px;background:#25D366;color:#fff;font-weight:900;font-size:14px;border:none;border-radius:8px;cursor:pointer;font-family:Arial,sans-serif;text-decoration:none;display:flex;align-items:center;justify-content:center">📲 WhatsApp</a>'
-    +'</div>');<\/script>`
-  );
-  const win=window.open('','_blank','width=460,height=750');
-  if(win){win.document.write(pdfWithBtns);win.document.close();}
-  else{
-    // Fallback si popups bloqueados: abrir WA directo
-    window.open(waURL,'_blank');
+  // Reemplazar botones con opciones de compartir
+  const actionsDiv=$('ticket-content').querySelector('.ticket-actions');
+  if(actionsDiv){
+    actionsDiv.innerHTML=`
+      <button onclick="abrirPDF()" 
+         style="flex:1;padding:11px 14px;background:#A8FF00;color:#1A2E05;font-weight:900;font-size:13px;border-radius:7px;border:none;cursor:pointer;font-family:'Nunito Sans',sans-serif;width:100%;display:block;margin-bottom:8px">
+        🖨️ Ver / Imprimir PDF
+      </button>
+      <a href="${waURL}" target="_blank"
+         style="flex:1;padding:11px 14px;background:#25D366;color:#fff;font-weight:900;font-size:13px;border-radius:7px;text-decoration:none;text-align:center;display:block;margin-bottom:8px">
+        📲 Enviar por WhatsApp
+      </a>
+      <button onclick="$('ticket-overlay').classList.remove('open')" 
+         style="width:100%;padding:9px;background:#253348;color:#a8c4a8;font-weight:800;font-size:12px;border:none;border-radius:7px;cursor:pointer;font-family:'Nunito Sans',sans-serif">
+        ✕ Cerrar
+      </button>
+    `;
+  }
+  // Guardar el HTML del PDF para cuando toquen el botón
+  window._pdfHTML = pdfHTML;
+}
+
+function abrirPDF(){
+  // Abrir en nueva pestaña - en iPhone Safari permite compartir/imprimir/guardar como PDF
+  const w = window.open();
+  if(w){
+    w.document.write(window._pdfHTML);
+    w.document.close();
+  } else {
+    // Si popups bloqueados: usar data URI
+    const encoded = 'data:text/html;charset=utf-8,' + encodeURIComponent(window._pdfHTML);
+    window.location.href = encoded;
   }
 }
 
