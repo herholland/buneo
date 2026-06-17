@@ -269,12 +269,12 @@ tr:hover td{background:var(--bg3)}
     <div class="btn-row"><button class="btn btn-secondary btn-sm" onclick="abrirModalAd()">+ Agregar adicional</button></div>
   </div>
 
-  <div class="card">
+  <div class="card" style="display:none">
     <div class="card-title">Parámetros <span style="text-transform:none;font-weight:600;font-size:10px">(de tu spreadsheet)</span></div>
     <div class="input-row quad">
       <div><label>Elec./hora</label><div class="ig"><input type="number" id="costoElec" min="0" step=".5" placeholder="26.5" oninput="calcular()"><span class="unit">$</span></div></div>
       <div><label>Desgaste/h</label><div class="ig"><input type="number" id="costoDesg" min="0" step="1" placeholder="30" oninput="calcular()"><span class="unit">$</span></div></div>
-      <div><label>Margen err.</label><div class="ig"><input type="number" id="margen" min="0" step=".5" placeholder="28.5" oninput="calcular()"><span class="unit">%</span></div></div>
+      <div><label>Margen err.</label><div class="ig"><input type="number" id="margen" min="0" step=".5" placeholder="25" oninput="calcular()"><span class="unit">%</span></div></div>
       <div><label>Precio mín.</label><div class="ig"><input type="number" id="minP" min="0" step="100" placeholder="1000" oninput="calcular()"><span class="unit">$</span></div></div>
     </div>
   </div>
@@ -288,7 +288,7 @@ tr:hover td{background:var(--bg3)}
       <div class="result-box p2"><div class="result-box-label">Precio 2</div><div class="result-box-val" id="r-p2">$0</div><div class="result-box-mult" id="m-p2">×4</div></div>
       <div class="result-box p3"><div class="result-box-label">Precio 3</div><div class="result-box-val" id="r-p3">$0</div><div class="result-box-mult" id="m-p3">×5</div></div>
     </div>
-    <div class="input-row trio" style="margin-bottom:.5rem">
+    <div class="input-row trio" style="display:none">
       <div><label>Mult. P1</label><input type="number" id="mult1" min="1" step=".1" placeholder="3" oninput="calcular()"></div>
       <div><label>Mult. P2</label><input type="number" id="mult2" min="1" step=".1" placeholder="4" oninput="calcular()"></div>
       <div><label>Mult. P3</label><input type="number" id="mult3" min="1" step=".1" placeholder="5" oninput="calcular()"></div>
@@ -578,7 +578,7 @@ tr:hover td{background:var(--bg3)}
 <script>
 // ===================== CONFIG =====================
 const FIL1=13500,FIL2=22000,IVA=1.19;
-const API_URL='https://script.google.com/macros/s/AKfycbyNk7vTZbcEaoHQPfMzTdEvnVc1mQNFl2n8bowZ8s5sQdyhe3JR1-t_EiAddHURMRaJ/exec';
+const API_URL='https://script.google.com/macros/s/AKfycbyxIxAuYlz3o7tB6waPzvtglTsKSaFzKiyy7iqsxP2sCKgqvrn74_AYMox70Wn8zH1S/exec';
 
 // ===================== STATE =====================
 let state={
@@ -663,6 +663,7 @@ function autoSync(){
     try{
       await apiCall('setInventario',{items:state.inventario});
       await apiCall('setPedidos',{pedidos:state.pedido});
+      try{await apiCall('setPortafolio',{items:state.portafolio});}catch(e2){}
       toast('✅ Guardado en Sheets','ok',2000);
     }catch(e){toast('⚠️ Solo guardado local','err',2500);}
   },2000);
@@ -675,6 +676,10 @@ async function cargarDesdeSheets(){
     if(inv&&inv.length){state.inventario=inv;state.nextItemId=Math.max(...inv.map(x=>x.id))+1;}
     const peds=await apiCall('getPedidos');
     if(peds&&peds.length){state.pedido=peds;state.nextPedId=Math.max(...peds.map(x=>x.id))+1;}
+    try{
+      const port=await apiCall('getPortafolio');
+      if(port&&port.length){state.portafolio=port;state.nextPortId=Math.max(...port.map(x=>x.id))+1;}
+    }catch(e2){}// portafolio es opcional
     save();toast('✅ Sincronizado','ok',2000);
     renderInventario();renderPedido();
   }catch(e){toast('⚠️ Datos locales ('+e.message+')','err',3000);}
@@ -713,7 +718,7 @@ function calcNeto(f1,f2,h,ads){
   const cDesg=h*gv('costoDesg',30);
   const cAds=ads.reduce((s,a)=>s+a.precio*a.cantidad,0);
   const sub=cFil+cElec+cDesg+cAds;
-  const mg=gv('margen',28.5)/100;
+  const mg=gv('margen',25)/100;
   return{cFil,cElec,cDesg,cAds,sub,mgVal:sub*mg,neto:sub*(1+mg)};
 }
 function calcular(){
@@ -728,7 +733,7 @@ function calcular(){
   $('desglose').innerHTML=[
     ['🧵 Filamento',cFil],['⚡ Electricidad',cElec],
     ['⚙️ Desgaste',cDesg],['➕ Adicionales',cAds],
-    ['Subtotal',sub],['📊 Margen ('+Math.round(gv('margen',28.5))+'%)',mgVal]
+    ['Subtotal',sub],['📊 Margen ('+Math.round(gv('margen',25))+'%)',mgVal]
   ].map(([l,v])=>`<div class="costo-item"><span>${l}</span><span>${fmtCLP(v)}</span></div>`).join('');
 }
 
@@ -859,7 +864,7 @@ function calcProd(p){
   const cDesg=p.horas*gv('costoDesg',30);
   const cAds=(p.adicionales||[]).reduce((s,a)=>s+a.precio*a.cantidad,0);
   const sub=cFil+cElec+cDesg+cAds;
-  const neto=sub*(1+gv('margen',28.5)/100);
+  const neto=sub*(1+gv('margen',25)/100);
   const mn=gv('minP',1000);
   return{
     p1:Math.max(neto*gv('mult1',3),mn),
@@ -1081,8 +1086,7 @@ function finalizarPedido(){
     const pr=calcProd(p);
     const pu=selPu(pr);
     const pt=pu*p.qty;
-    const ads=p.adicionales&&p.adicionales.length?
-      `<div style="font-size:11px;color:#888;margin-top:2px">+ ${p.adicionales.map(a=>a.nombre+'×'+a.cantidad).join(', ')}</div>`:'';
+    const ads=''  // adicionales ocultos en recibo;
     itemsHTML+=`<div class="ticket-row">
       <div class="t-name">${esc(p.nombre)}${ads}</div>
       <span class="t-qty">×${p.qty}</span>
@@ -1237,15 +1241,19 @@ function abrirModalPortEdit(idx){
   $('port-horas').value=p?p.horas:'';
   $('port-fil').value=p?p.filamento:1;
   $('port-notas').value=p?p.notas||'':'';
+  // Guardar adicionales existentes en variable temporal para no perderlos
+  state._portEditAds=p&&p.adicionales?[...p.adicionales]:[];
   abrirModal('modal-port');
 }
 function guardarPortafolio(){
   const nombre=$('port-nombre').value.trim();if(!nombre)return alert('Nombre obligatorio');
   const idx=$('port-id').value!==''?parseInt($('port-id').value):null;
-  const data={nombre,peso:parseFloat($('port-peso').value)||0,horas:parseFloat($('port-horas').value)||0,filamento:parseInt($('port-fil').value)||1,notas:$('port-notas').value.trim(),adicionales:[]};
+  // Preservar adicionales: si es edición mantiene los que tenía, si es nuevo usa los de la calculadora
+  const ads=idx!==null?(state._portEditAds||[]):[];
+  const data={nombre,peso:parseFloat($('port-peso').value)||0,horas:parseFloat($('port-horas').value)||0,filamento:parseInt($('port-fil').value)||1,notas:$('port-notas').value.trim(),adicionales:ads};
   if(idx!==null){state.portafolio[idx]={...state.portafolio[idx],...data};}
   else{state.portafolio.push({id:state.nextPortId++,...data});}
-  save();cerrarModal('modal-port');renderPortafolio();
+  save();autoSync();cerrarModal('modal-port');renderPortafolio();
 }
 function rmPort(idx){if(!confirm('¿Eliminar del portafolio?'))return;state.portafolio.splice(idx,1);save();renderPortafolio();}
 
