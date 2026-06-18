@@ -21,30 +21,29 @@
   --accent-light:rgba(168,255,0,.1);
   --radius:12px;--radius-sm:7px;--tr:.18s ease;
 }
-body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.5;padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.5;padding-bottom:env(safe-area-inset-bottom)}
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 
-/* NAV */
-/* TOP BAR - solo logo */
+/* NAV top - solo logo */
 nav{background:var(--profundo);border-bottom:2px solid var(--lima);position:sticky;top:0;z-index:200;padding:0 .8rem;padding-top:env(safe-area-inset-top)}
-.nav-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;height:48px}
-.nav-logo{display:flex;align-items:center;gap:7px;cursor:pointer;flex-shrink:0}
-.nav-logo svg{width:28px;height:28px}
+.nav-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;height:52px}
+.nav-logo{display:flex;align-items:center;gap:7px;cursor:pointer}
+.nav-logo svg{width:30px;height:30px}
 .nav-brand{font-size:1.1rem;font-weight:900;color:#fff;letter-spacing:-.5px}
 .nav-brand span{color:var(--lima)}
+
 /* BOTTOM BAR */
-.bottom-bar{position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--profundo);border-top:2px solid var(--lima);padding:0 .5rem;padding-bottom:env(safe-area-inset-bottom)}
-.bottom-bar-inner{max-width:980px;margin:0 auto;display:flex;justify-content:space-around;align-items:center;height:58px}
-.tab-btn{background:none;border:none;padding:6px 12px;border-radius:var(--radius-sm);cursor:pointer;font-size:11px;font-weight:800;color:var(--text2);transition:var(--tr);white-space:nowrap;font-family:'Nunito Sans',sans-serif;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:60px}
-.tab-btn .tab-icon{font-size:1.3rem;line-height:1}
-.tab-btn .tab-label{font-size:10px;font-weight:800;letter-spacing:.02em}
-.tab-btn.active{color:var(--lima)}
-.tab-btn.active .tab-icon{filter:drop-shadow(0 0 4px rgba(168,255,0,.5))}
-.tab-btn:hover{color:var(--lima)}
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--profundo);border-top:2px solid var(--lima);display:flex;justify-content:space-around;align-items:stretch;padding-bottom:env(safe-area-inset-bottom)}
+.tab-btn{background:none;border:none;padding:8px 4px 10px;cursor:pointer;font-family:'Nunito Sans',sans-serif;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;transition:var(--tr)}
+.tab-btn .tb-icon{font-size:1.3rem;line-height:1}
+.tab-btn .tb-label{font-size:10px;font-weight:800;color:var(--text3)}
+.tab-btn.active{background:var(--accent-light)}
+.tab-btn.active .tb-label{color:var(--lima)}
+.tab-btn:hover{background:var(--accent-light)}
 
 /* TOAST */
-#toast{display:none;position:fixed;bottom:80px;right:16px;z-index:999;background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700;color:var(--text2);box-shadow:0 4px 16px rgba(0,0,0,.4)}
+#toast{display:none;position:fixed;bottom:80px;right:16px;z-index:999;background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700;box-shadow:0 4px 16px rgba(0,0,0,.4)}
 #toast.show{display:flex;align-items:center;gap:6px}
 #toast.ok{border-color:rgba(100,221,23,.4);color:var(--vivo)}
 #toast.err{border-color:rgba(255,77,77,.4);color:var(--danger)}
@@ -55,7 +54,7 @@ nav{background:var(--profundo);border-bottom:2px solid var(--lima);position:stic
 .section.active{display:block}
 
 /* SPLASH */
-#splash{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 54px);padding:1.5rem;background:radial-gradient(ellipse at 50% 0%,rgba(168,255,0,.07) 0%,transparent 65%)}
+#splash{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 52px);padding:1.5rem;background:radial-gradient(ellipse at 50% 0%,rgba(168,255,0,.07) 0%,transparent 65%);padding-bottom:80px}
 .splash-svg{width:90px;height:90px;margin-bottom:.9rem;filter:drop-shadow(0 0 18px rgba(168,255,0,.3))}
 .splash-title{font-size:2.8rem;font-weight:900;color:#fff;letter-spacing:-2px;line-height:1}
 .splash-title span{color:var(--lima)}
@@ -75,15 +74,9 @@ h2.section-title{font-size:1rem;font-weight:900;margin-bottom:.9rem;color:#fff}
 
 /* FORM */
 label{font-size:11px;font-weight:800;color:var(--text2);display:block;margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
-input[type=number],input[type=text],select,textarea{
-  width:100%;border:1.5px solid var(--border2);border-radius:var(--radius-sm);
-  padding:9px 11px;font-size:14px;font-family:'Nunito Sans',sans-serif;font-weight:600;
-  background:var(--bg3);color:var(--text);transition:var(--tr);outline:none;-webkit-appearance:none
-}
-/* Fix: placeholder visible, no default value shown */
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button{opacity:1}
+input[type=number],input[type=text],select,textarea{width:100%;border:1.5px solid var(--border2);border-radius:var(--radius-sm);padding:9px 11px;font-size:14px;font-family:'Nunito Sans',sans-serif;font-weight:600;background:var(--bg3);color:var(--text);transition:var(--tr);outline:none;-webkit-appearance:none}
 input:focus,select:focus,textarea:focus{border-color:var(--lima);box-shadow:0 0 0 3px rgba(168,255,0,.1)}
+input[type=number]{text-align:right}
 select option{background:var(--bg3)}
 .input-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.7rem}
 .input-row.trio{grid-template-columns:1fr 1fr 1fr}
@@ -108,7 +101,7 @@ select option{background:var(--bg3)}
 .result-box.p1{background:rgba(168,255,0,.07);border-color:rgba(168,255,0,.3)}
 .result-box.p2{background:rgba(100,221,23,.1);border-color:rgba(100,221,23,.4)}
 .result-box.p3{background:rgba(0,200,83,.12);border-color:rgba(0,200,83,.5)}
-.result-box.selected{box-shadow:0 0 0 2px #fff;transform:scale(1.03)}
+.result-box.selected{box-shadow:0 0 0 2.5px #fff;transform:scale(1.03)}
 .result-box-label{font-size:10px;font-weight:800;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.2rem}
 .result-box-val{font-size:1.3rem;font-weight:900;color:var(--lima);line-height:1.1}
 .result-box.p2 .result-box-val{color:var(--vivo)}
@@ -143,7 +136,7 @@ tr:hover td{background:var(--bg3)}
 .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
 .modal-title{font-size:.95rem;font-weight:900;color:#fff}
 
-/* PEDIDO ITEMS */
+/* PEDIDO */
 .pedido-item{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:.8rem .9rem;margin-bottom:.5rem}
 .pedido-item-name{font-weight:800;font-size:13px;color:#fff}
 .pedido-item-detail{font-size:11px;color:var(--text3);margin:.2rem 0 .4rem;font-weight:600}
@@ -164,35 +157,34 @@ tr:hover td{background:var(--bg3)}
 .port-info p{font-size:11px;color:var(--text3);font-weight:600}
 .port-actions{display:flex;gap:4px;flex-shrink:0}
 
-/* TICKET / BOLETA */
+/* TICKET */
 #ticket-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:800;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(6px)}
 #ticket-overlay.open{display:flex}
-.ticket{background:#fff;color:#111;border-radius:12px;padding:1.5rem;width:100%;max-width:400px;max-height:88vh;overflow-y:auto;font-family:'Nunito Sans',sans-serif}
-.ticket-logo{text-align:center;margin-bottom:1rem;padding-bottom:.8rem;border-bottom:2px dashed #ccc}
-.ticket-logo .t-title{font-size:1.5rem;font-weight:900;color:#1A2E05;letter-spacing:-1px}
-.ticket-logo .t-title span{color:#64DD17}
-.ticket-logo .t-sub{font-size:.75rem;color:#888;font-weight:600}
-.ticket-row{display:flex;justify-content:space-between;align-items:flex-start;padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:13px;gap:.5rem}
-.ticket-row:last-child{border-bottom:none}
-.ticket-row .t-name{font-weight:700;flex:1}
-.ticket-row .t-qty{color:#666;margin:0 .5rem;font-size:12px}
-.ticket-row .t-price{font-weight:800;white-space:nowrap}
-.ticket-section{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#888;margin:10px 0 4px;padding-top:8px;border-top:1px solid #eee}
-.ticket-total{display:flex;justify-content:space-between;align-items:center;margin-top:.8rem;padding:.7rem;background:#1A2E05;border-radius:8px;color:#fff}
-.ticket-total .t-label{font-size:12px;font-weight:700;color:#a8d8a8}
-.ticket-total .t-amount{font-size:1.4rem;font-weight:900;color:#A8FF00}
-.ticket-footer{text-align:center;margin-top:.8rem;font-size:.72rem;color:#aaa;font-weight:600}
-.ticket-actions{display:flex;gap:.5rem;margin-top:1rem;justify-content:center}
+.ticket{background:#fff;color:#111;border-radius:12px;padding:1.4rem;width:100%;max-width:400px;max-height:88vh;overflow-y:auto;font-family:'Nunito Sans',sans-serif}
+.ticket-logo{text-align:center;margin-bottom:.9rem;padding-bottom:.7rem;border-bottom:2px dashed #ccc}
+.t-title{font-size:1.5rem;font-weight:900;color:#1A2E05;letter-spacing:-1px}
+.t-title span{color:#64DD17}
+.t-sub{font-size:.72rem;color:#888;font-weight:600}
+.t-section{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#888;margin:10px 0 4px;padding-top:8px;border-top:1px solid #eee}
+.t-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #f5f5f5;font-size:13px;gap:8px}
+.t-name{font-weight:700;flex:1}
+.t-qty{color:#666;font-size:12px;white-space:nowrap;margin:0 6px}
+.t-price{font-weight:800;white-space:nowrap}
+.t-total-box{background:#1A2E05;border-radius:10px;padding:12px 14px;margin-top:14px;display:flex;justify-content:space-between;align-items:center}
+.t-total-label{font-size:11px;font-weight:700;color:#a8d8a8}
+.t-total-amount{font-size:1.4rem;font-weight:900;color:#A8FF00}
+.t-footer{text-align:center;margin-top:10px;font-size:.7rem;color:#aaa;font-weight:600}
+.ticket-actions{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+
+/* PEDIDO SUMMARY */
+.ped-summary{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.8rem 1rem;margin-bottom:.8rem}
+.ped-summary-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.35rem}
+.ped-summary-row:last-child{margin-bottom:0}
+.ped-final-price{font-size:1.4rem;font-weight:900;color:var(--lima)}
 
 /* EMPTY */
 .empty{text-align:center;padding:2rem 1rem;color:var(--text3)}
 .empty p{font-weight:700;font-size:13px}
-
-/* PEDIDO SUMMARY BAR */
-.ped-summary{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.8rem 1rem;margin-bottom:.8rem}
-.ped-summary-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem}
-.ped-summary-row:last-child{margin-bottom:0}
-.ped-final-price{font-size:1.4rem;font-weight:900;color:var(--lima)}
 
 /* RESPONSIVE */
 @media(max-width:580px){
@@ -201,7 +193,6 @@ tr:hover td{background:var(--bg3)}
   .result-grid{grid-template-columns:1fr}
   .costo-grid{grid-template-columns:1fr}
   .splash-title{font-size:2.2rem}
-  .tab-btn{padding:5px 7px;font-size:11px}
   .splash-grid{grid-template-columns:1fr 1fr}
 }
 </style>
@@ -210,6 +201,7 @@ tr:hover td{background:var(--bg3)}
 
 <div id="toast"></div>
 
+<!-- NAV TOP -->
 <nav>
   <div class="nav-inner">
     <div class="nav-logo" onclick="irSplash()">
@@ -222,9 +214,24 @@ tr:hover td{background:var(--bg3)}
       </svg>
       <div class="nav-brand">Buneo<span>.cl</span></div>
     </div>
-
   </div>
 </nav>
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
+  <button class="tab-btn" id="tab-calculadora" onclick="showSection('calculadora')">
+    <span class="tb-icon">🧮</span><span class="tb-label">Calc</span>
+  </button>
+  <button class="tab-btn" id="tab-inventario" onclick="showSection('inventario')">
+    <span class="tb-icon">📦</span><span class="tb-label">Inv</span>
+  </button>
+  <button class="tab-btn" id="tab-pedidos" onclick="showSection('pedidos')">
+    <span class="tb-icon">📋</span><span class="tb-label">Ped</span>
+  </button>
+  <button class="tab-btn" id="tab-portafolio" onclick="showSection('portafolio')">
+    <span class="tb-icon">🗂</span><span class="tb-label">Port</span>
+  </button>
+</div>
 
 <!-- SPLASH -->
 <div id="splash">
@@ -269,29 +276,25 @@ tr:hover td{background:var(--bg3)}
     <div class="btn-row"><button class="btn btn-secondary btn-sm" onclick="abrirModalAd()">+ Agregar adicional</button></div>
   </div>
 
-  <div class="card" style="display:none">
-    <div class="card-title">Parámetros <span style="text-transform:none;font-weight:600;font-size:10px">(de tu spreadsheet)</span></div>
-    <div class="input-row quad">
-      <div><label>Elec./hora</label><div class="ig"><input type="number" id="costoElec" min="0" step=".5" placeholder="26.5" oninput="calcular()"><span class="unit">$</span></div></div>
-      <div><label>Desgaste/h</label><div class="ig"><input type="number" id="costoDesg" min="0" step="1" placeholder="30" oninput="calcular()"><span class="unit">$</span></div></div>
-      <div><label>Margen err.</label><div class="ig"><input type="number" id="margen" min="0" step=".5" placeholder="25" oninput="calcular()"><span class="unit">%</span></div></div>
-      <div><label>Precio mín.</label><div class="ig"><input type="number" id="minP" min="0" step="100" placeholder="1000" oninput="calcular()"><span class="unit">$</span></div></div>
-    </div>
+  <!-- Parámetros ocultos pero funcionales -->
+  <div style="display:none">
+    <input type="number" id="costoElec" value="26.5">
+    <input type="number" id="costoDesg" value="30">
+    <input type="number" id="margen" value="25">
+    <input type="number" id="minP" value="1000">
+    <input type="number" id="mult1" value="3">
+    <input type="number" id="mult2" value="4">
+    <input type="number" id="mult3" value="5">
   </div>
 
   <div class="card">
-    <div class="card-title">Desglose</div>
+    <div class="card-title">Desglose de costo</div>
     <div class="costo-grid" id="desglose"></div>
     <div class="neto-bar"><span>💰 Costo Neto</span><span id="neto-val">$0</span></div>
     <div class="result-grid">
-      <div class="result-box p1"><div class="result-box-label">Precio 1</div><div class="result-box-val" id="r-p1">$0</div><div class="result-box-mult" id="m-p1">×3</div></div>
-      <div class="result-box p2"><div class="result-box-label">Precio 2</div><div class="result-box-val" id="r-p2">$0</div><div class="result-box-mult" id="m-p2">×4</div></div>
-      <div class="result-box p3"><div class="result-box-label">Precio 3</div><div class="result-box-val" id="r-p3">$0</div><div class="result-box-mult" id="m-p3">×5</div></div>
-    </div>
-    <div class="input-row trio" style="display:none">
-      <div><label>Mult. P1</label><input type="number" id="mult1" min="1" step=".1" placeholder="3" oninput="calcular()"></div>
-      <div><label>Mult. P2</label><input type="number" id="mult2" min="1" step=".1" placeholder="4" oninput="calcular()"></div>
-      <div><label>Mult. P3</label><input type="number" id="mult3" min="1" step=".1" placeholder="5" oninput="calcular()"></div>
+      <div class="result-box p1"><div class="result-box-label">Precio 1</div><div class="result-box-val" id="r-p1">$0</div><div class="result-box-mult">×3</div></div>
+      <div class="result-box p2"><div class="result-box-label">Precio 2</div><div class="result-box-val" id="r-p2">$0</div><div class="result-box-mult">×4</div></div>
+      <div class="result-box p3"><div class="result-box-label">Precio 3</div><div class="result-box-val" id="r-p3">$0</div><div class="result-box-mult">×5</div></div>
     </div>
     <div class="btn-row">
       <button class="btn btn-primary btn-sm" onclick="agregarAPedido()">➕ Agregar a pedido</button>
@@ -335,43 +338,36 @@ tr:hover td{background:var(--bg3)}
       <button class="btn btn-primary btn-sm" onclick="abrirModalProd()">+ Agregar</button>
     </div>
   </div>
-
   <div id="lista-pedido"></div>
   <div id="pedido-empty" class="empty"><p>Pedido vacío. Agrega desde la calculadora o el botón +</p></div>
-
-  <!-- TOTALES Y OPCIONES FINALES -->
   <div id="pedido-totales" style="display:none">
     <div class="card">
       <div class="card-title">Seleccionar precio</div>
-      <div class="result-grid" id="ped-price-sel">
+      <div class="result-grid">
         <div class="result-box p1" onclick="selPrecio(1)" id="sel-p1"><div class="result-box-label">Precio 1</div><div class="result-box-val" id="ped-p1">$0</div></div>
         <div class="result-box p2" onclick="selPrecio(2)" id="sel-p2"><div class="result-box-label">Precio 2</div><div class="result-box-val" id="ped-p2">$0</div></div>
         <div class="result-box p3" onclick="selPrecio(3)" id="sel-p3"><div class="result-box-label">Precio 3</div><div class="result-box-val" id="ped-p3">$0</div></div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-title">Descuento y envío</div>
       <div class="input-row">
-        <div>
-          <label>Descuento (%)</label>
-          <div class="ig"><input type="number" id="ped-descuento" min="0" max="100" step="1" placeholder="0" oninput="recalcFinal()"><span class="unit">%</span></div>
+        <div><label>Descuento (%)</label>
+          <div class="ig"><input type="number" id="ped-desc" min="0" max="100" step="1" placeholder="0" oninput="recalcFinal()"><span class="unit">%</span></div>
         </div>
-        <div>
-          <label>Costo de envío</label>
+        <div><label>Costo de envío</label>
           <select id="ped-envio-tipo" onchange="toggleEnvio()">
             <option value="0">Sin envío</option>
             <option value="3500">Envío estándar ($3.500)</option>
-            <option value="custom">Costo personalizado</option>
+            <option value="custom">Personalizado</option>
           </select>
         </div>
       </div>
       <div id="envio-custom-wrap" style="display:none;margin-top:.5rem">
-        <label>Monto de envío personalizado</label>
+        <label>Monto de envío</label>
         <div class="ig"><input type="number" id="ped-envio-custom" min="0" step="100" placeholder="0" oninput="recalcFinal()"><span class="unit">$</span></div>
       </div>
     </div>
-
     <div class="ped-summary">
       <div class="ped-summary-row"><span style="font-size:13px;font-weight:700;color:var(--text2)">Subtotal</span><span id="final-subtotal" style="font-weight:800">$0</span></div>
       <div class="ped-summary-row"><span style="font-size:13px;font-weight:700;color:var(--text2)">Descuento</span><span id="final-desc" style="font-weight:800;color:var(--warning)">-$0</span></div>
@@ -381,7 +377,6 @@ tr:hover td{background:var(--bg3)}
         <span class="ped-final-price" id="final-total">$0</span>
       </div>
     </div>
-
     <div class="btn-row">
       <button class="btn btn-primary" onclick="finalizarPedido()" style="flex:1;justify-content:center">✅ Finalizar pedido</button>
     </div>
@@ -395,27 +390,22 @@ tr:hover td{background:var(--bg3)}
     <button class="btn btn-primary btn-sm" onclick="abrirModalPortEdit(null)">+ Nuevo</button>
   </div>
   <div id="port-lista"></div>
-  <div id="port-empty" class="empty"><p>Sin productos guardados. Guárdalos desde la calculadora o con el botón +</p></div>
+  <div id="port-empty" class="empty"><p>Sin productos guardados.</p></div>
 </div>
 
 <!-- ===== TICKET ===== -->
 <div id="ticket-overlay">
-  <div class="ticket" id="ticket-content">
-    <!-- generado dinámicamente -->
-  </div>
+  <div class="ticket" id="ticket-content"></div>
 </div>
 
-<!-- ===== MODALS ===== -->
+<!-- MODALS -->
 
 <!-- Modal adicional calculadora -->
 <div class="modal-overlay" id="modal-ad">
   <div class="modal">
     <div class="modal-header"><span class="modal-title">➕ Adicional</span><button class="btn btn-secondary btn-sm" onclick="cerrarModal('modal-ad')">✕</button></div>
     <div style="margin-bottom:.7rem"><label>Tipo</label>
-      <select id="ad-tipo" onchange="toggleAdTipo()">
-        <option value="inv">Del inventario</option>
-        <option value="custom">Personalizado</option>
-      </select>
+      <select id="ad-tipo" onchange="toggleAdTipo()"><option value="inv">Del inventario</option><option value="custom">Personalizado</option></select>
     </div>
     <div id="ad-inv-f">
       <div style="margin-bottom:.7rem"><label>Artículo</label><select id="ad-inv-sel"></select></div>
@@ -458,7 +448,7 @@ tr:hover td{background:var(--bg3)}
   </div>
 </div>
 
-<!-- Modal agregar producto al pedido -->
+<!-- Modal producto pedido -->
 <div class="modal-overlay" id="modal-prod">
   <div class="modal">
     <div class="modal-header"><span class="modal-title">Agregar producto</span><button class="btn btn-secondary btn-sm" onclick="cerrarModal('modal-prod')">✕</button></div>
@@ -483,7 +473,7 @@ tr:hover td{background:var(--bg3)}
   </div>
 </div>
 
-<!-- Modal editar item pedido (completo) -->
+<!-- Modal editar item pedido -->
 <div class="modal-overlay" id="modal-edit-ped">
   <div class="modal">
     <div class="modal-header"><span class="modal-title">Editar producto</span><button class="btn btn-secondary btn-sm" onclick="cerrarModal('modal-edit-ped')">✕</button></div>
@@ -509,15 +499,12 @@ tr:hover td{background:var(--bg3)}
   </div>
 </div>
 
-<!-- Modal adicional para prod/edit -->
+<!-- Modal adicional compartido (prod/edit) -->
 <div class="modal-overlay" id="modal-ad2">
   <div class="modal">
     <div class="modal-header"><span class="modal-title">➕ Adicional</span><button class="btn btn-secondary btn-sm" onclick="cerrarModal('modal-ad2')">✕</button></div>
     <div style="margin-bottom:.7rem"><label>Tipo</label>
-      <select id="ad2-tipo" onchange="toggleAd2Tipo()">
-        <option value="inv">Del inventario</option>
-        <option value="custom">Personalizado</option>
-      </select>
+      <select id="ad2-tipo" onchange="toggleAd2Tipo()"><option value="inv">Del inventario</option><option value="custom">Personalizado</option></select>
     </div>
     <div id="ad2-inv-f">
       <div style="margin-bottom:.7rem"><label>Artículo</label><select id="ad2-inv-sel"></select></div>
@@ -530,7 +517,7 @@ tr:hover td{background:var(--bg3)}
         <div><label>Cantidad</label><input type="number" id="ad2-qty" min="1" placeholder="1"></div>
       </div>
     </div>
-    <input type="hidden" id="ad2-target"><!-- 'prod' o 'edit' -->
+    <input type="hidden" id="ad2-target">
     <div class="btn-row" style="margin-top:.8rem">
       <button class="btn btn-primary" onclick="confirmarAd2()">Agregar</button>
       <button class="btn btn-secondary" onclick="cerrarModal('modal-ad2')">Cancelar</button>
@@ -538,7 +525,7 @@ tr:hover td{background:var(--bg3)}
   </div>
 </div>
 
-<!-- Modal portafolio editar/crear -->
+<!-- Modal portafolio -->
 <div class="modal-overlay" id="modal-port">
   <div class="modal">
     <div class="modal-header"><span class="modal-title" id="m-port-title">Nuevo producto</span><button class="btn btn-secondary btn-sm" onclick="cerrarModal('modal-port')">✕</button></div>
@@ -557,30 +544,12 @@ tr:hover td{background:var(--bg3)}
   </div>
 </div>
 
-<!-- BOTTOM BAR -->
-<div class="bottom-bar">
-  <div class="bottom-bar-inner">
-    <button class="tab-btn" id="tab-calculadora" onclick="showSection('calculadora')">
-      <span class="tab-icon">🧮</span><span class="tab-label">Calc</span>
-    </button>
-    <button class="tab-btn" id="tab-inventario" onclick="showSection('inventario')">
-      <span class="tab-icon">📦</span><span class="tab-label">Inv</span>
-    </button>
-    <button class="tab-btn" id="tab-pedidos" onclick="showSection('pedidos')">
-      <span class="tab-icon">📋</span><span class="tab-label">Ped</span>
-    </button>
-    <button class="tab-btn" id="tab-portafolio" onclick="showSection('portafolio')">
-      <span class="tab-icon">🗂</span><span class="tab-label">Port</span>
-    </button>
-  </div>
-</div>
-
 <script>
-// ===================== CONFIG =====================
+// ===== CONFIG =====
 const FIL1=13500,FIL2=22000,IVA=1.19;
 const API_URL='https://script.google.com/macros/s/AKfycbyxIxAuYlz3o7tB6waPzvtglTsKSaFzKiyy7iqsxP2sCKgqvrn74_AYMox70Wn8zH1S/exec';
 
-// ===================== STATE =====================
+// ===== STATE =====
 let state={
   inventario:[
     {id:1,nombre:"LLAVERO LISO",categoria:"Llaveros",stock:240,lote:100,costoLote:4500,precio:54,desc:""},
@@ -609,27 +578,19 @@ let state={
     {id:24,nombre:"CUERDA LLAVERO COLORES",categoria:"Llaveros",stock:19,lote:20,costoLote:1250,precio:74,desc:""},
     {id:25,nombre:"CADENA PEPITAS COLORES",categoria:"Llaveros",stock:50,lote:50,costoLote:2700,precio:64,desc:""},
   ],
-  adicionales:[],
-  adProd:[],   // adicionales temporales para modal prod
-  adEdit:[],   // adicionales temporales para modal edit
-  pedido:[],
-  portafolio:[],
+  adicionales:[],adProd:[],adEdit:[],
+  pedido:[],portafolio:[],
   pedPrecioSel:1,
-  nextItemId:26,
-  nextPedId:1,
-  nextPortId:1
+  nextItemId:26,nextPedId:1,nextPortId:1,
+  _sP1:0,_sP2:0,_sP3:0,
+  _finalTotal:0,_finalDesc:0,_finalEnvio:0
 };
 
-function save(){try{localStorage.setItem('buneo_v4',JSON.stringify(state))}catch(e){}}
-function load(){
-  try{
-    const s=localStorage.getItem('buneo_v4');
-    if(s){const p=JSON.parse(s);Object.assign(state,p);}
-  }catch(e){}
-}
+function save(){try{localStorage.setItem('buneo_v5',JSON.stringify(state))}catch(e){}}
+function load(){try{const s=localStorage.getItem('buneo_v5');if(s)Object.assign(state,JSON.parse(s))}catch(e){}}
 load();
 
-// ===================== JSONP API =====================
+// ===== JSONP API =====
 function jsonp(params){
   return new Promise((resolve,reject)=>{
     const cb='_b'+Date.now();
@@ -637,7 +598,7 @@ function jsonp(params){
     const cleanup=()=>{delete window[cb];const s=document.getElementById(cb);if(s)s.remove()};
     window[cb]=(data)=>{clearTimeout(t);cleanup();data.ok===false?reject(new Error(data.error)):resolve(data.data!==undefined?data.data:data)};
     let qs='?callback='+cb;
-    for(const[k,v]of Object.entries(params)) qs+='&'+k+'='+encodeURIComponent(typeof v==='object'?JSON.stringify(v):v);
+    for(const[k,v]of Object.entries(params))qs+='&'+k+'='+encodeURIComponent(typeof v==='object'?JSON.stringify(v):v);
     const s=document.createElement('script');
     s.id=cb;s.src=API_URL+qs;
     s.onerror=()=>{clearTimeout(t);cleanup();reject(new Error('Error de conexión'))};
@@ -646,7 +607,7 @@ function jsonp(params){
 }
 async function apiCall(accion,data={}){return jsonp({accion,...data})}
 
-// ===================== TOAST =====================
+// ===== TOAST =====
 let _toastT;
 function toast(msg,tipo='spin',dur=2500){
   const el=document.getElementById('toast');
@@ -655,7 +616,7 @@ function toast(msg,tipo='spin',dur=2500){
   if(dur)_toastT=setTimeout(()=>el.classList.remove('show'),dur);
 }
 
-// ===================== AUTO SYNC =====================
+// ===== AUTO SYNC =====
 let _syncT;
 function autoSync(){
   clearTimeout(_syncT);
@@ -663,7 +624,7 @@ function autoSync(){
     try{
       await apiCall('setInventario',{items:state.inventario});
       await apiCall('setPedidos',{pedidos:state.pedido});
-      try{await apiCall('setPortafolio',{items:state.portafolio});}catch(e2){}
+      try{await apiCall('setPortafolio',{items:state.portafolio})}catch(e2){}
       toast('✅ Guardado en Sheets','ok',2000);
     }catch(e){toast('⚠️ Solo guardado local','err',2500);}
   },2000);
@@ -679,13 +640,14 @@ async function cargarDesdeSheets(){
     try{
       const port=await apiCall('getPortafolio');
       if(port&&port.length){state.portafolio=port;state.nextPortId=Math.max(...port.map(x=>x.id))+1;}
-    }catch(e2){}// portafolio es opcional
+    }catch(e2){}
     save();toast('✅ Sincronizado','ok',2000);
     renderInventario();renderPedido();
-  }catch(e){toast('⚠️ Datos locales ('+e.message+')','err',3000);}
+  }catch(e){toast('⚠️ Datos locales','err',3000);}
 }
 
-// ===================== NAV =====================
+// ===== NAV =====
+const $=id=>document.getElementById(id);
 function irSplash(){
   document.getElementById('splash').style.display='flex';
   document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));
@@ -705,13 +667,12 @@ function showSection(s){
   if(s==='calculadora')calcular();
 }
 
-// ===================== HELPERS =====================
-const $=id=>document.getElementById(id);
+// ===== HELPERS =====
 const fmtCLP=n=>'$'+Math.round(n).toLocaleString('es-CL');
-const gv=(id,d=0)=>parseFloat($(id)?$(id).value:d)||d;
+const gv=(id,d=0)=>{const el=$(id);return el?(parseFloat(el.value)||d):d;};
 const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
-// ===================== CALCULADORA =====================
+// ===== CALCULADORA =====
 function calcNeto(f1,f2,h,ads){
   const cFil=(f1/1000*FIL1)+(f2/1000*FIL2);
   const cElec=h*gv('costoElec',26.5);
@@ -729,7 +690,6 @@ function calcular(){
   $('r-p1').textContent=fmtCLP(Math.max(neto*m1,mn));
   $('r-p2').textContent=fmtCLP(Math.max(neto*m2,mn));
   $('r-p3').textContent=fmtCLP(Math.max(neto*m3,mn));
-  $('m-p1').textContent='×'+m1;$('m-p2').textContent='×'+m2;$('m-p3').textContent='×'+m3;
   $('desglose').innerHTML=[
     ['🧵 Filamento',cFil],['⚡ Electricidad',cElec],
     ['⚙️ Desgaste',cDesg],['➕ Adicionales',cAds],
@@ -743,9 +703,8 @@ function renderChipsCalc(){
   c.innerHTML=state.adicionales.map((a,i)=>`<span class="chip">${esc(a.nombre)} ×${a.cantidad} (${fmtCLP(a.precio*a.cantidad)})<span class="chip-x" onclick="rmAd(${i})">×</span></span>`).join('');
 }
 function rmAd(i){state.adicionales.splice(i,1);renderChipsCalc();calcular();}
-function limpiarCalc(){['fil1','fil2','horas'].forEach(id=>{$(id).value='';});state.adicionales=[];renderChipsCalc();calcular();}
+function limpiarCalc(){['fil1','fil2','horas'].forEach(id=>{const el=$(id);if(el)el.value='';});state.adicionales=[];renderChipsCalc();calcular();}
 
-// Adicional calculadora
 function abrirModalAd(){
   $('ad-tipo').value='inv';toggleAdTipo();
   $('ad-inv-sel').innerHTML=state.inventario.map(it=>`<option value="${it.id}">${esc(it.nombre)} — ${fmtCLP(it.precio)}</option>`).join('');
@@ -770,10 +729,8 @@ function agregarAPedido(){
   const {neto}=calcNeto(f1,f2,h,state.adicionales);
   const m1=gv('mult1',3),m2=gv('mult2',4),m3=gv('mult3',5),mn=gv('minP',1000);
   state.pedido.push({
-    id:state.nextPedId++,
-    nombre:'Producto '+state.nextPedId,
-    qty:1,peso:f1+f2,horas:h,
-    filamento:f1>0?1:2,
+    id:state.nextPedId++,nombre:'Producto '+state.nextPedId,
+    qty:1,peso:f1+f2,horas:h,filamento:f1>0?1:2,
     adicionales:[...state.adicionales],
     p1:Math.max(neto*m1,mn),p2:Math.max(neto*m2,mn),p3:Math.max(neto*m3,mn),
     fecha:new Date().toLocaleString('es-CL')
@@ -786,17 +743,14 @@ function guardarEnPortafolio(){
   const nombre=prompt('Nombre del producto para el portafolio:');
   if(!nombre||!nombre.trim())return;
   state.portafolio.push({
-    id:state.nextPortId++,
-    nombre:nombre.trim(),
-    peso:f1+f2,horas:h,
-    filamento:f1>0?1:2,
-    notas:'',
-    adicionales:[...state.adicionales]
+    id:state.nextPortId++,nombre:nombre.trim(),
+    peso:f1+f2,horas:h,filamento:f1>0?1:2,
+    notas:'',adicionales:[...state.adicionales]
   });
   save();autoSync();toast('🗂 Guardado en portafolio','ok',2000);
 }
 
-// ===================== INVENTARIO =====================
+// ===== INVENTARIO =====
 function renderInventario(){
   const q=($('inv-q').value||'').toLowerCase();
   const catSel=$('inv-cat');
@@ -832,11 +786,10 @@ function calcUnit(){
 function abrirModalItem(id){
   const it=id?state.inventario.find(x=>x.id===id):null;
   $('m-item-title').textContent=it?'Editar artículo':'Nuevo artículo';
-  $('i-id').value=it?it.id:'';
-  $('i-nombre').value=it?it.nombre:'';$('i-cat').value=it?it.categoria:'';
-  $('i-stock').value=it?it.stock:'';$('i-lote').value=it?it.lote:'';
-  $('i-cl').value=it?it.costoLote:'';$('i-precio').value=it?it.precio:'';
-  $('i-desc').value=it&&it.desc?it.desc:'';
+  $('i-id').value=it?it.id:'';$('i-nombre').value=it?it.nombre:'';
+  $('i-cat').value=it?it.categoria:'';$('i-stock').value=it?it.stock:'';
+  $('i-lote').value=it?it.lote:'';$('i-cl').value=it?it.costoLote:'';
+  $('i-precio').value=it?it.precio:'';$('i-desc').value=it&&it.desc?it.desc:'';
   abrirModal('modal-item');
 }
 function guardarItem(){
@@ -852,11 +805,8 @@ function guardarItem(){
 }
 function rmItem(id){if(!confirm('¿Eliminar?'))return;state.inventario=state.inventario.filter(x=>x.id!==id);save();autoSync();renderInventario();}
 
-// ===================== PEDIDOS =====================
-function selPu(pr){
-  const s=state.pedPrecioSel||1;
-  return s===1?pr.p1:s===2?pr.p2:pr.p3;
-}
+// ===== PEDIDOS =====
+function selPu(pr){const s=state.pedPrecioSel||1;return s===1?pr.p1:s===2?pr.p2:pr.p3;}
 function calcProd(p){
   const fp=p.filamento===1?FIL1:FIL2;
   const cFil=p.peso/1000*fp;
@@ -866,11 +816,7 @@ function calcProd(p){
   const sub=cFil+cElec+cDesg+cAds;
   const neto=sub*(1+gv('margen',25)/100);
   const mn=gv('minP',1000);
-  return{
-    p1:Math.max(neto*gv('mult1',3),mn),
-    p2:Math.max(neto*gv('mult2',4),mn),
-    p3:Math.max(neto*gv('mult3',5),mn)
-  };
+  return{p1:Math.max(neto*gv('mult1',3),mn),p2:Math.max(neto*gv('mult2',4),mn),p3:Math.max(neto*gv('mult3',5),mn)};
 }
 
 function renderPedido(){
@@ -878,11 +824,11 @@ function renderPedido(){
   if(!state.pedido.length){lista.innerHTML='';empty.style.display='block';tots.style.display='none';return;}
   empty.style.display='none';tots.style.display='block';
   let sP1=0,sP2=0,sP3=0;
-  const sel=state.pedPrecioSel||1;
   lista.innerHTML=state.pedido.map((p,idx)=>{
     const pr=calcProd(p);
     sP1+=pr.p1*p.qty;sP2+=pr.p2*p.qty;sP3+=pr.p3*p.qty;
     const ads=p.adicionales&&p.adicionales.length?' · +'+p.adicionales.map(a=>esc(a.nombre)+'×'+a.cantidad).join(', '):'';
+    const pu=selPu(pr);
     return`<div class="pedido-item">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.3rem">
         <div>
@@ -902,92 +848,64 @@ function renderPedido(){
           <span style="font-size:11px;color:var(--text3);font-weight:600">unid.</span>
         </div>
         <div style="display:flex;gap:.8rem;text-align:right">
-          <div><div style="font-size:10px;color:var(--text3);font-weight:700">P${state.pedPrecioSel} unit</div><div style="font-weight:800;font-size:12px">${fmtCLP(sel===1?pr.p1:sel===2?pr.p2:pr.p3)}</div></div>
-          <div><div style="font-size:10px;color:var(--text3);font-weight:700">P${state.pedPrecioSel} ×${p.qty}</div><div style="font-weight:900;color:var(--lima);font-size:13px">${fmtCLP((sel===1?pr.p1:sel===2?pr.p2:pr.p3)*p.qty)}</div></div>
+          <div><div style="font-size:10px;color:var(--text3);font-weight:700">P${state.pedPrecioSel} unit</div><div data-pedrow="${idx}" data-type="unit" style="font-weight:800;font-size:12px">${fmtCLP(pu)}</div></div>
+          <div><div style="font-size:10px;color:var(--text3);font-weight:700">P${state.pedPrecioSel} ×${p.qty}</div><div data-pedrow="${idx}" data-type="total" style="font-weight:900;color:var(--lima);font-size:13px">${fmtCLP(pu*p.qty)}</div></div>
         </div>
       </div>
     </div>`;
   }).join('');
-
-  // Totales
+  state._sP1=sP1;state._sP2=sP2;state._sP3=sP3;
   $('ped-p1').textContent=fmtCLP(sP1);
   $('ped-p2').textContent=fmtCLP(sP2);
   $('ped-p3').textContent=fmtCLP(sP3);
-  state._sP1=sP1;state._sP2=sP2;state._sP3=sP3;
-  selPrecio(state.pedPrecioSel||1);
+  // Update selected box highlight
+  const _sel=state.pedPrecioSel||1;
+  [1,2,3].forEach(i=>{const el=$('sel-p'+i);if(el)el.classList.toggle('selected',i===_sel);});
+  recalcFinal();
 }
 
 function selPrecio(n){
   state.pedPrecioSel=n;
-  [1,2,3].forEach(i=>{
-    const el=$('sel-p'+i);
-    if(el)el.classList.toggle('selected',i===n);
-  });
-  // Re-render items para mostrar precio correcto
-  const lista=$('lista-pedido');
-  if(lista&&state.pedido.length){
-    const sel=n;
-    let sP1=0,sP2=0,sP3=0;
-    lista.innerHTML=state.pedido.map((p,idx)=>{
-      const pr=calcProd(p);
-      sP1+=pr.p1*p.qty;sP2+=pr.p2*p.qty;sP3+=pr.p3*p.qty;
-      const ads=p.adicionales&&p.adicionales.length?' · +'+p.adicionales.map(a=>esc(a.nombre)+'×'+a.cantidad).join(', '):'';
-      const pu=selPu(pr);
-      return`<div class="pedido-item">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.3rem">
-        <div>
-          <div class="pedido-item-name">${esc(p.nombre)}</div>
-          <div class="pedido-item-detail">${p.peso}g · ${p.horas}h · Fil.${p.filamento}${ads}</div>
-        </div>
-        <div style="display:flex;gap:3px;flex-shrink:0">
-          <button class="btn btn-secondary btn-icon btn-sm" onclick="editPed(${idx})">✏️</button>
-          <button class="btn btn-danger btn-icon btn-sm" onclick="rmPed(${idx})">🗑</button>
-        </div>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.4rem">
-        <div class="pedido-qty">
-          <button class="qty-btn" onclick="chQty(${idx},-1)">−</button>
-          <span class="qty-num">${p.qty}</span>
-          <button class="qty-btn" onclick="chQty(${idx},1)">+</button>
-          <span style="font-size:11px;color:var(--text3);font-weight:600">unid.</span>
-        </div>
-        <div style="display:flex;gap:.8rem;text-align:right">
-          <div><div style="font-size:10px;color:var(--text3);font-weight:700">P${sel} unit</div><div style="font-weight:800;font-size:12px">${fmtCLP(pu)}</div></div>
-          <div><div style="font-size:10px;color:var(--text3);font-weight:700">P${sel} ×${p.qty}</div><div style="font-weight:900;color:var(--lima);font-size:13px">${fmtCLP(pu*p.qty)}</div></div>
-        </div>
-      </div>
-    </div>`;
-    }).join('');
-    state._sP1=sP1;state._sP2=sP2;state._sP3=sP3;
-  }
+  [1,2,3].forEach(i=>{const el=$('sel-p'+i);if(el)el.classList.toggle('selected',i===n);});
+  // Re-render item rows to show correct price label (P1/P2/P3)
+  // but don't call renderPedido (would loop). Just update labels and recalc.
+  _updatePedidoRows();
   recalcFinal();
+}
+function _updatePedidoRows(){
+  // Update P label text in pedido rows without full re-render
+  const lista=document.getElementById('lista-pedido');
+  if(!lista)return;
+  state.pedido.forEach((p,idx)=>{
+    const pr=calcProd(p);
+    const pu=selPu(pr);
+    const s=state.pedPrecioSel||1;
+    const labels=lista.querySelectorAll('[data-pedrow="'+idx+'"]');
+    labels.forEach(el=>{ el.textContent=el.dataset.type==='unit'?fmtCLP(pu):fmtCLP(pu*p.qty); });
+  });
 }
 
 function recalcFinal(){
   const sel=state.pedPrecioSel||1;
   const base=sel===1?state._sP1||0:sel===2?state._sP2||0:state._sP3||0;
-  const desc=(parseFloat($('ped-descuento').value)||0)/100;
+  const desc=(parseFloat($('ped-desc').value)||0)/100;
   const envioTipo=$('ped-envio-tipo').value;
   const envio=envioTipo==='custom'?(parseFloat($('ped-envio-custom').value)||0):parseFloat(envioTipo)||0;
   const descMonto=base*desc;
-  const total=base-descMonto+envio;
+  const total=Math.max(base-descMonto+envio,0);
   $('final-subtotal').textContent=fmtCLP(base);
   $('final-desc').textContent='-'+fmtCLP(descMonto);
   $('final-envio').textContent=fmtCLP(envio);
-  $('final-total').textContent=fmtCLP(Math.max(total,0));
-  state._finalTotal=Math.max(total,0);
-  state._finalBase=base;state._finalDesc=descMonto;state._finalEnvio=envio;
+  $('final-total').textContent=fmtCLP(total);
+  state._finalTotal=total;state._finalDesc=descMonto;state._finalEnvio=envio;
 }
-
 function toggleEnvio(){
-  const t=$('ped-envio-tipo').value;
-  $('envio-custom-wrap').style.display=t==='custom'?'block':'none';
+  $('envio-custom-wrap').style.display=$('ped-envio-tipo').value==='custom'?'block':'none';
   recalcFinal();
 }
-
 function chQty(i,d){state.pedido[i].qty=Math.max(1,state.pedido[i].qty+d);save();autoSync();renderPedido();}
 function rmPed(i){if(!confirm('¿Quitar?'))return;state.pedido.splice(i,1);save();autoSync();renderPedido();}
-function limpiarPedido(){if(!confirm('¿Vaciar pedido completo?'))return;state.pedido=[];save();autoSync();renderPedido();}
+function limpiarPedido(){if(!confirm('¿Vaciar pedido?'))return;state.pedido=[];save();autoSync();renderPedido();}
 
 function editPed(i){
   const p=state.pedido[i];
@@ -1011,14 +929,12 @@ function guardarEditPed(){
   p.horas=parseFloat($('ep-horas').value)||0;
   p.filamento=parseInt($('ep-fil').value);
   p.adicionales=[...state.adEdit];
-  // Recalc prices
   const {neto}=calcNeto(p.filamento===1?p.peso:0,p.filamento===2?p.peso:0,p.horas,p.adicionales);
   const mn=gv('minP',1000);
   p.p1=Math.max(neto*gv('mult1',3),mn);p.p2=Math.max(neto*gv('mult2',4),mn);p.p3=Math.max(neto*gv('mult3',5),mn);
   save();autoSync();cerrarModal('modal-edit-ped');renderPedido();
 }
 
-// Modal agregar producto directo
 function abrirModalProd(){
   state.adProd=[];
   $('prod-nombre').value='';$('prod-qty').value='';$('prod-peso').value='';$('prod-horas').value='';$('prod-fil').value=1;
@@ -1032,24 +948,19 @@ function renderChipsAdProd(){
 function rmAdProd(i){state.adProd.splice(i,1);renderChipsAdProd();}
 function guardarProd(){
   const nombre=$('prod-nombre').value.trim();if(!nombre)return alert('Nombre obligatorio');
-  const peso=parseFloat($('prod-peso').value)||0;
-  const horas=parseFloat($('prod-horas').value)||0;
-  const fil=parseInt($('prod-fil').value);
+  const peso=parseFloat($('prod-peso').value)||0,horas=parseFloat($('prod-horas').value)||0,fil=parseInt($('prod-fil').value);
   const ads=[...state.adProd];
   const {neto}=calcNeto(fil===1?peso:0,fil===2?peso:0,horas,ads);
   const mn=gv('minP',1000);
   state.pedido.push({
     id:state.nextPedId++,nombre,qty:parseInt($('prod-qty').value)||1,
     peso,horas,filamento:fil,adicionales:ads,
-    p1:Math.max(neto*gv('mult1',3),mn),
-    p2:Math.max(neto*gv('mult2',4),mn),
-    p3:Math.max(neto*gv('mult3',5),mn),
+    p1:Math.max(neto*gv('mult1',3),mn),p2:Math.max(neto*gv('mult2',4),mn),p3:Math.max(neto*gv('mult3',5),mn),
     fecha:new Date().toLocaleString('es-CL')
   });
   save();autoSync();cerrarModal('modal-prod');renderPedido();
 }
 
-// Modal ad2 (para prod y edit)
 function abrirModalAdProd(){$('ad2-target').value='prod';abrirAd2();}
 function abrirModalAdEdit(){$('ad2-target').value='edit';abrirAd2();}
 function abrirAd2(){
@@ -1074,142 +985,154 @@ function confirmarAd2(){
   cerrarModal('modal-ad2');
 }
 
-// ===================== FINALIZAR PEDIDO / TICKET =====================
+// ===== FINALIZAR PEDIDO / TICKET =====
 function finalizarPedido(){
   if(!state.pedido.length)return alert('El pedido está vacío');
   recalcFinal();
-  const sel=state.pedPrecioSel||1;
   const fecha=new Date().toLocaleString('es-CL');
+  // Inicializar precios editables
+  window._editPrecios = {};
+  state.pedido.forEach((p,idx)=>{
+    const pr=calcProd(p);
+    window._editPrecios[idx] = Math.round(selPu(pr)*p.qty);
+  });
   
   let itemsHTML='';
-  state.pedido.forEach(p=>{
+  state.pedido.forEach((p,idx)=>{
     const pr=calcProd(p);
     const pu=selPu(pr);
-    const pt=pu*p.qty;
-    const ads=''  // adicionales ocultos en recibo;
-    itemsHTML+=`<div class="ticket-row">
-      <div class="t-name">${esc(p.nombre)}${ads}</div>
+    const precioTotal=Math.round(pu*p.qty);
+    itemsHTML+=`<div class="t-row" style="align-items:center">
+      <span class="t-name">${esc(p.nombre)}</span>
       <span class="t-qty">×${p.qty}</span>
-      <span class="t-price">${fmtCLP(pt)}</span>
+      <span class="t-price" style="display:flex;align-items:center;gap:4px">
+        <span style="font-size:11px;color:#888">$</span>
+        <input type="number" id="ep-price-${idx}" value="${precioTotal}" 
+          style="width:90px;border:1.5px solid #ccc;border-radius:5px;padding:3px 6px;font-size:13px;font-weight:800;text-align:right;color:#111;background:#fff;font-family:inherit"
+          oninput="recalcTicket()">
+      </span>
     </div>`;
   });
-
   const descMonto=state._finalDesc||0;
   const envio=state._finalEnvio||0;
   const total=state._finalTotal||0;
-
   $('ticket-content').innerHTML=`
     <div class="ticket-logo">
       <div class="t-title">Buneo<span>.cl</span></div>
       <div class="t-sub">Impresión 3D · ${fecha}</div>
     </div>
-    <div class="ticket-section">Productos</div>
+    <div class="t-section">Producto</div>
+    <div style="font-size:11px;color:#888;margin-bottom:4px;text-align:right;font-weight:600">CANT. &nbsp;&nbsp;&nbsp;&nbsp; PRECIO</div>
     ${itemsHTML}
-    ${descMonto>0?`<div class="ticket-section">Descuento</div><div class="ticket-row"><span class="t-name">Descuento aplicado</span><span class="t-price" style="color:#e55">-${fmtCLP(descMonto)}</span></div>`:''}
-    ${envio>0?`<div class="ticket-section">Envío</div><div class="ticket-row"><span class="t-name">Costo de envío</span><span class="t-price">${fmtCLP(envio)}</span></div>`:''}
-    <div class="ticket-total">
-      <div><div class="t-label">TOTAL A PAGAR</div></div>
-      <div class="t-amount">${fmtCLP(total)}</div>
-    </div>
-    <div class="ticket-footer">Buneo.cl · Gracias por tu compra 😊</div>
+    ${descMonto>0?`<div class="t-section">Descuento</div><div class="t-row"><span class="t-name">Descuento aplicado</span><span class="t-price" style="color:#e55">-${fmtCLP(descMonto)}</span></div>`:''}
+    ${envio>0?`<div class="t-section">Envío</div><div class="t-row"><span class="t-name">Costo de envío</span><span class="t-price">${fmtCLP(envio)}</span></div>`:''}
+    <div class="t-total-box" id="ticket-total-box"><div><div class="t-total-label">TOTAL A PAGAR</div></div><div class="t-total-amount" id="ticket-total-display">${fmtCLP(total)}</div></div>
+    <div style="text-align:center;margin-top:8px;font-size:11px;color:#a8c4a8;font-weight:600">✏️ Puedes editar los precios individualmente</div>
+    <div class="t-footer">Buneo.cl · Gracias por tu compra 😊</div>
     <div class="ticket-actions">
-      <button class="btn btn-primary btn-sm" onclick="compartirTicket()">🖨️ PDF + 📤 WhatsApp</button>
-      <button class="btn btn-secondary btn-sm" onclick="$('ticket-overlay').classList.remove('open')">✕ Cerrar</button>
+      <button onclick="verPDFyWA()" style="padding:11px;background:#25D366;color:#fff;font-weight:900;font-size:13px;border-radius:7px;border:none;cursor:pointer;font-family:'Nunito Sans',sans-serif;width:100%">📲 Compartir por WhatsApp</button>
+      <button onclick="verPDF()" style="padding:11px;background:#A8FF00;color:#1A2E05;font-weight:900;font-size:13px;border-radius:7px;border:none;cursor:pointer;font-family:'Nunito Sans',sans-serif;width:100%">🖨️ Ver / Imprimir PDF</button>
+      <button onclick="$('ticket-overlay').classList.remove('open')" style="padding:9px;background:#253348;color:#a8c4a8;font-weight:800;font-size:12px;border:none;border-radius:7px;cursor:pointer;font-family:'Nunito Sans',sans-serif;width:100%">✕ Cerrar</button>
     </div>
   `;
   $('ticket-overlay').classList.add('open');
+  // Preparar HTML del PDF
+  window._pdfHTML = generarPDFHTML();
 }
 
-function compartirTicket(){
+function generarPDFHTML(){
   const fecha=new Date().toLocaleString('es-CL');
-  let itemsRows='';
-  state.pedido.forEach(p=>{
-    const pr=calcProd(p);
-    const pu=selPu(pr);
-    const pt=pu*p.qty;
-    itemsRows+=`<tr><td style="padding:7px 4px;border-bottom:1px solid #f0f0f0"><strong>${esc(p.nombre)}</strong></td><td style="padding:7px 4px;border-bottom:1px solid #f0f0f0;text-align:center;color:#666">×${p.qty}</td><td style="padding:7px 4px;border-bottom:1px solid #f0f0f0;text-align:right;font-weight:800">${fmtCLP(pt)}</td></tr>`;
+  let rows='';
+  state.pedido.forEach((p,idx)=>{
+    const precio=(window._editPrecios&&window._editPrecios[idx]!=null)?window._editPrecios[idx]:Math.round(selPu(calcProd(p))*p.qty);
+    rows+=`<tr><td style="padding:8px 6px;border-bottom:1px solid #f0f0f0;font-weight:700">${esc(p.nombre)}</td><td style="padding:8px 6px;border-bottom:1px solid #f0f0f0;text-align:center;color:#666">x${p.qty}</td><td style="padding:8px 6px;border-bottom:1px solid #f0f0f0;text-align:right;font-weight:800">${fmtCLP(precio)}</td></tr>`;
   });
-  const descRow=state._finalDesc>0?`<tr><td colspan="2" style="padding:6px 4px;color:#e55;font-size:13px">Descuento</td><td style="padding:6px 4px;text-align:right;color:#e55;font-weight:800">-${fmtCLP(state._finalDesc)}</td></tr>`:'';
-  const envioRow=state._finalEnvio>0?`<tr><td colspan="2" style="padding:6px 4px;font-size:13px">Envío</td><td style="padding:6px 4px;text-align:right;font-weight:800">${fmtCLP(state._finalEnvio)}</td></tr>`:'';
-  const pdfHTML=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Boleta Buneo.cl</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Helvetica Neue',Arial,sans-serif;background:#fff;color:#111;padding:0}
-    .wrap{max-width:380px;margin:0 auto;padding:24px 20px}
-    .logo{text-align:center;padding-bottom:14px;margin-bottom:14px;border-bottom:2px dashed #ddd}
-    .logo h1{font-size:26px;font-weight:900;color:#1A2E05;letter-spacing:-1px}
-    .logo h1 span{color:#64DD17}
-    .logo p{font-size:12px;color:#999;margin-top:3px}
-    table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:8px}
-    th{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#999;padding:6px 4px;border-bottom:2px solid #eee;text-align:left}
-    th:last-child{text-align:right}
-    .total-box{background:#1A2E05;color:#fff;border-radius:10px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:12px}
-    .total-box .lbl{font-size:12px;color:#a8d8a8;font-weight:700}
-    .total-box .amt{font-size:22px;font-weight:900;color:#A8FF00}
-    .footer{text-align:center;margin-top:14px;font-size:11px;color:#bbb}
-    @media print{body{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
-  </style></head><body>
-  <div class="wrap">
-    <div class="logo"><h1>Buneo<span>.cl</span></h1><p>Impresión 3D · ${fecha}</p></div>
-    <table>
-      <thead><tr><th>Producto</th><th style="text-align:center">Cant.</th><th style="text-align:right">Precio</th></tr></thead>
-      <tbody>${itemsRows}${descRow}${envioRow}</tbody>
-    </table>
-    <div class="total-box"><div><div class="lbl">TOTAL A PAGAR</div></div><div class="amt">${fmtCLP(state._finalTotal)}</div></div>
-    <div class="footer">Buneo.cl · Gracias por tu compra 😊</div>
-  </div>
-  <script>window.onload=function(){window.print();}<\/script>
-  </body></html>`;
-  // Construir texto WhatsApp
-  let waTxt=`*Buneo.cl* 🟢\n📅 ${fecha}\n\n*Pedido:*\n`;
-  state.pedido.forEach(p=>{
-    const pr=calcProd(p);
-    const pu=selPu(pr);
-    waTxt+=`• ${p.nombre} ×${p.qty} — ${fmtCLP(pu*p.qty)}\n`;
-    if(p.adicionales&&p.adicionales.length) waTxt+=`  +${p.adicionales.map(a=>a.nombre+'×'+a.cantidad).join(', ')}\n`;
-  });
-  if(state._finalDesc>0) waTxt+=`\n💸 Descuento: -${fmtCLP(state._finalDesc)}`;
-  if(state._finalEnvio>0) waTxt+=`\n🚚 Envío: ${fmtCLP(state._finalEnvio)}`;
-  waTxt+=`\n\n*TOTAL: ${fmtCLP(state._finalTotal)}* 🧾`;
-  const waURL='https://wa.me/?text='+encodeURIComponent(waTxt);
-  // Reemplazar botones con opciones de compartir
-  const actionsDiv=$('ticket-content').querySelector('.ticket-actions');
-  if(actionsDiv){
-    actionsDiv.innerHTML=`
-      <button onclick="abrirPDF()" 
-         style="flex:1;padding:11px 14px;background:#A8FF00;color:#1A2E05;font-weight:900;font-size:13px;border-radius:7px;border:none;cursor:pointer;font-family:'Nunito Sans',sans-serif;width:100%;display:block;margin-bottom:8px">
-        🖨️ Ver / Imprimir PDF
-      </button>
-      <a href="${waURL}" target="_blank"
-         style="flex:1;padding:11px 14px;background:#25D366;color:#fff;font-weight:900;font-size:13px;border-radius:7px;text-decoration:none;text-align:center;display:block;margin-bottom:8px">
-        📲 Enviar por WhatsApp
-      </a>
-      <button onclick="$('ticket-overlay').classList.remove('open')" 
-         style="width:100%;padding:9px;background:#253348;color:#a8c4a8;font-weight:800;font-size:12px;border:none;border-radius:7px;cursor:pointer;font-family:'Nunito Sans',sans-serif">
-        ✕ Cerrar
-      </button>
-    `;
-  }
-  // Guardar el HTML del PDF para cuando toquen el botón
-  window._pdfHTML = pdfHTML;
+  const descMonto=state._finalDesc||0,envio=state._finalEnvio||0,total=state._finalTotal||0;
+  return generarPDFBase(fecha,rows,descMonto,envio,total);
 }
 
-function abrirPDF(){
-  // Abrir en nueva pestaña - en iPhone Safari permite compartir/imprimir/guardar como PDF
-  const w = window.open();
-  if(w){
-    w.document.write(window._pdfHTML);
-    w.document.close();
-  } else {
-    // Si popups bloqueados: usar data URI
-    const encoded = 'data:text/html;charset=utf-8,' + encodeURIComponent(window._pdfHTML);
-    window.location.href = encoded;
+function generarPDFBase(fecha, rows, descMonto, envio, total){
+  return`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Boleta Buneo.cl</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;background:#fff;color:#111;max-width:420px;margin:0 auto;padding:20px}
+.logo{text-align:center;padding-bottom:12px;margin-bottom:12px;border-bottom:2px dashed #ccc}
+.logo h1{font-size:1.8rem;font-weight:900;color:#1A2E05;letter-spacing:-1px}.logo h1 span{color:#64DD17}
+.logo p{font-size:.75rem;color:#888;margin-top:3px}
+.section-label{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#888;margin:14px 0 6px;padding-top:10px;border-top:1px solid #eee}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#f5f5f5;padding:6px;text-align:left;font-size:10px;font-weight:900;color:#888;text-transform:uppercase;letter-spacing:.05em}
+th:nth-child(2){text-align:center}th:nth-child(3){text-align:right}
+.total-box{background:#1A2E05;border-radius:10px;padding:14px 16px;margin-top:16px;display:flex;justify-content:space-between;align-items:center}
+.total-label{font-size:11px;font-weight:700;color:#a8d8a8}.total-amount{font-size:1.5rem;font-weight:900;color:#A8FF00}
+.footer{text-align:center;margin-top:14px;font-size:.7rem;color:#aaa}
+.btn-wa{display:block;padding:12px;background:#25D366;color:#fff;font-weight:900;font-size:13px;border-radius:8px;text-align:center;text-decoration:none;margin-top:12px;font-family:Arial,sans-serif}
+.btn-print{display:block;width:100%;padding:12px;background:#A8FF00;color:#1A2E05;font-weight:900;font-size:13px;border-radius:8px;border:none;cursor:pointer;margin-top:8px;font-family:Arial,sans-serif}
+@media print{.no-print{display:none!important}body{padding:10px}}</style></head><body>
+<div class="logo"><h1>Buneo<span>.cl</span></h1><p>Impresión 3D · ${fecha}</p></div>
+<div class="section-label">Productos</div>
+<table><thead><tr><th>Producto</th><th>Cant.</th><th>Precio</th></tr></thead><tbody>${rows}</tbody></table>
+${descMonto>0?`<div class="section-label">Descuento</div><table><tbody><tr><td style="padding:8px 6px;font-weight:700">Descuento aplicado</td><td></td><td style="padding:8px 6px;text-align:right;font-weight:800;color:#e44">-${fmtCLP(descMonto)}</td></tr></tbody></table>`:''}
+${envio>0?`<div class="section-label">Envío</div><table><tbody><tr><td style="padding:8px 6px;font-weight:700">Costo de envío</td><td></td><td style="padding:8px 6px;text-align:right;font-weight:800">${fmtCLP(envio)}</td></tr></tbody></table>`:''}
+<div class="total-box"><div class="total-label">TOTAL A PAGAR</div><div class="total-amount">${fmtCLP(total)}</div></div>
+<div class="footer">Buneo.cl · Gracias por tu compra 😊</div>
+</body></html>`;
+}
+
+function recalcTicket(){
+  // Sumar todos los precios editados
+  let subtotal=0;
+  state.pedido.forEach((p,idx)=>{
+    const el=document.getElementById('ep-price-'+idx);
+    const val=el?Math.round(parseFloat(el.value)||0):Math.round(selPu(calcProd(p))*p.qty);
+    window._editPrecios[idx]=val;
+    subtotal+=val;
+  });
+  // Aplicar descuento y envío
+  const descPct=(parseFloat(document.getElementById('ped-desc')?.value)||0)/100;
+  const envioTipo=document.getElementById('ped-envio-tipo')?.value||'0';
+  const envio=envioTipo==='custom'?(parseFloat(document.getElementById('ped-envio-custom')?.value)||0):(parseFloat(envioTipo)||0);
+  const descMonto=subtotal*descPct;
+  const total=Math.max(subtotal-descMonto+envio,0);
+  state._finalTotal=total;
+  state._finalDesc=descMonto;
+  state._finalEnvio=envio;
+  // Actualizar display total en el ticket
+  const el=document.getElementById('ticket-total-display');
+  if(el)el.textContent=fmtCLP(total);
+  // Actualizar PDF en memoria
+  window._pdfHTML=generarPDFHTML();
+}
+
+function verPDF(){
+  const w=window.open('','_blank');
+  if(w){w.document.write(window._pdfHTML);w.document.close();}
+  else alert('Permite ventanas emergentes para ver el PDF.');
+}
+
+function verPDFyWA(){
+  // Generar mensaje WA
+  const msg='🟢 *¡Hola! Gracias por tu compra en Buneo.cl* 😊\n\nTu pedido está siendo preparado con mucho cuidado 💚\nTe adjuntamos tu boleta con el detalle completo.\n\n*Total a pagar: '+fmtCLP(state._finalTotal)+'*\n\n¡Cualquier consulta estamos aquí para ayudarte! 🙌\n_Buneo.cl · Impresión 3D_';
+  const waURL='https://wa.me/?text='+encodeURIComponent(msg);
+  
+  // Inyectar botón WA en el PDF HTML y abrirlo
+  const pdfConWA = window._pdfHTML.replace(
+    '<div class="footer">',
+    '<div style="max-width:420px;margin:16px auto 0;display:flex;gap:8px;padding:0 0 16px">'
+    +'<a href="'+waURL+'" target="_blank" style="flex:1;display:block;padding:12px;background:#25D366;color:#fff;font-weight:900;font-size:13px;border-radius:8px;text-align:center;text-decoration:none;font-family:Arial,sans-serif">📲 Enviar por WhatsApp</a>'
+    +'<button onclick="window.print()" style="flex:1;padding:12px;background:#A8FF00;color:#1A2E05;font-weight:900;font-size:13px;border-radius:8px;border:none;cursor:pointer;font-family:Arial,sans-serif">🖨️ Imprimir</button>'
+    +'</div>'
+    +'<div class="footer">'
+  );
+  const w=window.open('','_blank');
+  if(w){w.document.write(pdfConWA);w.document.close();}
+  else{
+    // Fallback: abrir WA directamente si popups bloqueados
+    window.open(waURL,'_blank');
   }
 }
 
 $('ticket-overlay').addEventListener('click',e=>{if(e.target===$('ticket-overlay'))$('ticket-overlay').classList.remove('open');});
 
-// ===================== PORTAFOLIO =====================
+// ===== PORTAFOLIO =====
 function renderPortafolio(){
   const lista=$('port-lista'),empty=$('port-empty');
   if(!state.portafolio.length){lista.innerHTML='';empty.style.display='block';return;}
@@ -1218,7 +1141,7 @@ function renderPortafolio(){
     <div class="port-card">
       <div class="port-info">
         <h4>${esc(p.nombre)}</h4>
-        <p>${p.peso}g · ${p.horas}h · Filamento ${p.filamento}${p.notas?' · '+esc(p.notas):''}</p>
+        <p>${p.peso}g · ${p.horas}h · Fil.${p.filamento}${p.adicionales&&p.adicionales.length?' · +'+p.adicionales.map(a=>a.nombre+'×'+a.cantidad).join(', '):''}${p.notas?' · '+esc(p.notas):''}</p>
       </div>
       <div class="port-actions">
         <button class="btn btn-primary btn-sm" onclick="addPortToPedido(${idx})">➕ Al pedido</button>
@@ -1231,55 +1154,49 @@ function renderPortafolio(){
 
 function addPortToPedido(idx){
   const p=state.portafolio[idx];
-  const peso=p.peso||0,h=p.horas||0,fil=p.filamento||1;
-  const ads=p.adicionales||[];
+  const peso=p.peso||0,h=p.horas||0,fil=p.filamento||1,ads=p.adicionales||[];
   const {neto}=calcNeto(fil===1?peso:0,fil===2?peso:0,h,ads);
   const mn=gv('minP',1000);
   state.pedido.push({
     id:state.nextPedId++,nombre:p.nombre,qty:1,peso,horas:h,filamento:fil,adicionales:ads,
-    p1:Math.max(neto*gv('mult1',3),mn),
-    p2:Math.max(neto*gv('mult2',4),mn),
-    p3:Math.max(neto*gv('mult3',5),mn),
+    p1:Math.max(neto*gv('mult1',3),mn),p2:Math.max(neto*gv('mult2',4),mn),p3:Math.max(neto*gv('mult3',5),mn),
     fecha:new Date().toLocaleString('es-CL')
   });
-  save();autoSync();
-  toast('✅ '+p.nombre+' agregado al pedido','ok',2000);
+  save();autoSync();toast('✅ '+p.nombre+' agregado al pedido','ok',2000);
   showSection('pedidos');
 }
 
 function abrirModalPortEdit(idx){
   const p=idx!==null&&idx!==undefined?state.portafolio[idx]:null;
   $('m-port-title').textContent=p?'Editar producto':'Nuevo producto';
-  $('port-id').value=p?idx:'';
+  $('port-id').value=p!==null?idx:'';
   $('port-nombre').value=p?p.nombre:'';
   $('port-peso').value=p?p.peso:'';
   $('port-horas').value=p?p.horas:'';
   $('port-fil').value=p?p.filamento:1;
   $('port-notas').value=p?p.notas||'':'';
-  // Guardar adicionales existentes en variable temporal para no perderlos
+  // Preservar adicionales existentes
   state._portEditAds=p&&p.adicionales?[...p.adicionales]:[];
   abrirModal('modal-port');
 }
 function guardarPortafolio(){
   const nombre=$('port-nombre').value.trim();if(!nombre)return alert('Nombre obligatorio');
   const idx=$('port-id').value!==''?parseInt($('port-id').value):null;
-  // Preservar adicionales: si es edición mantiene los que tenía, si es nuevo usa los de la calculadora
   const ads=idx!==null?(state._portEditAds||[]):[];
   const data={nombre,peso:parseFloat($('port-peso').value)||0,horas:parseFloat($('port-horas').value)||0,filamento:parseInt($('port-fil').value)||1,notas:$('port-notas').value.trim(),adicionales:ads};
   if(idx!==null){state.portafolio[idx]={...state.portafolio[idx],...data};}
-  else{state.portafolio.push({id:state.nextPortId++,...data});}
+  else state.portafolio.push({id:state.nextPortId++,...data});
   save();autoSync();cerrarModal('modal-port');renderPortafolio();
 }
-function rmPort(idx){if(!confirm('¿Eliminar del portafolio?'))return;state.portafolio.splice(idx,1);save();renderPortafolio();}
+function rmPort(idx){if(!confirm('¿Eliminar del portafolio?'))return;state.portafolio.splice(idx,1);save();autoSync();renderPortafolio();}
 
-// ===================== MODAL UTILS =====================
+// ===== MODAL UTILS =====
 function abrirModal(id){$(id).classList.add('open');}
 function cerrarModal(id){$(id).classList.remove('open');}
 document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
 
-// ===================== INIT =====================
+// ===== INIT =====
 calcular();
-// Cargar desde Sheets al iniciar
 cargarDesdeSheets();
 </script>
 </body>
