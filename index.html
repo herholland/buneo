@@ -1136,16 +1136,56 @@ function verPDFyWA(){
   if(!window._pdfHTML){window._pdfHTML=generarPDFHTML();}
   if(typeof html2canvas==='undefined'){enviarWATexto();return;}
   toast('Generando imagen...','spin',0);
-  var ticketEl=$('ticket-content');
-  var actions=ticketEl.querySelector('.ticket-actions');
-  if(actions)actions.style.display='none';
-  html2canvas(ticketEl,{backgroundColor:'#ffffff',scale:2,useCORS:true,logging:false}).then(function(canvas){
-    if(actions)actions.style.display='';
+
+  // Crear un contenedor oculto con el MISMO diseño del PDF para capturar imagen limpia
+  var fecha=new Date().toLocaleDateString('es-CL')+' '+new Date().toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
+  var rowsHTML='';
+  for(var idx=0;idx<state.pedido.length;idx++){
+    var p=state.pedido[idx];
+    var precio=(window._editPrecios&&window._editPrecios[idx]!=null)?window._editPrecios[idx]:Math.round(selPu(calcProd(p))*p.qty);
+    rowsHTML+='<tr><td style="padding:10px 4px;border-bottom:1px solid #f0f0f0;font-weight:700;font-size:14px;color:#111">'+esc(p.nombre)+'</td>'+
+      '<td style="padding:10px 4px;border-bottom:1px solid #f0f0f0;text-align:center;color:#666;font-size:13px">x'+p.qty+'</td>'+
+      '<td style="padding:10px 4px;border-bottom:1px solid #f0f0f0;text-align:right;font-weight:800;font-size:14px;color:#111">'+fmtCLP(precio)+'</td></tr>';
+  }
+  var descMonto=state._finalDesc||0,envio=state._finalEnvio||0,total=state._finalTotal||0;
+
+  var captureDiv=document.createElement('div');
+  captureDiv.id='capture-ticket';
+  captureDiv.style.position='fixed';
+  captureDiv.style.left='-9999px';
+  captureDiv.style.top='0';
+  captureDiv.style.width='400px';
+  captureDiv.style.background='#fff';
+  captureDiv.style.color='#111';
+  captureDiv.style.padding='24px';
+  captureDiv.style.fontFamily="'Nunito Sans',Arial,sans-serif";
+  captureDiv.innerHTML=
+    '<div style="text-align:center;padding-bottom:14px;margin-bottom:14px;border-bottom:2px dashed #ccc">'+
+    '<div style="font-size:1.7rem;font-weight:900;color:#1A2E05;letter-spacing:-1px">Buneo<span style="color:#64DD17">.cl</span></div>'+
+    '<div style="font-size:.78rem;color:#888;font-weight:600;margin-top:3px">Impresion 3D &middot; '+fecha+'</div></div>'+
+    '<div style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#888;margin-bottom:8px">Productos</div>'+
+    '<table style="width:100%;border-collapse:collapse">'+
+    '<thead><tr><th style="text-align:left;padding:6px 4px;font-size:10px;color:#888;text-transform:uppercase;border-bottom:2px solid #eee">Producto</th>'+
+    '<th style="text-align:center;padding:6px 4px;font-size:10px;color:#888;text-transform:uppercase;border-bottom:2px solid #eee">Cant.</th>'+
+    '<th style="text-align:right;padding:6px 4px;font-size:10px;color:#888;text-transform:uppercase;border-bottom:2px solid #eee">Precio</th></tr></thead>'+
+    '<tbody>'+rowsHTML+'</tbody></table>'+
+    (descMonto>0?'<div style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#888;margin:14px 0 6px">Descuento</div>'+
+      '<div style="display:flex;justify-content:space-between;padding:6px 4px;font-size:13px"><span style="font-weight:700">Descuento aplicado</span><span style="font-weight:800;color:#e44">-'+fmtCLP(descMonto)+'</span></div>':'')+
+    (envio>0?'<div style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#888;margin:14px 0 6px">Envio</div>'+
+      '<div style="display:flex;justify-content:space-between;padding:6px 4px;font-size:13px"><span style="font-weight:700">Costo de envio</span><span style="font-weight:800">'+fmtCLP(envio)+'</span></div>':'')+
+    '<div style="background:#1A2E05;border-radius:10px;padding:16px 18px;margin-top:18px;display:flex;justify-content:space-between;align-items:center">'+
+    '<span style="font-size:12px;font-weight:700;color:#a8d8a8">TOTAL A PAGAR</span>'+
+    '<span style="font-size:1.6rem;font-weight:900;color:#A8FF00">'+fmtCLP(total)+'</span></div>'+
+    '<div style="text-align:center;margin-top:14px;font-size:.75rem;color:#aaa;font-weight:600">Buneo.cl &middot; Gracias por tu compra</div>';
+  document.body.appendChild(captureDiv);
+
+  html2canvas(captureDiv,{backgroundColor:'#ffffff',scale:2,useCORS:true,logging:false}).then(function(canvas){
+    document.body.removeChild(captureDiv);
     canvas.toBlob(function(blob){
       var imgUrl=URL.createObjectURL(blob);
       var msg='Hola! Gracias por tu compra en Buneo.cl. Tu pedido esta siendo preparado con mucho cuidado. Total a pagar: '+fmtCLP(state._finalTotal)+'. Cualquier consulta estamos aqui para ayudarte. Buneo.cl';
       var waURL='https://wa.me/?text='+encodeURIComponent(msg);
-      var actDiv=ticketEl.querySelector('.ticket-actions');
+      var actDiv=$('ticket-content').querySelector('.ticket-actions');
       if(actDiv){
         actDiv.innerHTML=
           '<a href="'+imgUrl+'" download="boleta-buneo.png" style="display:block;padding:11px;background:#A8FF00;color:#1A2E05;font-weight:900;font-size:13px;border-radius:7px;text-align:center;text-decoration:none;width:100%">1. Guardar imagen boleta</a>'+
@@ -1157,7 +1197,7 @@ function verPDFyWA(){
       toast('Imagen lista - guardala y compartela','ok',4000);
     },'image/png');
   })['catch'](function(){
-    if(actions)actions.style.display='';
+    if(document.getElementById('capture-ticket'))document.body.removeChild(captureDiv);
     enviarWATexto();
   });
 }
