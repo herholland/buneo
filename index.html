@@ -1039,8 +1039,8 @@ function finalizarPedido(){
     '<div class="t-section">Producto</div>'+
     '<div style="font-size:11px;color:#888;margin-bottom:4px;text-align:right;font-weight:600">CANT.    PRECIO</div>'+
     itemsHTML+
-    (descMonto>0?'<div class="t-section">Descuento</div><div class="t-row"><span class="t-name">Descuento aplicado</span><span class="t-price" style="color:#e55">-'+fmtCLP(descMonto)+'</span></div>':'')+
-    (envio>0?'<div class="t-section">Envio</div><div class="t-row"><span class="t-name">Costo de envio</span><span class="t-price">'+fmtCLP(envio)+'</span></div>':'')+
+    '<div id="ticket-desc-section">'+(descMonto>0?'<div class="t-section">Descuento</div><div class="t-row"><span class="t-name">Descuento aplicado</span><span class="t-price" id="ticket-desc-display" style="color:#e55">-'+fmtCLP(descMonto)+'</span></div>':'')+'</div>'+
+    '<div id="ticket-envio-section">'+(envio>0?'<div class="t-section">Envio</div><div class="t-row"><span class="t-name">Costo de envio</span><span class="t-price" id="ticket-envio-display">'+fmtCLP(envio)+'</span></div>':'')+'</div>'+
     '<div class="t-total-box" id="ticket-total-box"><div><div class="t-total-label">TOTAL A PAGAR</div></div><div class="t-total-amount" id="ticket-total-display">'+fmtCLP(total)+'</div></div>'+
     '<div style="text-align:center;margin-top:8px;font-size:11px;color:#a8c4a8;font-weight:600">Puedes editar los precios individualmente</div>'+
     '<div class="t-footer">Buneo.cl - Gracias por tu compra</div>'+
@@ -1097,6 +1097,8 @@ function generarPDFBase(fecha,rows,descMonto,envio,total){
   }
   d+='<div class="tb"><div class="tl">TOTAL A PAGAR</div><div class="ta">'+fmtCLP(total)+'</div></div>';
   d+='<div class="ft">Buneo.cl - Gracias por tu compra</div>';
+  d+='<button class="no-print" onclick="window.print()" style="display:block;width:100%;margin-top:18px;padding:13px;background:#A8FF00;color:#1A2E05;font-weight:900;font-size:14px;border:none;border-radius:8px;cursor:pointer;font-family:Arial,sans-serif">Imprimir / Guardar como PDF</button>';
+  d+='<style>@media print{.no-print{display:none!important}}</style>';
   d+='</body></html>';
   return d;
 }
@@ -1117,18 +1119,31 @@ function recalcTicket(){
   state._finalTotal=total;state._finalDesc=descMonto;state._finalEnvio=envio;
   var el2=$('ticket-total-display');
   if(el2)el2.textContent=fmtCLP(total);
+  // Actualizar tambien la linea de descuento en pantalla
+  var descDisplay=$('ticket-desc-display');
+  if(descDisplay)descDisplay.textContent='-'+fmtCLP(descMonto);
+  var envioDisplay=$('ticket-envio-display');
+  if(envioDisplay)envioDisplay.textContent=fmtCLP(envio);
   window._pdfHTML=generarPDFHTML();
 }
 
 function verPDF(){
-  if(!window._pdfHTML){window._pdfHTML=generarPDFHTML();}
-  var blob=new Blob([window._pdfHTML],{type:'text/html;charset=utf-8'});
-  var url=URL.createObjectURL(blob);
-  var w=window.open(url,'_blank');
-  if(!w){
+  // Regenerar siempre con los precios mas recientes antes de abrir
+  window._pdfHTML=generarPDFHTML();
+  // Abrir ventana primero (sincronicamente, antes de cualquier operacion async) para evitar bloqueo de popups
+  var w=window.open('','_blank');
+  if(w){
+    w.document.open();
+    w.document.write(window._pdfHTML);
+    w.document.close();
+  }else{
+    // Si el navegador bloqueo el popup, ofrecer descarga directa
+    var blob=new Blob([window._pdfHTML],{type:'text/html;charset=utf-8'});
+    var url=URL.createObjectURL(blob);
     var a=document.createElement('a');
     a.href=url;a.download='boleta-buneo.html';
     document.body.appendChild(a);a.click();document.body.removeChild(a);
+    toast('Boleta descargada (permite ventanas emergentes para verla directo)','ok',4000);
   }
 }
 
