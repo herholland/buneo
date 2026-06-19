@@ -8,6 +8,7 @@
 <meta name="apple-mobile-web-app-title" content="Buneo">
 <title>Buneo.cl</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
@@ -24,16 +25,12 @@
 body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.5;padding-bottom:env(safe-area-inset-bottom)}
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
-
-/* NAV top - solo logo */
 nav{background:var(--profundo);border-bottom:2px solid var(--lima);position:sticky;top:0;z-index:200;padding:0 .8rem;padding-top:env(safe-area-inset-top)}
 .nav-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;height:52px}
 .nav-logo{display:flex;align-items:center;gap:7px;cursor:pointer}
 .nav-logo svg{width:30px;height:30px}
 .nav-brand{font-size:1.1rem;font-weight:900;color:#fff;letter-spacing:-.5px}
 .nav-brand span{color:var(--lima)}
-
-/* BOTTOM BAR */
 .bottom-bar{position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--profundo);border-top:2px solid var(--lima);display:flex;justify-content:space-around;align-items:stretch;padding-bottom:env(safe-area-inset-bottom)}
 .tab-btn{background:none;border:none;padding:8px 4px 10px;cursor:pointer;font-family:'Nunito Sans',sans-serif;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;transition:var(--tr)}
 .tab-btn .tb-icon{font-size:1.3rem;line-height:1}
@@ -41,19 +38,13 @@ nav{background:var(--profundo);border-bottom:2px solid var(--lima);position:stic
 .tab-btn.active{background:var(--accent-light)}
 .tab-btn.active .tb-label{color:var(--lima)}
 .tab-btn:hover{background:var(--accent-light)}
-
-/* TOAST */
 #toast{display:none;position:fixed;bottom:80px;right:16px;z-index:999;background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700;box-shadow:0 4px 16px rgba(0,0,0,.4)}
 #toast.show{display:flex;align-items:center;gap:6px}
 #toast.ok{border-color:rgba(100,221,23,.4);color:var(--vivo)}
 #toast.err{border-color:rgba(255,77,77,.4);color:var(--danger)}
 #toast.spin{border-color:rgba(168,255,0,.3);color:var(--lima)}
-
-/* SECTIONS */
 .section{display:none;max-width:980px;margin:0 auto;padding:1.1rem .9rem 6rem}
 .section.active{display:block}
-
-/* SPLASH */
 #splash{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 52px);padding:1.5rem;background:radial-gradient(ellipse at 50% 0%,rgba(168,255,0,.07) 0%,transparent 65%);padding-bottom:80px}
 .splash-svg{width:90px;height:90px;margin-bottom:.9rem;filter:drop-shadow(0 0 18px rgba(168,255,0,.3))}
 .splash-title{font-size:2.8rem;font-weight:900;color:#fff;letter-spacing:-2px;line-height:1}
@@ -65,14 +56,10 @@ nav{background:var(--profundo);border-bottom:2px solid var(--lima);position:stic
 .splash-card-icon{font-size:1.7rem;margin-bottom:.5rem;display:block}
 .splash-card h3{font-size:.9rem;font-weight:800;color:#fff;margin-bottom:.2rem}
 .splash-card p{font-size:.72rem;color:var(--text3);font-weight:600}
-
-/* CARDS */
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.2rem;margin-bottom:.8rem}
 .card-title{font-size:.68rem;font-weight:800;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.7rem}
 h2.section-title{font-size:1rem;font-weight:900;margin-bottom:.9rem;color:#fff}
 .section-actions{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;flex-wrap:wrap;gap:.4rem}
-
-/* FORM */
 label{font-size:11px;font-weight:800;color:var(--text2);display:block;margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
 input[type=number],input[type=text],select,textarea{width:100%;border:1.5px solid var(--border2);border-radius:var(--radius-sm);padding:9px 11px;font-size:14px;font-family:'Nunito Sans',sans-serif;font-weight:600;background:var(--bg3);color:var(--text);transition:var(--tr);outline:none;-webkit-appearance:none}
 input:focus,select:focus,textarea:focus{border-color:var(--lima);box-shadow:0 0 0 3px rgba(168,255,0,.1)}
@@ -83,8 +70,6 @@ select option{background:var(--bg3)}
 .input-row.quad{grid-template-columns:1fr 1fr 1fr 1fr}
 .ig{position:relative}
 .unit{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--text3);pointer-events:none;font-weight:700}
-
-/* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:5px;border:none;border-radius:var(--radius-sm);padding:8px 14px;font-size:13px;font-weight:800;cursor:pointer;transition:var(--tr);font-family:'Nunito Sans',sans-serif}
 .btn-primary{background:var(--lima);color:var(--profundo)}
 .btn-primary:hover,.btn-primary:active{background:var(--vivo)}
@@ -94,8 +79,6 @@ select option{background:var(--bg3)}
 .btn-sm{padding:5px 10px;font-size:12px}
 .btn-icon{width:30px;height:30px;padding:0;justify-content:center;border-radius:6px}
 .btn-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.7rem}
-
-/* RESULTS */
 .result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:.7rem}
 .result-box{border-radius:var(--radius-sm);padding:.8rem;text-align:center;border:1.5px solid;cursor:pointer;transition:var(--tr)}
 .result-box.p1{background:rgba(168,255,0,.07);border-color:rgba(168,255,0,.3)}
@@ -107,36 +90,27 @@ select option{background:var(--bg3)}
 .result-box.p2 .result-box-val{color:var(--vivo)}
 .result-box.p3 .result-box-val{color:var(--esmeralda)}
 .result-box-mult{font-size:11px;color:var(--text3);font-weight:700;margin-top:.1rem}
-
 .costo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;margin-bottom:.7rem}
 .costo-item{display:flex;justify-content:space-between;align-items:center;padding:5px 8px;background:var(--bg3);border-radius:4px;border:1px solid var(--border)}
 .costo-item span:first-child{color:var(--text2);font-size:11px;font-weight:600}
 .costo-item span:last-child{font-weight:800;font-size:12px}
 .neto-bar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--accent-light);border:1.5px solid rgba(168,255,0,.3);border-radius:var(--radius-sm);font-weight:900;color:var(--lima);margin-bottom:.7rem;font-size:14px}
-
-/* BADGES */
 .badge{display:inline-block;padding:2px 7px;border-radius:20px;font-size:11px;font-weight:800}
 .badge-green{background:var(--success-bg);color:var(--success);border:1px solid rgba(100,221,23,.25)}
 .badge-orange{background:var(--warning-bg);color:var(--warning);border:1px solid rgba(255,169,64,.25)}
 .badge-red{background:var(--danger-bg);color:var(--danger);border:1px solid rgba(255,77,77,.25)}
 .badge-blue{background:rgba(168,255,0,.1);color:var(--vivo);border:1px solid rgba(100,221,23,.2)}
-
-/* TABLE */
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table{width:100%;border-collapse:collapse;font-size:12px}
 th{background:var(--bg3);padding:7px 9px;text-align:left;font-weight:800;font-size:10px;color:var(--text3);border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
 td{padding:8px 9px;border-bottom:1px solid var(--border);vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:var(--bg3)}
-
-/* MODAL */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
 .modal-overlay.open{display:flex}
 .modal{background:var(--bg2);border:1.5px solid var(--border2);border-radius:var(--radius);padding:1.3rem;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;box-shadow:0 16px 48px rgba(0,0,0,.6)}
 .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
 .modal-title{font-size:.95rem;font-weight:900;color:#fff}
-
-/* PEDIDO */
 .pedido-item{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:.8rem .9rem;margin-bottom:.5rem}
 .pedido-item-name{font-weight:800;font-size:13px;color:#fff}
 .pedido-item-detail{font-size:11px;color:var(--text3);margin:.2rem 0 .4rem;font-weight:600}
@@ -144,20 +118,14 @@ tr:hover td{background:var(--bg3)}
 .qty-btn{width:30px;height:30px;border:1.5px solid var(--border2);background:var(--bg3);border-radius:6px;cursor:pointer;font-size:1.1rem;display:inline-flex;align-items:center;justify-content:center;color:var(--text);font-weight:800;transition:var(--tr)}
 .qty-btn:hover,.qty-btn:active{background:var(--lima);color:var(--profundo);border-color:var(--lima)}
 .qty-num{min-width:26px;text-align:center;font-weight:900;font-size:15px;color:#fff}
-
-/* CHIPS */
 .chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:.4rem;min-height:22px}
 .chip{display:inline-flex;align-items:center;gap:3px;background:var(--accent-light);color:var(--lima);border:1px solid rgba(168,255,0,.25);border-radius:20px;padding:2px 9px;font-size:11px;font-weight:700}
 .chip-x{cursor:pointer;opacity:.6;margin-left:2px}
 .chip-x:hover{opacity:1}
-
-/* PORTAFOLIO */
-.port-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:.8rem 1rem;margin-bottom:.5rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+.port-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:.8rem 1rem;margin-bottom:.5rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap}
 .port-info h4{font-size:13px;font-weight:800;color:#fff;margin-bottom:2px}
 .port-info p{font-size:11px;color:var(--text3);font-weight:600}
 .port-actions{display:flex;gap:4px;flex-shrink:0}
-
-/* TICKET */
 #ticket-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:800;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(6px)}
 #ticket-overlay.open{display:flex}
 .ticket{background:#fff;color:#111;border-radius:12px;padding:1.4rem;width:100%;max-width:400px;max-height:88vh;overflow-y:auto;font-family:'Nunito Sans',sans-serif}
@@ -174,19 +142,13 @@ tr:hover td{background:var(--bg3)}
 .t-total-label{font-size:11px;font-weight:700;color:#a8d8a8}
 .t-total-amount{font-size:1.4rem;font-weight:900;color:#A8FF00}
 .t-footer{text-align:center;margin-top:10px;font-size:.7rem;color:#aaa;font-weight:600}
-.ticket-actions{margin-top:12px;display:flex;flex-direction:column;gap:8px}
-
-/* PEDIDO SUMMARY */
+.ticket-actions{margin-top:12px;display:flex;flex-direction:column;gap:6px}
 .ped-summary{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.8rem 1rem;margin-bottom:.8rem}
 .ped-summary-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.35rem}
 .ped-summary-row:last-child{margin-bottom:0}
 .ped-final-price{font-size:1.4rem;font-weight:900;color:var(--lima)}
-
-/* EMPTY */
 .empty{text-align:center;padding:2rem 1rem;color:var(--text3)}
 .empty p{font-weight:700;font-size:13px}
-
-/* RESPONSIVE */
 @media(max-width:580px){
   .input-row{grid-template-columns:1fr}
   .input-row.trio,.input-row.quad{grid-template-columns:1fr 1fr}
@@ -198,10 +160,7 @@ tr:hover td{background:var(--bg3)}
 </style>
 </head>
 <body>
-
 <div id="toast"></div>
-
-<!-- NAV TOP -->
 <nav>
   <div class="nav-inner">
     <div class="nav-logo" onclick="irSplash()">
@@ -216,21 +175,11 @@ tr:hover td{background:var(--bg3)}
     </div>
   </div>
 </nav>
-
-<!-- BOTTOM BAR -->
 <div class="bottom-bar">
-  <button class="tab-btn" id="tab-calculadora" onclick="showSection('calculadora')">
-    <span class="tb-icon">🧮</span><span class="tb-label">Calc</span>
-  </button>
-  <button class="tab-btn" id="tab-inventario" onclick="showSection('inventario')">
-    <span class="tb-icon">📦</span><span class="tb-label">Inv</span>
-  </button>
-  <button class="tab-btn" id="tab-pedidos" onclick="showSection('pedidos')">
-    <span class="tb-icon">📋</span><span class="tb-label">Ped</span>
-  </button>
-  <button class="tab-btn" id="tab-portafolio" onclick="showSection('portafolio')">
-    <span class="tb-icon">🗂</span><span class="tb-label">Port</span>
-  </button>
+  <button class="tab-btn" id="tab-calculadora" onclick="showSection('calculadora')"><span class="tb-icon">&#x1F9EE;</span><span class="tb-label">Calc</span></button>
+  <button class="tab-btn" id="tab-inventario" onclick="showSection('inventario')"><span class="tb-icon">&#x1F4E6;</span><span class="tb-label">Inv</span></button>
+  <button class="tab-btn" id="tab-pedidos" onclick="showSection('pedidos')"><span class="tb-icon">&#x1F4CB;</span><span class="tb-label">Ped</span></button>
+  <button class="tab-btn" id="tab-portafolio" onclick="showSection('portafolio')"><span class="tb-icon">&#x1F5C2;</span><span class="tb-label">Port</span></button>
 </div>
 
 <!-- SPLASH -->
@@ -243,40 +192,37 @@ tr:hover td{background:var(--bg3)}
     <path d="M58 116 Q100 150 142 116" stroke="#A8FF00" stroke-width="9" stroke-linecap="round"/>
   </svg>
   <div class="splash-title">Buneo<span>.cl</span></div>
-  <div class="splash-sub">Gestión de producción · Impresión 3D</div>
+  <div class="splash-sub">Gesti&#xF3;n de producci&#xF3;n &middot; Impresi&#xF3;n 3D</div>
   <div class="splash-grid">
-    <div class="splash-card" onclick="showSection('calculadora')"><span class="splash-card-icon">🧮</span><h3>Calculadora</h3><p>Filamento, costos y precios</p></div>
-    <div class="splash-card" onclick="showSection('inventario')"><span class="splash-card-icon">📦</span><h3>Inventario</h3><p>Stock y costos con IVA</p></div>
-    <div class="splash-card" onclick="showSection('pedidos')"><span class="splash-card-icon">📋</span><h3>Pedidos</h3><p>Cotiza y finaliza pedidos</p></div>
-    <div class="splash-card" onclick="showSection('portafolio')"><span class="splash-card-icon">🗂</span><h3>Portafolio</h3><p>Productos guardados</p></div>
+    <div class="splash-card" onclick="showSection('calculadora')"><span class="splash-card-icon">&#x1F9EE;</span><h3>Calculadora</h3><p>Filamento, costos y precios</p></div>
+    <div class="splash-card" onclick="showSection('inventario')"><span class="splash-card-icon">&#x1F4E6;</span><h3>Inventario</h3><p>Stock y costos con IVA</p></div>
+    <div class="splash-card" onclick="showSection('pedidos')"><span class="splash-card-icon">&#x1F4CB;</span><h3>Pedidos</h3><p>Cotiza y finaliza pedidos</p></div>
+    <div class="splash-card" onclick="showSection('portafolio')"><span class="splash-card-icon">&#x1F5C2;</span><h3>Portafolio</h3><p>Productos guardados</p></div>
   </div>
 </div>
 
 <!-- ===== CALCULADORA ===== -->
 <div id="sec-calculadora" class="section">
-  <h2 class="section-title">🧮 Calculadora</h2>
+  <h2 class="section-title">&#x1F9EE; Calculadora</h2>
   <div class="card">
     <div class="card-title">Filamento</div>
     <div class="input-row">
-      <div><label>Filamento 1 — $13.500/kg</label>
+      <div><label>Filamento 1 &mdash; $13.500/kg</label>
         <div class="ig"><input type="number" id="fil1" min="0" step="0.1" placeholder="0" oninput="calcular()"><span class="unit">g</span></div>
       </div>
-      <div><label>Filamento 2 — $22.000/kg</label>
+      <div><label>Filamento 2 &mdash; $22.000/kg</label>
         <div class="ig"><input type="number" id="fil2" min="0" step="0.1" placeholder="0" oninput="calcular()"><span class="unit">g</span></div>
       </div>
     </div>
-    <div style="max-width:200px"><label>Horas de impresión</label>
+    <div style="max-width:200px"><label>Horas de impresi&#xF3;n</label>
       <div class="ig"><input type="number" id="horas" min="0" step="0.5" placeholder="0" oninput="calcular()"><span class="unit">hrs</span></div>
     </div>
   </div>
-
   <div class="card">
     <div class="card-title">Adicionales</div>
     <div id="chips-calc" class="chips"><span style="color:var(--text3);font-size:12px;font-weight:600">Sin adicionales</span></div>
     <div class="btn-row"><button class="btn btn-secondary btn-sm" onclick="abrirModalAd()">+ Agregar adicional</button></div>
   </div>
-
-  <!-- Parámetros ocultos pero funcionales -->
   <div style="display:none">
     <input type="number" id="costoElec" value="26.5">
     <input type="number" id="costoDesg" value="30">
@@ -286,20 +232,19 @@ tr:hover td{background:var(--bg3)}
     <input type="number" id="mult2" value="4">
     <input type="number" id="mult3" value="5">
   </div>
-
   <div class="card">
     <div class="card-title">Desglose de costo</div>
     <div class="costo-grid" id="desglose"></div>
-    <div class="neto-bar"><span>💰 Costo Neto</span><span id="neto-val">$0</span></div>
+    <div class="neto-bar"><span>&#x1F4B0; Costo Neto</span><span id="neto-val">$0</span></div>
     <div class="result-grid">
-      <div class="result-box p1"><div class="result-box-label">Precio 1</div><div class="result-box-val" id="r-p1">$0</div><div class="result-box-mult">×3</div></div>
-      <div class="result-box p2"><div class="result-box-label">Precio 2</div><div class="result-box-val" id="r-p2">$0</div><div class="result-box-mult">×4</div></div>
-      <div class="result-box p3"><div class="result-box-label">Precio 3</div><div class="result-box-val" id="r-p3">$0</div><div class="result-box-mult">×5</div></div>
+      <div class="result-box p1"><div class="result-box-label">Precio 1</div><div class="result-box-val" id="r-p1">$0</div><div class="result-box-mult">&times;3</div></div>
+      <div class="result-box p2"><div class="result-box-label">Precio 2</div><div class="result-box-val" id="r-p2">$0</div><div class="result-box-mult">&times;4</div></div>
+      <div class="result-box p3"><div class="result-box-label">Precio 3</div><div class="result-box-val" id="r-p3">$0</div><div class="result-box-mult">&times;5</div></div>
     </div>
     <div class="btn-row">
-      <button class="btn btn-primary btn-sm" onclick="agregarAPedido()">➕ Agregar a pedido</button>
-      <button class="btn btn-secondary btn-sm" onclick="guardarEnPortafolio()">🗂 Guardar en portafolio</button>
-      <button class="btn btn-secondary btn-sm" onclick="limpiarCalc()">↺ Limpiar</button>
+      <button class="btn btn-primary btn-sm" onclick="agregarAPedido()">+ Agregar a pedido</button>
+      <button class="btn btn-secondary btn-sm" onclick="guardarEnPortafolio()">Guardar en portafolio</button>
+      <button class="btn btn-secondary btn-sm" onclick="limpiarCalc()">Limpiar</button>
     </div>
   </div>
 </div>
@@ -307,39 +252,39 @@ tr:hover td{background:var(--bg3)}
 <!-- ===== INVENTARIO ===== -->
 <div id="sec-inventario" class="section">
   <div class="section-actions">
-    <h2 class="section-title" style="margin:0">📦 Inventario</h2>
+    <h2 class="section-title" style="margin:0">&#x1F4E6; Inventario</h2>
     <button class="btn btn-primary btn-sm" onclick="abrirModalItem(null)">+ Nuevo</button>
   </div>
   <div style="display:flex;gap:.5rem;margin-bottom:.7rem;flex-wrap:wrap">
     <input type="text" id="inv-q" placeholder="Buscar..." oninput="renderInventario()" style="flex:1;min-width:120px">
-    <select id="inv-cat" onchange="renderInventario()" style="min-width:130px"><option value="">Todas las categorías</option></select>
+    <select id="inv-cat" onchange="renderInventario()" style="min-width:130px"><option value="">Todas las categor&#xED;as</option></select>
   </div>
   <div class="card" style="padding:0;overflow:hidden">
     <div class="tbl-wrap">
       <table>
         <thead><tr>
-          <th>Artículo</th><th>Cat.</th><th style="text-align:right">Stock</th>
+          <th>Art&#xED;culo</th><th>Cat.</th><th style="text-align:right">Stock</th>
           <th style="text-align:right">Lote</th><th style="text-align:right">Lote+IVA</th>
-          <th style="text-align:right">Unit.</th><th style="text-align:center;width:68px">—</th>
+          <th style="text-align:right">Unit.</th><th style="text-align:center;width:68px">&mdash;</th>
         </tr></thead>
         <tbody id="inv-body"></tbody>
       </table>
     </div>
   </div>
-  <div id="inv-empty" class="empty" style="display:none"><p>Sin artículos. Agrega con el botón +</p></div>
+  <div id="inv-empty" class="empty" style="display:none"><p>Sin art&#xED;culos. Agrega con el bot&#xF3;n +</p></div>
 </div>
 
 <!-- ===== PEDIDOS ===== -->
 <div id="sec-pedidos" class="section">
   <div class="section-actions">
-    <h2 class="section-title" style="margin:0">📋 Pedido</h2>
+    <h2 class="section-title" style="margin:0">&#x1F4CB; Pedido</h2>
     <div style="display:flex;gap:.4rem;flex-wrap:wrap">
-      <button class="btn btn-secondary btn-sm" onclick="limpiarPedido()">↺ Vaciar</button>
+      <button class="btn btn-secondary btn-sm" onclick="limpiarPedido()">Vaciar</button>
       <button class="btn btn-primary btn-sm" onclick="abrirModalProd()">+ Agregar</button>
     </div>
   </div>
   <div id="lista-pedido"></div>
-  <div id="pedido-empty" class="empty"><p>Pedido vacío. Agrega desde la calculadora o el botón +</p></div>
+  <div id="pedido-empty" class="empty"><p>Pedido vac&#xED;o. Agrega desde la calculadora o el bot&#xF3;n +</p></div>
   <div id="pedido-totales" style="display:none">
     <div class="card">
       <div class="card-title">Seleccionar precio</div>
@@ -350,35 +295,35 @@ tr:hover td{background:var(--bg3)}
       </div>
     </div>
     <div class="card">
-      <div class="card-title">Descuento y envío</div>
+      <div class="card-title">Descuento y env&#xED;o</div>
       <div class="input-row">
         <div><label>Descuento (%)</label>
           <div class="ig"><input type="number" id="ped-desc" min="0" max="100" step="1" placeholder="0" oninput="recalcFinal()"><span class="unit">%</span></div>
         </div>
-        <div><label>Costo de envío</label>
+        <div><label>Costo de env&#xED;o</label>
           <select id="ped-envio-tipo" onchange="toggleEnvio()">
-            <option value="0">Sin envío</option>
-            <option value="3500">Envío estándar ($3.500)</option>
+            <option value="0">Sin env&#xED;o</option>
+            <option value="3500">Env&#xED;o est&#xE1;ndar ($3.500)</option>
             <option value="custom">Personalizado</option>
           </select>
         </div>
       </div>
       <div id="envio-custom-wrap" style="display:none;margin-top:.5rem">
-        <label>Monto de envío</label>
+        <label>Monto de env&#xED;o</label>
         <div class="ig"><input type="number" id="ped-envio-custom" min="0" step="100" placeholder="0" oninput="recalcFinal()"><span class="unit">$</span></div>
       </div>
     </div>
     <div class="ped-summary">
       <div class="ped-summary-row"><span style="font-size:13px;font-weight:700;color:var(--text2)">Subtotal</span><span id="final-subtotal" style="font-weight:800">$0</span></div>
       <div class="ped-summary-row"><span style="font-size:13px;font-weight:700;color:var(--text2)">Descuento</span><span id="final-desc" style="font-weight:800;color:var(--warning)">-$0</span></div>
-      <div class="ped-summary-row"><span style="font-size:13px;font-weight:700;color:var(--text2)">Envío</span><span id="final-envio" style="font-weight:800">$0</span></div>
+      <div class="ped-summary-row"><span style="font-size:13px;font-weight:700;color:var(--text2)">Env&#xED;o</span><span id="final-envio" style="font-weight:800">$0</span></div>
       <div class="ped-summary-row" style="margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--border)">
         <span style="font-size:14px;font-weight:800;color:#fff">TOTAL</span>
         <span class="ped-final-price" id="final-total">$0</span>
       </div>
     </div>
     <div class="btn-row">
-      <button class="btn btn-primary" onclick="finalizarPedido()" style="flex:1;justify-content:center">✅ Finalizar pedido</button>
+      <button class="btn btn-primary" onclick="finalizarPedido()" style="flex:1;justify-content:center">Finalizar pedido</button>
     </div>
   </div>
 </div>
@@ -386,7 +331,7 @@ tr:hover td{background:var(--bg3)}
 <!-- ===== PORTAFOLIO ===== -->
 <div id="sec-portafolio" class="section">
   <div class="section-actions">
-    <h2 class="section-title" style="margin:0">🗂 Portafolio</h2>
+    <h2 class="section-title" style="margin:0">&#x1F5C2; Portafolio</h2>
     <button class="btn btn-primary btn-sm" onclick="abrirModalPortEdit(null)">+ Nuevo</button>
   </div>
   <div id="port-lista"></div>
@@ -399,16 +344,14 @@ tr:hover td{background:var(--bg3)}
 </div>
 
 <!-- MODALS -->
-
-<!-- Modal adicional calculadora -->
 <div class="modal-overlay" id="modal-ad">
   <div class="modal">
-    <div class="modal-header"><span class="modal-title">➕ Adicional</span><button class="btn btn-secondary btn-sm" onclick="cerrarModal('modal-ad')">✕</button></div>
+    <div class="modal-header"><span class="modal-title">Agregar adicional</span><button class="btn btn-secondary btn-sm" onclick="cerrarModal('modal-ad')">X</button></div>
     <div style="margin-bottom:.7rem"><label>Tipo</label>
       <select id="ad-tipo" onchange="toggleAdTipo()"><option value="inv">Del inventario</option><option value="custom">Personalizado</option></select>
     </div>
     <div id="ad-inv-f">
-      <div style="margin-bottom:.7rem"><label>Artículo</label><select id="ad-inv-sel"></select></div>
+      <div style="margin-bottom:.7rem"><label>Art&#xED;culo</label><select id="ad-inv-sel"></select></div>
       <div><label>Cantidad</label><input type="number" id="ad-inv-qty" min="1" placeholder="1"></div>
     </div>
     <div id="ad-custom-f" style="display:none">
@@ -425,21 +368,20 @@ tr:hover td{background:var(--bg3)}
   </div>
 </div>
 
-<!-- Modal item inventario -->
 <div class="modal-overlay" id="modal-item">
   <div class="modal">
-    <div class="modal-header"><span class="modal-title" id="m-item-title">Nuevo artículo</span><button class="btn btn-secondary btn-sm" onclick="cerrarModal('modal-item')">✕</button></div>
+    <div class="modal-header"><span class="modal-title" id="m-item-title">Nuevo art&#xED;culo</span><button class="btn btn-secondary btn-sm" onclick="cerrarModal('modal-item')">X</button></div>
     <div style="margin-bottom:.7rem"><label>Nombre *</label><input type="text" id="i-nombre"></div>
-    <div style="margin-bottom:.7rem"><label>Categoría</label><input type="text" id="i-cat" list="cat-dl"><datalist id="cat-dl"></datalist></div>
+    <div style="margin-bottom:.7rem"><label>Categor&#xED;a</label><input type="text" id="i-cat" list="cat-dl"><datalist id="cat-dl"></datalist></div>
     <div class="input-row">
       <div><label>Stock</label><input type="number" id="i-stock" min="0" placeholder="0"></div>
-      <div><label>Tamaño lote</label><input type="number" id="i-lote" min="1" placeholder="1" oninput="calcUnit()"></div>
+      <div><label>Tama&#xF1;o lote</label><input type="number" id="i-lote" min="1" placeholder="1" oninput="calcUnit()"></div>
     </div>
     <div class="input-row">
       <div><label>Costo lote (sin IVA)</label><input type="number" id="i-cl" min="0" step="10" placeholder="0" oninput="calcUnit()"></div>
       <div><label>Costo unit. c/IVA</label><input type="number" id="i-precio" min="0" step="1" placeholder="0"></div>
     </div>
-    <div style="margin-bottom:.7rem"><label>Descripción</label><textarea id="i-desc" rows="2" style="resize:vertical;min-height:50px"></textarea></div>
+    <div style="margin-bottom:.7rem"><label>Descripci&#xF3;n</label><textarea id="i-desc" rows="2" style="resize:vertical;min-height:50px"></textarea></div>
     <input type="hidden" id="i-id">
     <div class="btn-row" style="margin-top:.8rem">
       <button class="btn btn-primary" onclick="guardarItem()">Guardar</button>
@@ -448,10 +390,9 @@ tr:hover td{background:var(--bg3)}
   </div>
 </div>
 
-<!-- Modal producto pedido -->
 <div class="modal-overlay" id="modal-prod">
   <div class="modal">
-    <div class="modal-header"><span class="modal-title">Agregar producto</span><button class="btn btn-secondary btn-sm" onclick="cerrarModal('modal-prod')">✕</button></div>
+    <div class="modal-header"><span class="modal-title">Agregar producto</span><button class="btn btn-secondary btn-sm" onclick="cerrarModal('modal-prod')">X</button></div>
     <div style="margin-bottom:.7rem"><label>Nombre *</label><input type="text" id="prod-nombre" placeholder="Ej: Llavero dinosaurio"></div>
     <div class="input-row trio">
       <div><label>Cantidad</label><input type="number" id="prod-qty" min="1" placeholder="1"></div>
@@ -459,7 +400,7 @@ tr:hover td{background:var(--bg3)}
       <div><label>Horas</label><input type="number" id="prod-horas" min="0" step=".5" placeholder="0"></div>
     </div>
     <div style="margin-bottom:.7rem"><label>Filamento</label>
-      <select id="prod-fil"><option value="1">Filamento 1 — $13.500/kg</option><option value="2">Filamento 2 — $22.000/kg</option></select>
+      <select id="prod-fil"><option value="1">Filamento 1 &mdash; $13.500/kg</option><option value="2">Filamento 2 &mdash; $22.000/kg</option></select>
     </div>
     <div style="margin-bottom:.7rem">
       <label>Adicionales</label>
@@ -473,10 +414,9 @@ tr:hover td{background:var(--bg3)}
   </div>
 </div>
 
-<!-- Modal editar item pedido -->
 <div class="modal-overlay" id="modal-edit-ped">
   <div class="modal">
-    <div class="modal-header"><span class="modal-title">Editar producto</span><button class="btn btn-secondary btn-sm" onclick="cerrarModal('modal-edit-ped')">✕</button></div>
+    <div class="modal-header"><span class="modal-title">Editar producto</span><button class="btn btn-secondary btn-sm" onclick="cerrarModal('modal-edit-ped')">X</button></div>
     <div style="margin-bottom:.7rem"><label>Nombre</label><input type="text" id="ep-nombre"></div>
     <div class="input-row trio">
       <div><label>Cantidad</label><input type="number" id="ep-qty" min="1" placeholder="1"></div>
@@ -484,7 +424,7 @@ tr:hover td{background:var(--bg3)}
       <div><label>Horas</label><input type="number" id="ep-horas" min="0" step=".5" placeholder="0"></div>
     </div>
     <div style="margin-bottom:.7rem"><label>Filamento</label>
-      <select id="ep-fil"><option value="1">Filamento 1 — $13.500/kg</option><option value="2">Filamento 2 — $22.000/kg</option></select>
+      <select id="ep-fil"><option value="1">Filamento 1 &mdash; $13.500/kg</option><option value="2">Filamento 2 &mdash; $22.000/kg</option></select>
     </div>
     <div style="margin-bottom:.7rem">
       <label>Adicionales</label>
@@ -499,15 +439,14 @@ tr:hover td{background:var(--bg3)}
   </div>
 </div>
 
-<!-- Modal adicional compartido (prod/edit) -->
 <div class="modal-overlay" id="modal-ad2">
   <div class="modal">
-    <div class="modal-header"><span class="modal-title">➕ Adicional</span><button class="btn btn-secondary btn-sm" onclick="cerrarModal('modal-ad2')">✕</button></div>
+    <div class="modal-header"><span class="modal-title">Agregar adicional</span><button class="btn btn-secondary btn-sm" onclick="cerrarModal('modal-ad2')">X</button></div>
     <div style="margin-bottom:.7rem"><label>Tipo</label>
       <select id="ad2-tipo" onchange="toggleAd2Tipo()"><option value="inv">Del inventario</option><option value="custom">Personalizado</option></select>
     </div>
     <div id="ad2-inv-f">
-      <div style="margin-bottom:.7rem"><label>Artículo</label><select id="ad2-inv-sel"></select></div>
+      <div style="margin-bottom:.7rem"><label>Art&#xED;culo</label><select id="ad2-inv-sel"></select></div>
       <div><label>Cantidad</label><input type="number" id="ad2-inv-qty" min="1" placeholder="1"></div>
     </div>
     <div id="ad2-custom-f" style="display:none">
@@ -525,17 +464,16 @@ tr:hover td{background:var(--bg3)}
   </div>
 </div>
 
-<!-- Modal portafolio -->
 <div class="modal-overlay" id="modal-port">
   <div class="modal">
-    <div class="modal-header"><span class="modal-title" id="m-port-title">Nuevo producto</span><button class="btn btn-secondary btn-sm" onclick="cerrarModal('modal-port')">✕</button></div>
+    <div class="modal-header"><span class="modal-title" id="m-port-title">Nuevo producto</span><button class="btn btn-secondary btn-sm" onclick="cerrarModal('modal-port')">X</button></div>
     <div style="margin-bottom:.7rem"><label>Nombre *</label><input type="text" id="port-nombre" placeholder="Ej: Stand celular v1"></div>
     <div class="input-row trio">
       <div><label>Peso (g)</label><input type="number" id="port-peso" min="0" step=".1" placeholder="0"></div>
       <div><label>Horas</label><input type="number" id="port-horas" min="0" step=".5" placeholder="0"></div>
       <div><label>Filamento</label><select id="port-fil"><option value="1">Fil. 1</option><option value="2">Fil. 2</option></select></div>
     </div>
-    <div style="margin-bottom:.7rem"><label>Notas</label><textarea id="port-notas" rows="2" style="resize:vertical;min-height:48px" placeholder="Descripción opcional..."></textarea></div>
+    <div style="margin-bottom:.7rem"><label>Notas</label><textarea id="port-notas" rows="2" style="resize:vertical;min-height:48px" placeholder="Descripci&#xF3;n opcional..."></textarea></div>
     <input type="hidden" id="port-id">
     <div class="btn-row" style="margin-top:.8rem">
       <button class="btn btn-primary" onclick="guardarPortafolio()">Guardar</button>
@@ -545,23 +483,21 @@ tr:hover td{background:var(--bg3)}
 </div>
 
 <script>
-// ===== CONFIG =====
-const FIL1=13500,FIL2=22000,IVA=1.19;
-const API_URL='https://script.google.com/macros/s/AKfycbyxIxAuYlz3o7tB6waPzvtglTsKSaFzKiyy7iqsxP2sCKgqvrn74_AYMox70Wn8zH1S/exec';
+var FIL1=13500,FIL2=22000,IVA=1.19;
+var API_URL='https://script.google.com/macros/s/AKfycbyxIxAuYlz3o7tB6waPzvtglTsKSaFzKiyy7iqsxP2sCKgqvrn74_AYMox70Wn8zH1S/exec';
 
-// ===== STATE =====
-let state={
+var state={
   inventario:[
     {id:1,nombre:"LLAVERO LISO",categoria:"Llaveros",stock:240,lote:100,costoLote:4500,precio:54,desc:""},
     {id:2,nombre:"LLAVERO S",categoria:"Llaveros",stock:0,lote:100,costoLote:4500,precio:54,desc:""},
     {id:3,nombre:"CLICK AZUL",categoria:"Accesorios",stock:140,lote:70,costoLote:7300,precio:124,desc:""},
-    {id:4,nombre:"CARGADOR 12V 2A",categoria:"Electrónica",stock:6,lote:1,costoLote:3250,precio:3868,desc:""},
-    {id:5,nombre:"PWM 12V",categoria:"Electrónica",stock:1,lote:1,costoLote:1200,precio:1428,desc:""},
-    {id:6,nombre:"LAMPARA BAMBU 5V 3B",categoria:"Electrónica",stock:3,lote:3,costoLote:8600,precio:3411,desc:""},
-    {id:7,nombre:"CINTA LED 12V 5M",categoria:"Electrónica",stock:1,lote:1,costoLote:4000,precio:4760,desc:""},
-    {id:8,nombre:"INTERRUPTOR ON/OFF",categoria:"Electrónica",stock:20,lote:10,costoLote:1700,precio:202,desc:""},
-    {id:9,nombre:"PDC 12V",categoria:"Electrónica",stock:10,lote:10,costoLote:1000,precio:119,desc:""},
-    {id:10,nombre:"MOTOR 12V 60RPM 20N",categoria:"Electrónica",stock:1,lote:1,costoLote:3900,precio:4641,desc:""},
+    {id:4,nombre:"CARGADOR 12V 2A",categoria:"Electronica",stock:6,lote:1,costoLote:3250,precio:3868,desc:""},
+    {id:5,nombre:"PWM 12V",categoria:"Electronica",stock:1,lote:1,costoLote:1200,precio:1428,desc:""},
+    {id:6,nombre:"LAMPARA BAMBU 5V 3B",categoria:"Electronica",stock:3,lote:3,costoLote:8600,precio:3411,desc:""},
+    {id:7,nombre:"CINTA LED 12V 5M",categoria:"Electronica",stock:1,lote:1,costoLote:4000,precio:4760,desc:""},
+    {id:8,nombre:"INTERRUPTOR ON/OFF",categoria:"Electronica",stock:20,lote:10,costoLote:1700,precio:202,desc:""},
+    {id:9,nombre:"PDC 12V",categoria:"Electronica",stock:10,lote:10,costoLote:1000,precio:119,desc:""},
+    {id:10,nombre:"MOTOR 12V 60RPM 20N",categoria:"Electronica",stock:1,lote:1,costoLote:3900,precio:4641,desc:""},
     {id:11,nombre:"IMAN 3X2",categoria:"Imanes",stock:0,lote:1,costoLote:1,precio:1,desc:""},
     {id:12,nombre:"IMAN 3x3",categoria:"Imanes",stock:0,lote:1,costoLote:1,precio:1,desc:""},
     {id:13,nombre:"IMAN 4x2",categoria:"Imanes",stock:90,lote:100,costoLote:2750,precio:33,desc:""},
@@ -572,11 +508,11 @@ let state={
     {id:18,nombre:"IMAN 6x3",categoria:"Imanes",stock:0,lote:1,costoLote:1,precio:1,desc:""},
     {id:19,nombre:"IMAN 7x2",categoria:"Imanes",stock:0,lote:1,costoLote:1,precio:1,desc:""},
     {id:20,nombre:"IMAN 7x3",categoria:"Imanes",stock:0,lote:1,costoLote:1,precio:1,desc:""},
-    {id:21,nombre:"TORNILLOS M3 X 10MM",categoria:"Ferretería",stock:30,lote:30,costoLote:1600,precio:63,desc:""},
+    {id:21,nombre:"TORNILLOS M3 X 10MM",categoria:"Ferreteria",stock:30,lote:30,costoLote:1600,precio:63,desc:""},
     {id:22,nombre:"PEGATINA 25x25",categoria:"Accesorios",stock:0,lote:16,costoLote:12185,precio:906,desc:""},
     {id:23,nombre:"ANILLO MAGSAFE",categoria:"Accesorios",stock:4,lote:2,costoLote:1700,precio:1012,desc:""},
     {id:24,nombre:"CUERDA LLAVERO COLORES",categoria:"Llaveros",stock:19,lote:20,costoLote:1250,precio:74,desc:""},
-    {id:25,nombre:"CADENA PEPITAS COLORES",categoria:"Llaveros",stock:50,lote:50,costoLote:2700,precio:64,desc:""},
+    {id:25,nombre:"CADENA PEPITAS COLORES",categoria:"Llaveros",stock:50,lote:50,costoLote:2700,precio:64,desc:""}
   ],
   adicionales:[],adProd:[],adEdit:[],
   pedido:[],portafolio:[],
@@ -586,80 +522,105 @@ let state={
   _finalTotal:0,_finalDesc:0,_finalEnvio:0
 };
 
-function save(){try{localStorage.setItem('buneo_v5',JSON.stringify(state))}catch(e){}}
-function load(){try{const s=localStorage.getItem('buneo_v5');if(s)Object.assign(state,JSON.parse(s))}catch(e){}}
+function save(){try{localStorage.setItem('buneo_v6',JSON.stringify(state))}catch(e){}}
+function load(){try{var s=localStorage.getItem('buneo_v6');if(s){var p=JSON.parse(s);for(var k in p){state[k]=p[k];}}}catch(e){}}
 load();
 
-// ===== JSONP API =====
 function jsonp(params){
-  return new Promise((resolve,reject)=>{
-    const cb='_b'+Date.now();
-    const t=setTimeout(()=>{cleanup();reject(new Error('Timeout'))},15000);
-    const cleanup=()=>{delete window[cb];const s=document.getElementById(cb);if(s)s.remove()};
-    window[cb]=(data)=>{clearTimeout(t);cleanup();data.ok===false?reject(new Error(data.error)):resolve(data.data!==undefined?data.data:data)};
-    let qs='?callback='+cb;
-    for(const[k,v]of Object.entries(params))qs+='&'+k+'='+encodeURIComponent(typeof v==='object'?JSON.stringify(v):v);
-    const s=document.createElement('script');
+  return new Promise(function(resolve,reject){
+    var cb='_b'+Date.now();
+    var timer=setTimeout(function(){cleanup();reject(new Error('Timeout'));},15000);
+    function cleanup(){delete window[cb];var s=document.getElementById(cb);if(s)s.remove();}
+    window[cb]=function(data){
+      clearTimeout(timer);cleanup();
+      if(data.ok===false){reject(new Error(data.error));}
+      else{resolve(data.data!==undefined?data.data:data);}
+    };
+    var qs='?callback='+cb;
+    for(var k in params){qs+='&'+k+'='+encodeURIComponent(typeof params[k]==='object'?JSON.stringify(params[k]):params[k]);}
+    var s=document.createElement('script');
     s.id=cb;s.src=API_URL+qs;
-    s.onerror=()=>{clearTimeout(t);cleanup();reject(new Error('Error de conexión'))};
+    s.onerror=function(){clearTimeout(timer);cleanup();reject(new Error('Error de conexion'));};
     document.head.appendChild(s);
   });
 }
-async function apiCall(accion,data={}){return jsonp({accion,...data})}
-
-// ===== TOAST =====
-let _toastT;
-function toast(msg,tipo='spin',dur=2500){
-  const el=document.getElementById('toast');
-  el.textContent=msg;el.className='show '+tipo;
-  clearTimeout(_toastT);
-  if(dur)_toastT=setTimeout(()=>el.classList.remove('show'),dur);
+function apiCall(accion,data){
+  data=data||{};
+  data.accion=accion;
+  return jsonp(data);
 }
 
-// ===== AUTO SYNC =====
-let _syncT;
+var _toastT;
+function toast(msg,tipo,dur){
+  tipo=tipo||'spin';dur=(dur===undefined?2500:dur);
+  var el=document.getElementById('toast');
+  el.textContent=msg;el.className='show '+tipo;
+  clearTimeout(_toastT);
+  if(dur)_toastT=setTimeout(function(){el.classList.remove('show');},dur);
+}
+
+var _syncT;
 function autoSync(){
   clearTimeout(_syncT);
-  _syncT=setTimeout(async()=>{
-    try{
-      await apiCall('setInventario',{items:state.inventario});
-      await apiCall('setPedidos',{pedidos:state.pedido});
-      try{await apiCall('setPortafolio',{items:state.portafolio})}catch(e2){}
-      toast('✅ Guardado en Sheets','ok',2000);
-    }catch(e){toast('⚠️ Solo guardado local','err',2500);}
+  _syncT=setTimeout(function(){
+    apiCall('setInventario',{items:state.inventario}).then(function(){
+      return apiCall('setPedidos',{pedidos:state.pedido});
+    }).then(function(){
+      return apiCall('setPortafolio',{items:state.portafolio}).catch(function(){});
+    }).then(function(){
+      toast('Guardado en Sheets','ok',2000);
+    }).catch(function(){
+      toast('Solo guardado local','err',2500);
+    });
   },2000);
 }
 
-async function cargarDesdeSheets(){
-  toast('☁️ Sincronizando...','spin',0);
-  try{
-    const inv=await apiCall('getInventario');
-    if(inv&&inv.length){state.inventario=inv;state.nextItemId=Math.max(...inv.map(x=>x.id))+1;}
-    const peds=await apiCall('getPedidos');
-    if(peds&&peds.length){state.pedido=peds;state.nextPedId=Math.max(...peds.map(x=>x.id))+1;}
-    try{
-      const port=await apiCall('getPortafolio');
-      if(port&&port.length){state.portafolio=port;state.nextPortId=Math.max(...port.map(x=>x.id))+1;}
-    }catch(e2){}
-    save();toast('✅ Sincronizado','ok',2000);
+function cargarDesdeSheets(){
+  toast('Sincronizando...','spin',0);
+  apiCall('getInventario').then(function(inv){
+    if(inv&&inv.length){
+      state.inventario=inv;
+      var maxId=0;for(var i=0;i<inv.length;i++){if(inv[i].id>maxId)maxId=inv[i].id;}
+      state.nextItemId=maxId+1;
+    }
+    return apiCall('getPedidos');
+  }).then(function(peds){
+    if(peds&&peds.length){
+      state.pedido=peds;
+      var maxId=0;for(var i=0;i<peds.length;i++){if(peds[i].id>maxId)maxId=peds[i].id;}
+      state.nextPedId=maxId+1;
+    }
+    return apiCall('getPortafolio').catch(function(){return null;});
+  }).then(function(port){
+    if(port&&port.length){
+      state.portafolio=port;
+      var maxId=0;for(var i=0;i<port.length;i++){if(port[i].id>maxId)maxId=port[i].id;}
+      state.nextPortId=maxId+1;
+    }
+    save();toast('Sincronizado','ok',2000);
     renderInventario();renderPedido();
-  }catch(e){toast('⚠️ Datos locales','err',3000);}
+  }).catch(function(e){
+    toast('Datos locales','err',3000);
+  });
 }
 
-// ===== NAV =====
-const $=id=>document.getElementById(id);
+function $(id){return document.getElementById(id);}
 function irSplash(){
-  document.getElementById('splash').style.display='flex';
-  document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+  $('splash').style.display='flex';
+  var secs=document.querySelectorAll('.section');
+  for(var i=0;i<secs.length;i++)secs[i].classList.remove('active');
+  var tabs=document.querySelectorAll('.tab-btn');
+  for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');
 }
 function showSection(s){
-  document.getElementById('splash').style.display='none';
-  document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
-  const sec=document.getElementById('sec-'+s);
+  $('splash').style.display='none';
+  var secs=document.querySelectorAll('.section');
+  for(var i=0;i<secs.length;i++)secs[i].classList.remove('active');
+  var tabs=document.querySelectorAll('.tab-btn');
+  for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');
+  var sec=$('sec-'+s);
   if(sec){sec.classList.add('active');window.scrollTo(0,0);}
-  const tab=document.getElementById('tab-'+s);
+  var tab=$('tab-'+s);
   if(tab)tab.classList.add('active');
   if(s==='inventario')renderInventario();
   if(s==='pedidos')renderPedido();
@@ -667,232 +628,275 @@ function showSection(s){
   if(s==='calculadora')calcular();
 }
 
-// ===== HELPERS =====
-const fmtCLP=n=>'$'+Math.round(n).toLocaleString('es-CL');
-const gv=(id,d=0)=>{const el=$(id);return el?(parseFloat(el.value)||d):d;};
-const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function fmtCLP(n){return '$'+Math.round(n).toLocaleString('es-CL');}
+function gv(id,d){var el=$(id);return el?(parseFloat(el.value)||d):d;}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-// ===== CALCULADORA =====
 function calcNeto(f1,f2,h,ads){
-  const cFil=(f1/1000*FIL1)+(f2/1000*FIL2);
-  const cElec=h*gv('costoElec',26.5);
-  const cDesg=h*gv('costoDesg',30);
-  const cAds=ads.reduce((s,a)=>s+a.precio*a.cantidad,0);
-  const sub=cFil+cElec+cDesg+cAds;
-  const mg=gv('margen',25)/100;
-  return{cFil,cElec,cDesg,cAds,sub,mgVal:sub*mg,neto:sub*(1+mg)};
+  var cFil=(f1/1000*FIL1)+(f2/1000*FIL2);
+  var cElec=h*gv('costoElec',26.5);
+  var cDesg=h*gv('costoDesg',30);
+  var cAds=0;for(var i=0;i<ads.length;i++)cAds+=ads[i].precio*ads[i].cantidad;
+  var sub=cFil+cElec+cDesg+cAds;
+  var mg=gv('margen',25)/100;
+  return{cFil:cFil,cElec:cElec,cDesg:cDesg,cAds:cAds,sub:sub,mgVal:sub*mg,neto:sub*(1+mg)};
 }
 function calcular(){
-  const f1=gv('fil1'),f2=gv('fil2'),h=gv('horas');
-  const {cFil,cElec,cDesg,cAds,sub,mgVal,neto}=calcNeto(f1,f2,h,state.adicionales);
-  const m1=gv('mult1',3),m2=gv('mult2',4),m3=gv('mult3',5),mn=gv('minP',1000);
-  $('neto-val').textContent=fmtCLP(neto);
-  $('r-p1').textContent=fmtCLP(Math.max(neto*m1,mn));
-  $('r-p2').textContent=fmtCLP(Math.max(neto*m2,mn));
-  $('r-p3').textContent=fmtCLP(Math.max(neto*m3,mn));
-  $('desglose').innerHTML=[
-    ['🧵 Filamento',cFil],['⚡ Electricidad',cElec],
-    ['⚙️ Desgaste',cDesg],['➕ Adicionales',cAds],
-    ['Subtotal',sub],['📊 Margen ('+Math.round(gv('margen',25))+'%)',mgVal]
-  ].map(([l,v])=>`<div class="costo-item"><span>${l}</span><span>${fmtCLP(v)}</span></div>`).join('');
+  var f1=gv('fil1',0),f2=gv('fil2',0),h=gv('horas',0);
+  var r=calcNeto(f1,f2,h,state.adicionales);
+  var m1=gv('mult1',3),m2=gv('mult2',4),m3=gv('mult3',5),mn=gv('minP',1000);
+  $('neto-val').textContent=fmtCLP(r.neto);
+  $('r-p1').textContent=fmtCLP(Math.max(r.neto*m1,mn));
+  $('r-p2').textContent=fmtCLP(Math.max(r.neto*m2,mn));
+  $('r-p3').textContent=fmtCLP(Math.max(r.neto*m3,mn));
+  var items=[['Filamento',r.cFil],['Electricidad',r.cElec],['Desgaste',r.cDesg],['Adicionales',r.cAds],['Subtotal',r.sub],['Margen ('+Math.round(gv('margen',25))+'%)',r.mgVal]];
+  var html='';
+  for(var i=0;i<items.length;i++){html+='<div class="costo-item"><span>'+items[i][0]+'</span><span>'+fmtCLP(items[i][1])+'</span></div>';}
+  $('desglose').innerHTML=html;
 }
 
 function renderChipsCalc(){
-  const c=$('chips-calc');
+  var c=$('chips-calc');
   if(!state.adicionales.length){c.innerHTML='<span style="color:var(--text3);font-size:12px;font-weight:600">Sin adicionales</span>';return;}
-  c.innerHTML=state.adicionales.map((a,i)=>`<span class="chip">${esc(a.nombre)} ×${a.cantidad} (${fmtCLP(a.precio*a.cantidad)})<span class="chip-x" onclick="rmAd(${i})">×</span></span>`).join('');
+  var html='';
+  for(var i=0;i<state.adicionales.length;i++){
+    var a=state.adicionales[i];
+    html+='<span class="chip">'+esc(a.nombre)+' x'+a.cantidad+' ('+fmtCLP(a.precio*a.cantidad)+')<span class="chip-x" onclick="rmAd('+i+')">x</span></span>';
+  }
+  c.innerHTML=html;
 }
 function rmAd(i){state.adicionales.splice(i,1);renderChipsCalc();calcular();}
-function limpiarCalc(){['fil1','fil2','horas'].forEach(id=>{const el=$(id);if(el)el.value='';});state.adicionales=[];renderChipsCalc();calcular();}
+function limpiarCalc(){
+  ['fil1','fil2','horas'].forEach(function(id){var el=$(id);if(el)el.value='';});
+  state.adicionales=[];renderChipsCalc();calcular();
+}
 
 function abrirModalAd(){
   $('ad-tipo').value='inv';toggleAdTipo();
-  $('ad-inv-sel').innerHTML=state.inventario.map(it=>`<option value="${it.id}">${esc(it.nombre)} — ${fmtCLP(it.precio)}</option>`).join('');
+  var html='';
+  for(var i=0;i<state.inventario.length;i++){var it=state.inventario[i];html+='<option value="'+it.id+'">'+esc(it.nombre)+' - '+fmtCLP(it.precio)+'</option>';}
+  $('ad-inv-sel').innerHTML=html;
   $('ad-inv-qty').value='';abrirModal('modal-ad');
 }
-function toggleAdTipo(){const t=$('ad-tipo').value;$('ad-custom-f').style.display=t==='custom'?'':'none';$('ad-inv-f').style.display=t==='inv'?'':'none';}
+function toggleAdTipo(){
+  var t=$('ad-tipo').value;
+  $('ad-custom-f').style.display=t==='custom'?'':'none';
+  $('ad-inv-f').style.display=t==='inv'?'':'none';
+}
 function confirmarAd(){
-  let nombre,precio,cantidad;
+  var nombre,precio,cantidad;
   if($('ad-tipo').value==='inv'){
-    const id=parseInt($('ad-inv-sel').value);const it=state.inventario.find(x=>x.id===id);if(!it)return;
+    var id=parseInt($('ad-inv-sel').value);
+    var it=null;for(var i=0;i<state.inventario.length;i++){if(state.inventario[i].id===id){it=state.inventario[i];break;}}
+    if(!it)return;
     nombre=it.nombre;precio=it.precio;cantidad=parseInt($('ad-inv-qty').value)||1;
   }else{
     nombre=$('ad-nombre').value.trim();if(!nombre)return alert('Ingresa un nombre');
     precio=parseFloat($('ad-precio').value)||0;cantidad=parseInt($('ad-qty').value)||1;
   }
-  state.adicionales.push({nombre,precio,cantidad});renderChipsCalc();calcular();cerrarModal('modal-ad');
+  state.adicionales.push({nombre:nombre,precio:precio,cantidad:cantidad});
+  renderChipsCalc();calcular();cerrarModal('modal-ad');
 }
 
 function agregarAPedido(){
-  const f1=gv('fil1'),f2=gv('fil2'),h=gv('horas');
+  var f1=gv('fil1',0),f2=gv('fil2',0),h=gv('horas',0);
   if(!f1&&!f2&&!h&&!state.adicionales.length)return alert('Ingresa datos primero');
-  const {neto}=calcNeto(f1,f2,h,state.adicionales);
-  const m1=gv('mult1',3),m2=gv('mult2',4),m3=gv('mult3',5),mn=gv('minP',1000);
+  var r=calcNeto(f1,f2,h,state.adicionales);
+  var m1=gv('mult1',3),m2=gv('mult2',4),m3=gv('mult3',5),mn=gv('minP',1000);
   state.pedido.push({
     id:state.nextPedId++,nombre:'Producto '+state.nextPedId,
     qty:1,peso:f1+f2,horas:h,filamento:f1>0?1:2,
-    adicionales:[...state.adicionales],
-    p1:Math.max(neto*m1,mn),p2:Math.max(neto*m2,mn),p3:Math.max(neto*m3,mn),
+    adicionales:state.adicionales.slice(),
+    p1:Math.max(r.neto*m1,mn),p2:Math.max(r.neto*m2,mn),p3:Math.max(r.neto*m3,mn),
     fecha:new Date().toLocaleString('es-CL')
   });
-  save();autoSync();toast('✅ Agregado al pedido','ok',2000);
+  save();autoSync();toast('Agregado al pedido','ok',2000);
 }
 
 function guardarEnPortafolio(){
-  const f1=gv('fil1'),f2=gv('fil2'),h=gv('horas');
-  const nombre=prompt('Nombre del producto para el portafolio:');
+  var f1=gv('fil1',0),f2=gv('fil2',0),h=gv('horas',0);
+  var nombre=prompt('Nombre del producto para el portafolio:');
   if(!nombre||!nombre.trim())return;
   state.portafolio.push({
     id:state.nextPortId++,nombre:nombre.trim(),
     peso:f1+f2,horas:h,filamento:f1>0?1:2,
-    notas:'',adicionales:[...state.adicionales]
+    notas:'',adicionales:state.adicionales.slice()
   });
-  save();autoSync();toast('🗂 Guardado en portafolio','ok',2000);
+  save();autoSync();toast('Guardado en portafolio','ok',2000);
 }
 
-// ===== INVENTARIO =====
 function renderInventario(){
-  const q=($('inv-q').value||'').toLowerCase();
-  const catSel=$('inv-cat');
-  const cats=[...new Set(state.inventario.map(x=>x.categoria))].filter(Boolean).sort();
-  const cur=catSel.value;
-  catSel.innerHTML='<option value="">Todas las categorías</option>'+cats.map(c=>`<option value="${c}"${c===cur?' selected':''}>${c}</option>`).join('');
-  $('cat-dl').innerHTML=cats.map(c=>`<option value="${c}">`).join('');
-  const fil=state.inventario.filter(x=>
-    (!q||x.nombre.toLowerCase().includes(q)||(x.categoria||'').toLowerCase().includes(q))&&
-    (!cur||x.categoria===cur)
-  );
-  const body=$('inv-body'),empty=$('inv-empty');
+  var q=($('inv-q').value||'').toLowerCase();
+  var catSel=$('inv-cat');
+  var catsSet={};
+  for(var i=0;i<state.inventario.length;i++){if(state.inventario[i].categoria)catsSet[state.inventario[i].categoria]=true;}
+  var cats=Object.keys(catsSet).sort();
+  var cur=catSel.value;
+  var opts='<option value="">Todas las categorias</option>';
+  for(var i=0;i<cats.length;i++){opts+='<option value="'+cats[i]+'"'+(cats[i]===cur?' selected':'')+'>'+cats[i]+'</option>';}
+  catSel.innerHTML=opts;
+  var dlOpts='';for(var i=0;i<cats.length;i++){dlOpts+='<option value="'+cats[i]+'">';}
+  $('cat-dl').innerHTML=dlOpts;
+
+  var fil=[];
+  for(var i=0;i<state.inventario.length;i++){
+    var x=state.inventario[i];
+    var mq=!q||x.nombre.toLowerCase().indexOf(q)>=0||(x.categoria||'').toLowerCase().indexOf(q)>=0;
+    var mc=!cur||x.categoria===cur;
+    if(mq&&mc)fil.push(x);
+  }
+  var body=$('inv-body'),empty=$('inv-empty');
   if(!fil.length){body.innerHTML='';empty.style.display='block';return;}
   empty.style.display='none';
-  body.innerHTML=fil.map(it=>`<tr>
-    <td><div style="font-weight:800;color:#fff;font-size:12px">${esc(it.nombre)}</div></td>
-    <td><span class="badge badge-blue">${esc(it.categoria||'—')}</span></td>
-    <td style="text-align:right"><span class="${it.stock===0?'badge badge-red':it.stock<=10?'badge badge-orange':'badge badge-green'}">${it.stock}</span></td>
-    <td style="text-align:right;color:var(--text2)">${it.lote||'—'}</td>
-    <td style="text-align:right;color:var(--text2)">${it.costoLote?fmtCLP(it.costoLote*IVA):'—'}</td>
-    <td style="text-align:right;font-weight:800;color:var(--lima)">${fmtCLP(it.precio)}</td>
-    <td style="text-align:center"><div style="display:flex;gap:3px;justify-content:center">
-      <button class="btn btn-secondary btn-icon btn-sm" onclick="abrirModalItem(${it.id})">✏️</button>
-      <button class="btn btn-danger btn-icon btn-sm" onclick="rmItem(${it.id})">🗑</button>
-    </div></td>
-  </tr>`).join('');
+  var html='';
+  for(var i=0;i<fil.length;i++){
+    var it=fil[i];
+    var stockBadge=it.stock===0?'badge-red':(it.stock<=10?'badge-orange':'badge-green');
+    html+='<tr><td><div style="font-weight:800;color:#fff;font-size:12px">'+esc(it.nombre)+'</div></td>'+
+      '<td><span class="badge badge-blue">'+esc(it.categoria||'-')+'</span></td>'+
+      '<td style="text-align:right"><span class="badge '+stockBadge+'">'+it.stock+'</span></td>'+
+      '<td style="text-align:right;color:var(--text2)">'+(it.lote||'-')+'</td>'+
+      '<td style="text-align:right;color:var(--text2)">'+(it.costoLote?fmtCLP(it.costoLote*IVA):'-')+'</td>'+
+      '<td style="text-align:right;font-weight:800;color:var(--lima)">'+fmtCLP(it.precio)+'</td>'+
+      '<td style="text-align:center"><div style="display:flex;gap:3px;justify-content:center">'+
+      '<button class="btn btn-secondary btn-icon btn-sm" onclick="abrirModalItem('+it.id+')">E</button>'+
+      '<button class="btn btn-danger btn-icon btn-sm" onclick="rmItem('+it.id+')">X</button></div></td></tr>';
+  }
+  body.innerHTML=html;
 }
 function calcUnit(){
-  const l=parseInt($('i-lote').value)||1;
-  const c=parseFloat($('i-cl').value)||0;
+  var l=parseInt($('i-lote').value)||1;
+  var c=parseFloat($('i-cl').value)||0;
   $('i-precio').value=Math.round(c*IVA/l)||'';
 }
 function abrirModalItem(id){
-  const it=id?state.inventario.find(x=>x.id===id):null;
-  $('m-item-title').textContent=it?'Editar artículo':'Nuevo artículo';
-  $('i-id').value=it?it.id:'';$('i-nombre').value=it?it.nombre:'';
-  $('i-cat').value=it?it.categoria:'';$('i-stock').value=it?it.stock:'';
-  $('i-lote').value=it?it.lote:'';$('i-cl').value=it?it.costoLote:'';
-  $('i-precio').value=it?it.precio:'';$('i-desc').value=it&&it.desc?it.desc:'';
+  var it=null;
+  if(id){for(var i=0;i<state.inventario.length;i++){if(state.inventario[i].id===id){it=state.inventario[i];break;}}}
+  $('m-item-title').textContent=it?'Editar articulo':'Nuevo articulo';
+  $('i-id').value=it?it.id:'';
+  $('i-nombre').value=it?it.nombre:'';
+  $('i-cat').value=it?it.categoria:'';
+  $('i-stock').value=it?it.stock:'';
+  $('i-lote').value=it?it.lote:'';
+  $('i-cl').value=it?it.costoLote:'';
+  $('i-precio').value=it?it.precio:'';
+  $('i-desc').value=it&&it.desc?it.desc:'';
   abrirModal('modal-item');
 }
 function guardarItem(){
-  const nombre=$('i-nombre').value.trim();if(!nombre)return alert('Nombre obligatorio');
-  const id=parseInt($('i-id').value)||0;
-  const data={nombre,categoria:$('i-cat').value.trim(),
+  var nombre=$('i-nombre').value.trim();if(!nombre)return alert('Nombre obligatorio');
+  var id=parseInt($('i-id').value)||0;
+  var data={nombre:nombre,categoria:$('i-cat').value.trim(),
     stock:parseInt($('i-stock').value)||0,lote:parseInt($('i-lote').value)||1,
     costoLote:parseFloat($('i-cl').value)||0,precio:parseFloat($('i-precio').value)||0,
     desc:$('i-desc').value.trim()};
-  if(id){const i=state.inventario.findIndex(x=>x.id===id);if(i>=0)state.inventario[i]={id,...data};}
-  else state.inventario.push({id:state.nextItemId++,...data});
+  if(id){
+    for(var i=0;i<state.inventario.length;i++){
+      if(state.inventario[i].id===id){data.id=id;state.inventario[i]=data;break;}
+    }
+  }else{
+    data.id=state.nextItemId++;state.inventario.push(data);
+  }
   save();autoSync();cerrarModal('modal-item');renderInventario();
 }
-function rmItem(id){if(!confirm('¿Eliminar?'))return;state.inventario=state.inventario.filter(x=>x.id!==id);save();autoSync();renderInventario();}
+function rmItem(id){
+  if(!confirm('Eliminar?'))return;
+  state.inventario=state.inventario.filter(function(x){return x.id!==id;});
+  save();autoSync();renderInventario();
+}
 
-// ===== PEDIDOS =====
-function selPu(pr){const s=state.pedPrecioSel||1;return s===1?pr.p1:s===2?pr.p2:pr.p3;}
+function selPu(pr){var s=state.pedPrecioSel||1;return s===1?pr.p1:(s===2?pr.p2:pr.p3);}
 function calcProd(p){
-  const fp=p.filamento===1?FIL1:FIL2;
-  const cFil=p.peso/1000*fp;
-  const cElec=p.horas*gv('costoElec',26.5);
-  const cDesg=p.horas*gv('costoDesg',30);
-  const cAds=(p.adicionales||[]).reduce((s,a)=>s+a.precio*a.cantidad,0);
-  const sub=cFil+cElec+cDesg+cAds;
-  const neto=sub*(1+gv('margen',25)/100);
-  const mn=gv('minP',1000);
+  var fp=p.filamento===1?FIL1:FIL2;
+  var cFil=p.peso/1000*fp;
+  var cElec=p.horas*gv('costoElec',26.5);
+  var cDesg=p.horas*gv('costoDesg',30);
+  var cAds=0;var ads=p.adicionales||[];for(var i=0;i<ads.length;i++)cAds+=ads[i].precio*ads[i].cantidad;
+  var sub=cFil+cElec+cDesg+cAds;
+  var neto=sub*(1+gv('margen',25)/100);
+  var mn=gv('minP',1000);
   return{p1:Math.max(neto*gv('mult1',3),mn),p2:Math.max(neto*gv('mult2',4),mn),p3:Math.max(neto*gv('mult3',5),mn)};
 }
 
 function renderPedido(){
-  const lista=$('lista-pedido'),empty=$('pedido-empty'),tots=$('pedido-totales');
+  var lista=$('lista-pedido'),empty=$('pedido-empty'),tots=$('pedido-totales');
   if(!state.pedido.length){lista.innerHTML='';empty.style.display='block';tots.style.display='none';return;}
   empty.style.display='none';tots.style.display='block';
-  let sP1=0,sP2=0,sP3=0;
-  lista.innerHTML=state.pedido.map((p,idx)=>{
-    const pr=calcProd(p);
+  var sP1=0,sP2=0,sP3=0;
+  var html='';
+  for(var idx=0;idx<state.pedido.length;idx++){
+    var p=state.pedido[idx];
+    var pr=calcProd(p);
     sP1+=pr.p1*p.qty;sP2+=pr.p2*p.qty;sP3+=pr.p3*p.qty;
-    const ads=p.adicionales&&p.adicionales.length?' · +'+p.adicionales.map(a=>esc(a.nombre)+'×'+a.cantidad).join(', '):'';
-    const pu=selPu(pr);
-    return`<div class="pedido-item">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.3rem">
-        <div>
-          <div class="pedido-item-name">${esc(p.nombre)}</div>
-          <div class="pedido-item-detail">${p.peso}g · ${p.horas}h · Fil.${p.filamento}${ads}</div>
-        </div>
-        <div style="display:flex;gap:3px;flex-shrink:0">
-          <button class="btn btn-secondary btn-icon btn-sm" onclick="editPed(${idx})">✏️</button>
-          <button class="btn btn-danger btn-icon btn-sm" onclick="rmPed(${idx})">🗑</button>
-        </div>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.4rem">
-        <div class="pedido-qty">
-          <button class="qty-btn" onclick="chQty(${idx},-1)">−</button>
-          <span class="qty-num">${p.qty}</span>
-          <button class="qty-btn" onclick="chQty(${idx},1)">+</button>
-          <span style="font-size:11px;color:var(--text3);font-weight:600">unid.</span>
-        </div>
-        <div style="display:flex;gap:.8rem;text-align:right">
-          <div><div style="font-size:10px;color:var(--text3);font-weight:700">P${state.pedPrecioSel} unit</div><div data-pedrow="${idx}" data-type="unit" style="font-weight:800;font-size:12px">${fmtCLP(pu)}</div></div>
-          <div><div style="font-size:10px;color:var(--text3);font-weight:700">P${state.pedPrecioSel} ×${p.qty}</div><div data-pedrow="${idx}" data-type="total" style="font-weight:900;color:var(--lima);font-size:13px">${fmtCLP(pu*p.qty)}</div></div>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
+    var ads=p.adicionales&&p.adicionales.length?(' - +'+p.adicionales.map(function(a){return a.nombre+'x'+a.cantidad;}).join(', ')):'';
+    var pu=selPu(pr);
+    html+='<div class="pedido-item">'+
+      '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.3rem">'+
+      '<div><div class="pedido-item-name">'+esc(p.nombre)+'</div>'+
+      '<div class="pedido-item-detail">'+p.peso+'g - '+p.horas+'h - Fil.'+p.filamento+ads+'</div></div>'+
+      '<div style="display:flex;gap:3px;flex-shrink:0">'+
+      '<button class="btn btn-secondary btn-icon btn-sm" onclick="editPed('+idx+')">E</button>'+
+      '<button class="btn btn-danger btn-icon btn-sm" onclick="rmPed('+idx+')">X</button></div></div>'+
+      '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.4rem">'+
+      '<div class="pedido-qty"><button class="qty-btn" onclick="chQty('+idx+',-1)">-</button>'+
+      '<span class="qty-num">'+p.qty+'</span>'+
+      '<button class="qty-btn" onclick="chQty('+idx+',1)">+</button>'+
+      '<span style="font-size:11px;color:var(--text3);font-weight:600">unid.</span></div>'+
+      '<div style="display:flex;gap:.8rem;text-align:right">'+
+      '<div><div style="font-size:10px;color:var(--text3);font-weight:700">P'+state.pedPrecioSel+' unit</div>'+
+      '<div data-pedrow="'+idx+'" data-type="unit" style="font-weight:800;font-size:12px">'+fmtCLP(pu)+'</div></div>'+
+      '<div><div style="font-size:10px;color:var(--text3);font-weight:700">P'+state.pedPrecioSel+' x'+p.qty+'</div>'+
+      '<div data-pedrow="'+idx+'" data-type="total" style="font-weight:900;color:var(--lima);font-size:13px">'+fmtCLP(pu*p.qty)+'</div></div>'+
+      '</div></div></div>';
+  }
+  lista.innerHTML=html;
   state._sP1=sP1;state._sP2=sP2;state._sP3=sP3;
   $('ped-p1').textContent=fmtCLP(sP1);
   $('ped-p2').textContent=fmtCLP(sP2);
   $('ped-p3').textContent=fmtCLP(sP3);
-  // Update selected box highlight
-  const _sel=state.pedPrecioSel||1;
-  [1,2,3].forEach(i=>{const el=$('sel-p'+i);if(el)el.classList.toggle('selected',i===_sel);});
+  var _sel=state.pedPrecioSel||1;
+  [1,2,3].forEach(function(i){var el=$('sel-p'+i);if(el)el.classList.toggle('selected',i===_sel);});
   recalcFinal();
 }
 
 function selPrecio(n){
   state.pedPrecioSel=n;
-  [1,2,3].forEach(i=>{const el=$('sel-p'+i);if(el)el.classList.toggle('selected',i===n);});
-  // Re-render item rows to show correct price label (P1/P2/P3)
-  // but don't call renderPedido (would loop). Just update labels and recalc.
+  [1,2,3].forEach(function(i){var el=$('sel-p'+i);if(el)el.classList.toggle('selected',i===n);});
   _updatePedidoRows();
   recalcFinal();
 }
 function _updatePedidoRows(){
-  // Update P label text in pedido rows without full re-render
-  const lista=document.getElementById('lista-pedido');
-  if(!lista)return;
-  state.pedido.forEach((p,idx)=>{
-    const pr=calcProd(p);
-    const pu=selPu(pr);
-    const s=state.pedPrecioSel||1;
-    const labels=lista.querySelectorAll('[data-pedrow="'+idx+'"]');
-    labels.forEach(el=>{ el.textContent=el.dataset.type==='unit'?fmtCLP(pu):fmtCLP(pu*p.qty); });
-  });
+  var lista=$('lista-pedido');if(!lista)return;
+  for(var idx=0;idx<state.pedido.length;idx++){
+    var p=state.pedido[idx];
+    var pr=calcProd(p);
+    var pu=selPu(pr);
+    var labels=lista.querySelectorAll('[data-pedrow="'+idx+'"]');
+    for(var j=0;j<labels.length;j++){
+      labels[j].textContent=labels[j].dataset.type==='unit'?fmtCLP(pu):fmtCLP(pu*p.qty);
+    }
+    var parentDivs=lista.querySelectorAll('.pedido-item');
+    if(parentDivs[idx]){
+      var headers=parentDivs[idx].querySelectorAll('div');
+      for(var k=0;k<headers.length;k++){
+        if(headers[k].textContent.indexOf('P')===0&&headers[k].textContent.indexOf('unit')>0){
+          headers[k].textContent='P'+state.pedPrecioSel+' unit';
+        }
+        if(headers[k].textContent.indexOf('P')===0&&headers[k].textContent.indexOf('x'+p.qty)>0){
+          headers[k].textContent='P'+state.pedPrecioSel+' x'+p.qty;
+        }
+      }
+    }
+  }
 }
-
 function recalcFinal(){
-  const sel=state.pedPrecioSel||1;
-  const base=sel===1?state._sP1||0:sel===2?state._sP2||0:state._sP3||0;
-  const desc=(parseFloat($('ped-desc').value)||0)/100;
-  const envioTipo=$('ped-envio-tipo').value;
-  const envio=envioTipo==='custom'?(parseFloat($('ped-envio-custom').value)||0):parseFloat(envioTipo)||0;
-  const descMonto=base*desc;
-  const total=Math.max(base-descMonto+envio,0);
+  var sel=state.pedPrecioSel||1;
+  var base=sel===1?(state._sP1||0):(sel===2?(state._sP2||0):(state._sP3||0));
+  var desc=(parseFloat($('ped-desc').value)||0)/100;
+  var envioTipo=$('ped-envio-tipo').value;
+  var envio=envioTipo==='custom'?(parseFloat($('ped-envio-custom').value)||0):(parseFloat(envioTipo)||0);
+  var descMonto=base*desc;
+  var total=Math.max(base-descMonto+envio,0);
   $('final-subtotal').textContent=fmtCLP(base);
   $('final-desc').textContent='-'+fmtCLP(descMonto);
   $('final-envio').textContent=fmtCLP(envio);
@@ -904,34 +908,39 @@ function toggleEnvio(){
   recalcFinal();
 }
 function chQty(i,d){state.pedido[i].qty=Math.max(1,state.pedido[i].qty+d);save();autoSync();renderPedido();}
-function rmPed(i){if(!confirm('¿Quitar?'))return;state.pedido.splice(i,1);save();autoSync();renderPedido();}
-function limpiarPedido(){if(!confirm('¿Vaciar pedido?'))return;state.pedido=[];save();autoSync();renderPedido();}
+function rmPed(i){if(!confirm('Quitar?'))return;state.pedido.splice(i,1);save();autoSync();renderPedido();}
+function limpiarPedido(){if(!confirm('Vaciar pedido?'))return;state.pedido=[];save();autoSync();renderPedido();}
 
 function editPed(i){
-  const p=state.pedido[i];
-  state.adEdit=[...(p.adicionales||[])];
+  var p=state.pedido[i];
+  state.adEdit=(p.adicionales||[]).slice();
   $('ep-idx').value=i;$('ep-nombre').value=p.nombre;
   $('ep-qty').value=p.qty;$('ep-peso').value=p.peso;
   $('ep-horas').value=p.horas;$('ep-fil').value=p.filamento;
   renderChipsAdEdit();abrirModal('modal-edit-ped');
 }
 function renderChipsAdEdit(){
-  const c=$('ep-chips');
+  var c=$('ep-chips');
   if(!state.adEdit.length){c.innerHTML='<span style="color:var(--text3);font-size:12px;font-weight:600">Sin adicionales</span>';return;}
-  c.innerHTML=state.adEdit.map((a,i)=>`<span class="chip">${esc(a.nombre)} ×${a.cantidad}<span class="chip-x" onclick="rmAdEdit(${i})">×</span></span>`).join('');
+  var html='';
+  for(var i=0;i<state.adEdit.length;i++){
+    var a=state.adEdit[i];
+    html+='<span class="chip">'+esc(a.nombre)+' x'+a.cantidad+'<span class="chip-x" onclick="rmAdEdit('+i+')">x</span></span>';
+  }
+  c.innerHTML=html;
 }
 function rmAdEdit(i){state.adEdit.splice(i,1);renderChipsAdEdit();}
 function guardarEditPed(){
-  const i=parseInt($('ep-idx').value);const p=state.pedido[i];
+  var i=parseInt($('ep-idx').value);var p=state.pedido[i];
   p.nombre=$('ep-nombre').value.trim()||p.nombre;
   p.qty=parseInt($('ep-qty').value)||1;
   p.peso=parseFloat($('ep-peso').value)||0;
   p.horas=parseFloat($('ep-horas').value)||0;
   p.filamento=parseInt($('ep-fil').value);
-  p.adicionales=[...state.adEdit];
-  const {neto}=calcNeto(p.filamento===1?p.peso:0,p.filamento===2?p.peso:0,p.horas,p.adicionales);
-  const mn=gv('minP',1000);
-  p.p1=Math.max(neto*gv('mult1',3),mn);p.p2=Math.max(neto*gv('mult2',4),mn);p.p3=Math.max(neto*gv('mult3',5),mn);
+  p.adicionales=state.adEdit.slice();
+  var r=calcNeto(p.filamento===1?p.peso:0,p.filamento===2?p.peso:0,p.horas,p.adicionales);
+  var mn=gv('minP',1000);
+  p.p1=Math.max(r.neto*gv('mult1',3),mn);p.p2=Math.max(r.neto*gv('mult2',4),mn);p.p3=Math.max(r.neto*gv('mult3',5),mn);
   save();autoSync();cerrarModal('modal-edit-ped');renderPedido();
 }
 
@@ -941,21 +950,26 @@ function abrirModalProd(){
   renderChipsAdProd();abrirModal('modal-prod');
 }
 function renderChipsAdProd(){
-  const c=$('prod-chips');
+  var c=$('prod-chips');
   if(!state.adProd.length){c.innerHTML='<span style="color:var(--text3);font-size:12px;font-weight:600">Sin adicionales</span>';return;}
-  c.innerHTML=state.adProd.map((a,i)=>`<span class="chip">${esc(a.nombre)} ×${a.cantidad}<span class="chip-x" onclick="rmAdProd(${i})">×</span></span>`).join('');
+  var html='';
+  for(var i=0;i<state.adProd.length;i++){
+    var a=state.adProd[i];
+    html+='<span class="chip">'+esc(a.nombre)+' x'+a.cantidad+'<span class="chip-x" onclick="rmAdProd('+i+')">x</span></span>';
+  }
+  c.innerHTML=html;
 }
 function rmAdProd(i){state.adProd.splice(i,1);renderChipsAdProd();}
 function guardarProd(){
-  const nombre=$('prod-nombre').value.trim();if(!nombre)return alert('Nombre obligatorio');
-  const peso=parseFloat($('prod-peso').value)||0,horas=parseFloat($('prod-horas').value)||0,fil=parseInt($('prod-fil').value);
-  const ads=[...state.adProd];
-  const {neto}=calcNeto(fil===1?peso:0,fil===2?peso:0,horas,ads);
-  const mn=gv('minP',1000);
+  var nombre=$('prod-nombre').value.trim();if(!nombre)return alert('Nombre obligatorio');
+  var peso=parseFloat($('prod-peso').value)||0,horas=parseFloat($('prod-horas').value)||0,fil=parseInt($('prod-fil').value);
+  var ads=state.adProd.slice();
+  var r=calcNeto(fil===1?peso:0,fil===2?peso:0,horas,ads);
+  var mn=gv('minP',1000);
   state.pedido.push({
-    id:state.nextPedId++,nombre,qty:parseInt($('prod-qty').value)||1,
-    peso,horas,filamento:fil,adicionales:ads,
-    p1:Math.max(neto*gv('mult1',3),mn),p2:Math.max(neto*gv('mult2',4),mn),p3:Math.max(neto*gv('mult3',5),mn),
+    id:state.nextPedId++,nombre:nombre,qty:parseInt($('prod-qty').value)||1,
+    peso:peso,horas:horas,filamento:fil,adicionales:ads,
+    p1:Math.max(r.neto*gv('mult1',3),mn),p2:Math.max(r.neto*gv('mult2',4),mn),p3:Math.max(r.neto*gv('mult3',5),mn),
     fecha:new Date().toLocaleString('es-CL')
   });
   save();autoSync();cerrarModal('modal-prod');renderPedido();
@@ -965,237 +979,276 @@ function abrirModalAdProd(){$('ad2-target').value='prod';abrirAd2();}
 function abrirModalAdEdit(){$('ad2-target').value='edit';abrirAd2();}
 function abrirAd2(){
   $('ad2-tipo').value='inv';toggleAd2Tipo();
-  $('ad2-inv-sel').innerHTML=state.inventario.map(it=>`<option value="${it.id}">${esc(it.nombre)} — ${fmtCLP(it.precio)}</option>`).join('');
+  var html='';
+  for(var i=0;i<state.inventario.length;i++){var it=state.inventario[i];html+='<option value="'+it.id+'">'+esc(it.nombre)+' - '+fmtCLP(it.precio)+'</option>';}
+  $('ad2-inv-sel').innerHTML=html;
   $('ad2-inv-qty').value='';abrirModal('modal-ad2');
 }
-function toggleAd2Tipo(){const t=$('ad2-tipo').value;$('ad2-custom-f').style.display=t==='custom'?'':'none';$('ad2-inv-f').style.display=t==='inv'?'':'none';}
+function toggleAd2Tipo(){
+  var t=$('ad2-tipo').value;
+  $('ad2-custom-f').style.display=t==='custom'?'':'none';
+  $('ad2-inv-f').style.display=t==='inv'?'':'none';
+}
 function confirmarAd2(){
-  let nombre,precio,cantidad;
-  const t=$('ad2-tipo').value;
+  var nombre,precio,cantidad;
+  var t=$('ad2-tipo').value;
   if(t==='inv'){
-    const id=parseInt($('ad2-inv-sel').value);const it=state.inventario.find(x=>x.id===id);if(!it)return;
+    var id=parseInt($('ad2-inv-sel').value);
+    var it=null;for(var i=0;i<state.inventario.length;i++){if(state.inventario[i].id===id){it=state.inventario[i];break;}}
+    if(!it)return;
     nombre=it.nombre;precio=it.precio;cantidad=parseInt($('ad2-inv-qty').value)||1;
   }else{
     nombre=$('ad2-nombre').value.trim();if(!nombre)return alert('Ingresa un nombre');
     precio=parseFloat($('ad2-precio').value)||0;cantidad=parseInt($('ad2-qty').value)||1;
   }
-  const target=$('ad2-target').value;
-  if(target==='prod'){state.adProd.push({nombre,precio,cantidad});renderChipsAdProd();}
-  else{state.adEdit.push({nombre,precio,cantidad});renderChipsAdEdit();}
+  var target=$('ad2-target').value;
+  if(target==='prod'){state.adProd.push({nombre:nombre,precio:precio,cantidad:cantidad});renderChipsAdProd();}
+  else{state.adEdit.push({nombre:nombre,precio:precio,cantidad:cantidad});renderChipsAdEdit();}
   cerrarModal('modal-ad2');
 }
 
-// ===== FINALIZAR PEDIDO / TICKET =====
 function finalizarPedido(){
-  if(!state.pedido.length)return alert('El pedido está vacío');
+  if(!state.pedido.length)return alert('El pedido esta vacio');
   recalcFinal();
-  const fecha=new Date().toLocaleString('es-CL');
-  // Inicializar precios editables
-  window._editPrecios = {};
-  state.pedido.forEach((p,idx)=>{
-    const pr=calcProd(p);
-    window._editPrecios[idx] = Math.round(selPu(pr)*p.qty);
-  });
-  
-  let itemsHTML='';
-  state.pedido.forEach((p,idx)=>{
-    const pr=calcProd(p);
-    const pu=selPu(pr);
-    const precioTotal=Math.round(pu*p.qty);
-    itemsHTML+=`<div class="t-row" style="align-items:center">
-      <span class="t-name">${esc(p.nombre)}</span>
-      <span class="t-qty">×${p.qty}</span>
-      <span class="t-price" style="display:flex;align-items:center;gap:4px">
-        <span style="font-size:11px;color:#888">$</span>
-        <input type="number" id="ep-price-${idx}" value="${precioTotal}" 
-          style="width:90px;border:1.5px solid #ccc;border-radius:5px;padding:3px 6px;font-size:13px;font-weight:800;text-align:right;color:#111;background:#fff;font-family:inherit"
-          oninput="recalcTicket()">
-      </span>
-    </div>`;
-  });
-  const descMonto=state._finalDesc||0;
-  const envio=state._finalEnvio||0;
-  const total=state._finalTotal||0;
-  $('ticket-content').innerHTML=`
-    <div class="ticket-logo">
-      <div class="t-title">Buneo<span>.cl</span></div>
-      <div class="t-sub">Impresión 3D · ${fecha}</div>
-    </div>
-    <div class="t-section">Producto</div>
-    <div style="font-size:11px;color:#888;margin-bottom:4px;text-align:right;font-weight:600">CANT. &nbsp;&nbsp;&nbsp;&nbsp; PRECIO</div>
-    ${itemsHTML}
-    ${descMonto>0?`<div class="t-section">Descuento</div><div class="t-row"><span class="t-name">Descuento aplicado</span><span class="t-price" style="color:#e55">-${fmtCLP(descMonto)}</span></div>`:''}
-    ${envio>0?`<div class="t-section">Envío</div><div class="t-row"><span class="t-name">Costo de envío</span><span class="t-price">${fmtCLP(envio)}</span></div>`:''}
-    <div class="t-total-box" id="ticket-total-box"><div><div class="t-total-label">TOTAL A PAGAR</div></div><div class="t-total-amount" id="ticket-total-display">${fmtCLP(total)}</div></div>
-    <div style="text-align:center;margin-top:8px;font-size:11px;color:#a8c4a8;font-weight:600">✏️ Puedes editar los precios individualmente</div>
-    <div class="t-footer">Buneo.cl · Gracias por tu compra 😊</div>
-    <div class="ticket-actions">
-      <button onclick="verPDFyWA()" style="padding:11px;background:#25D366;color:#fff;font-weight:900;font-size:13px;border-radius:7px;border:none;cursor:pointer;font-family:'Nunito Sans',sans-serif;width:100%">📲 Compartir por WhatsApp</button>
-      <button onclick="verPDF()" style="padding:11px;background:#A8FF00;color:#1A2E05;font-weight:900;font-size:13px;border-radius:7px;border:none;cursor:pointer;font-family:'Nunito Sans',sans-serif;width:100%">🖨️ Ver / Imprimir PDF</button>
-      <button onclick="$('ticket-overlay').classList.remove('open')" style="padding:9px;background:#253348;color:#a8c4a8;font-weight:800;font-size:12px;border:none;border-radius:7px;cursor:pointer;font-family:'Nunito Sans',sans-serif;width:100%">✕ Cerrar</button>
-    </div>
-  `;
+  var fecha=new Date().toLocaleString('es-CL');
+  window._editPrecios={};
+  for(var idx=0;idx<state.pedido.length;idx++){
+    var p=state.pedido[idx];var pr=calcProd(p);
+    window._editPrecios[idx]=Math.round(selPu(pr)*p.qty);
+  }
+  var itemsHTML='';
+  for(var idx=0;idx<state.pedido.length;idx++){
+    var p=state.pedido[idx];var pr=calcProd(p);
+    var pu=selPu(pr);
+    var precioTotal=Math.round(pu*p.qty);
+    itemsHTML+='<div class="t-row" style="align-items:center">'+
+      '<span class="t-name">'+esc(p.nombre)+'</span>'+
+      '<span class="t-qty">x'+p.qty+'</span>'+
+      '<span class="t-price" style="display:flex;align-items:center;gap:4px">'+
+      '<span style="font-size:11px;color:#888">$</span>'+
+      '<input type="number" id="ep-price-'+idx+'" value="'+precioTotal+'" '+
+      'style="width:90px;border:1.5px solid #ccc;border-radius:5px;padding:3px 6px;font-size:13px;font-weight:800;text-align:right;color:#111;background:#fff;font-family:inherit" '+
+      'oninput="recalcTicket()"></span></div>';
+  }
+  var descMonto=state._finalDesc||0;
+  var envio=state._finalEnvio||0;
+  var total=state._finalTotal||0;
+  $('ticket-content').innerHTML=
+    '<div class="ticket-logo"><div class="t-title">Buneo<span>.cl</span></div>'+
+    '<div class="t-sub">Impresion 3D - '+fecha+'</div></div>'+
+    '<div class="t-section">Producto</div>'+
+    '<div style="font-size:11px;color:#888;margin-bottom:4px;text-align:right;font-weight:600">CANT.    PRECIO</div>'+
+    itemsHTML+
+    (descMonto>0?'<div class="t-section">Descuento</div><div class="t-row"><span class="t-name">Descuento aplicado</span><span class="t-price" style="color:#e55">-'+fmtCLP(descMonto)+'</span></div>':'')+
+    (envio>0?'<div class="t-section">Envio</div><div class="t-row"><span class="t-name">Costo de envio</span><span class="t-price">'+fmtCLP(envio)+'</span></div>':'')+
+    '<div class="t-total-box" id="ticket-total-box"><div><div class="t-total-label">TOTAL A PAGAR</div></div><div class="t-total-amount" id="ticket-total-display">'+fmtCLP(total)+'</div></div>'+
+    '<div style="text-align:center;margin-top:8px;font-size:11px;color:#a8c4a8;font-weight:600">Puedes editar los precios individualmente</div>'+
+    '<div class="t-footer">Buneo.cl - Gracias por tu compra</div>'+
+    '<div class="ticket-actions">'+
+    '<button onclick="verPDFyWA()" style="padding:11px;background:#25D366;color:#fff;font-weight:900;font-size:13px;border-radius:7px;border:none;cursor:pointer;font-family:inherit;width:100%">Compartir por WhatsApp</button>'+
+    '<button onclick="verPDF()" style="padding:11px;background:#A8FF00;color:#1A2E05;font-weight:900;font-size:13px;border-radius:7px;border:none;cursor:pointer;font-family:inherit;width:100%">Ver / Imprimir PDF</button>'+
+    '<button onclick="document.getElementById(\'ticket-overlay\').classList.remove(\'open\')" style="padding:9px;background:#253348;color:#a8c4a8;font-weight:800;font-size:12px;border:none;border-radius:7px;cursor:pointer;font-family:inherit;width:100%">Cerrar</button>'+
+    '</div>';
   $('ticket-overlay').classList.add('open');
-  // Preparar HTML del PDF
-  window._pdfHTML = generarPDFHTML();
+  window._pdfHTML=generarPDFHTML();
 }
 
 function generarPDFHTML(){
-  const fecha=new Date().toLocaleString('es-CL');
-  let rows='';
-  state.pedido.forEach((p,idx)=>{
-    const precio=(window._editPrecios&&window._editPrecios[idx]!=null)?window._editPrecios[idx]:Math.round(selPu(calcProd(p))*p.qty);
-    rows+=`<tr><td style="padding:8px 6px;border-bottom:1px solid #f0f0f0;font-weight:700">${esc(p.nombre)}</td><td style="padding:8px 6px;border-bottom:1px solid #f0f0f0;text-align:center;color:#666">x${p.qty}</td><td style="padding:8px 6px;border-bottom:1px solid #f0f0f0;text-align:right;font-weight:800">${fmtCLP(precio)}</td></tr>`;
-  });
-  const descMonto=state._finalDesc||0,envio=state._finalEnvio||0,total=state._finalTotal||0;
+  var fecha=new Date().toLocaleString('es-CL');
+  var rows='';
+  for(var idx=0;idx<state.pedido.length;idx++){
+    var p=state.pedido[idx];
+    var precio=(window._editPrecios&&window._editPrecios[idx]!=null)?window._editPrecios[idx]:Math.round(selPu(calcProd(p))*p.qty);
+    rows+='<tr><td style="padding:8px 6px;border-bottom:1px solid #f0f0f0;font-weight:700">'+esc(p.nombre)+'</td>'+
+      '<td style="padding:8px 6px;border-bottom:1px solid #f0f0f0;text-align:center;color:#666">x'+p.qty+'</td>'+
+      '<td style="padding:8px 6px;border-bottom:1px solid #f0f0f0;text-align:right;font-weight:800">'+fmtCLP(precio)+'</td></tr>';
+  }
+  var descMonto=state._finalDesc||0,envio=state._finalEnvio||0,total=state._finalTotal||0;
   return generarPDFBase(fecha,rows,descMonto,envio,total);
 }
 
-function generarPDFBase(fecha, rows, descMonto, envio, total){
-  return`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Boleta Buneo.cl</title>
-<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;background:#fff;color:#111;max-width:420px;margin:0 auto;padding:20px}
-.logo{text-align:center;padding-bottom:12px;margin-bottom:12px;border-bottom:2px dashed #ccc}
-.logo h1{font-size:1.8rem;font-weight:900;color:#1A2E05;letter-spacing:-1px}.logo h1 span{color:#64DD17}
-.logo p{font-size:.75rem;color:#888;margin-top:3px}
-.section-label{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#888;margin:14px 0 6px;padding-top:10px;border-top:1px solid #eee}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{background:#f5f5f5;padding:6px;text-align:left;font-size:10px;font-weight:900;color:#888;text-transform:uppercase;letter-spacing:.05em}
-th:nth-child(2){text-align:center}th:nth-child(3){text-align:right}
-.total-box{background:#1A2E05;border-radius:10px;padding:14px 16px;margin-top:16px;display:flex;justify-content:space-between;align-items:center}
-.total-label{font-size:11px;font-weight:700;color:#a8d8a8}.total-amount{font-size:1.5rem;font-weight:900;color:#A8FF00}
-.footer{text-align:center;margin-top:14px;font-size:.7rem;color:#aaa}
-.btn-wa{display:block;padding:12px;background:#25D366;color:#fff;font-weight:900;font-size:13px;border-radius:8px;text-align:center;text-decoration:none;margin-top:12px;font-family:Arial,sans-serif}
-.btn-print{display:block;width:100%;padding:12px;background:#A8FF00;color:#1A2E05;font-weight:900;font-size:13px;border-radius:8px;border:none;cursor:pointer;margin-top:8px;font-family:Arial,sans-serif}
-@media print{.no-print{display:none!important}body{padding:10px}}</style></head><body>
-<div class="logo"><h1>Buneo<span>.cl</span></h1><p>Impresión 3D · ${fecha}</p></div>
-<div class="section-label">Productos</div>
-<table><thead><tr><th>Producto</th><th>Cant.</th><th>Precio</th></tr></thead><tbody>${rows}</tbody></table>
-${descMonto>0?`<div class="section-label">Descuento</div><table><tbody><tr><td style="padding:8px 6px;font-weight:700">Descuento aplicado</td><td></td><td style="padding:8px 6px;text-align:right;font-weight:800;color:#e44">-${fmtCLP(descMonto)}</td></tr></tbody></table>`:''}
-${envio>0?`<div class="section-label">Envío</div><table><tbody><tr><td style="padding:8px 6px;font-weight:700">Costo de envío</td><td></td><td style="padding:8px 6px;text-align:right;font-weight:800">${fmtCLP(envio)}</td></tr></tbody></table>`:''}
-<div class="total-box"><div class="total-label">TOTAL A PAGAR</div><div class="total-amount">${fmtCLP(total)}</div></div>
-<div class="footer">Buneo.cl · Gracias por tu compra 😊</div>
-</body></html>`;
+function generarPDFBase(fecha,rows,descMonto,envio,total){
+  var d='<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">';
+  d+='<meta name="viewport" content="width=device-width,initial-scale=1">';
+  d+='<title>Boleta Buneo.cl</title>';
+  d+='<style>*{box-sizing:border-box;margin:0;padding:0}';
+  d+='body{font-family:Arial,sans-serif;background:#fff;color:#111;max-width:420px;margin:0 auto;padding:20px}';
+  d+='.logo{text-align:center;padding-bottom:12px;margin-bottom:12px;border-bottom:2px dashed #ccc}';
+  d+='.logo h1{font-size:1.8rem;font-weight:900;color:#1A2E05;letter-spacing:-1px}';
+  d+='.logo h1 span{color:#64DD17}';
+  d+='.logo p{font-size:.75rem;color:#888;margin-top:3px}';
+  d+='.sl{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#888;margin:14px 0 6px;padding-top:10px;border-top:1px solid #eee}';
+  d+='table{width:100%;border-collapse:collapse;font-size:13px}';
+  d+='th{background:#f5f5f5;padding:6px;text-align:left;font-size:10px;font-weight:900;color:#888;text-transform:uppercase;letter-spacing:.05em}';
+  d+='th:nth-child(2){text-align:center}th:nth-child(3){text-align:right}';
+  d+='.tb{background:#1A2E05;border-radius:10px;padding:14px 16px;margin-top:16px;display:flex;justify-content:space-between;align-items:center}';
+  d+='.tl{font-size:11px;font-weight:700;color:#a8d8a8}.ta{font-size:1.5rem;font-weight:900;color:#A8FF00}';
+  d+='.ft{text-align:center;margin-top:14px;font-size:.7rem;color:#aaa}';
+  d+='@media print{body{padding:10px}}';
+  d+='</style></head><body>';
+  d+='<div class="logo"><h1>Buneo<span>.cl</span></h1><p>Impresion 3D - '+fecha+'</p></div>';
+  d+='<div class="sl">Productos</div>';
+  d+='<table><thead><tr><th>Producto</th><th>Cant.</th><th>Precio</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  if(descMonto>0){
+    d+='<div class="sl">Descuento</div><table><tbody><tr><td style="padding:8px 6px;font-weight:700">Descuento aplicado</td><td></td><td style="padding:8px 6px;text-align:right;font-weight:800;color:#e44">-'+fmtCLP(descMonto)+'</td></tr></tbody></table>';
+  }
+  if(envio>0){
+    d+='<div class="sl">Envio</div><table><tbody><tr><td style="padding:8px 6px;font-weight:700">Costo de envio</td><td></td><td style="padding:8px 6px;text-align:right;font-weight:800">'+fmtCLP(envio)+'</td></tr></tbody></table>';
+  }
+  d+='<div class="tb"><div class="tl">TOTAL A PAGAR</div><div class="ta">'+fmtCLP(total)+'</div></div>';
+  d+='<div class="ft">Buneo.cl - Gracias por tu compra</div>';
+  d+='</body></html>';
+  return d;
 }
 
 function recalcTicket(){
-  // Sumar todos los precios editados
-  let subtotal=0;
-  state.pedido.forEach((p,idx)=>{
-    const el=document.getElementById('ep-price-'+idx);
-    const val=el?Math.round(parseFloat(el.value)||0):Math.round(selPu(calcProd(p))*p.qty);
+  var subtotal=0;
+  for(var idx=0;idx<state.pedido.length;idx++){
+    var el=$('ep-price-'+idx);
+    var val=el?Math.round(parseFloat(el.value)||0):Math.round(selPu(calcProd(state.pedido[idx]))*state.pedido[idx].qty);
     window._editPrecios[idx]=val;
     subtotal+=val;
-  });
-  // Aplicar descuento y envío
-  const descPct=(parseFloat(document.getElementById('ped-desc')?.value)||0)/100;
-  const envioTipo=document.getElementById('ped-envio-tipo')?.value||'0';
-  const envio=envioTipo==='custom'?(parseFloat(document.getElementById('ped-envio-custom')?.value)||0):(parseFloat(envioTipo)||0);
-  const descMonto=subtotal*descPct;
-  const total=Math.max(subtotal-descMonto+envio,0);
-  state._finalTotal=total;
-  state._finalDesc=descMonto;
-  state._finalEnvio=envio;
-  // Actualizar display total en el ticket
-  const el=document.getElementById('ticket-total-display');
-  if(el)el.textContent=fmtCLP(total);
-  // Actualizar PDF en memoria
+  }
+  var descPct=(parseFloat(($('ped-desc')||{}).value)||0)/100;
+  var envioTipo=(($('ped-envio-tipo')||{}).value)||'0';
+  var envio=envioTipo==='custom'?(parseFloat((($('ped-envio-custom')||{}).value))||0):(parseFloat(envioTipo)||0);
+  var descMonto=subtotal*descPct;
+  var total=Math.max(subtotal-descMonto+envio,0);
+  state._finalTotal=total;state._finalDesc=descMonto;state._finalEnvio=envio;
+  var el2=$('ticket-total-display');
+  if(el2)el2.textContent=fmtCLP(total);
   window._pdfHTML=generarPDFHTML();
 }
 
 function verPDF(){
-  const w=window.open('','_blank');
-  if(w){w.document.write(window._pdfHTML);w.document.close();}
-  else alert('Permite ventanas emergentes para ver el PDF.');
-}
-
-function verPDFyWA(){
-  // Generar mensaje WA
-  const msg='🟢 *¡Hola! Gracias por tu compra en Buneo.cl* 😊\n\nTu pedido está siendo preparado con mucho cuidado 💚\nTe adjuntamos tu boleta con el detalle completo.\n\n*Total a pagar: '+fmtCLP(state._finalTotal)+'*\n\n¡Cualquier consulta estamos aquí para ayudarte! 🙌\n_Buneo.cl · Impresión 3D_';
-  const waURL='https://wa.me/?text='+encodeURIComponent(msg);
-  
-  // Inyectar botón WA en el PDF HTML y abrirlo
-  const pdfConWA = window._pdfHTML.replace(
-    '<div class="footer">',
-    '<div style="max-width:420px;margin:16px auto 0;display:flex;gap:8px;padding:0 0 16px">'
-    +'<a href="'+waURL+'" target="_blank" style="flex:1;display:block;padding:12px;background:#25D366;color:#fff;font-weight:900;font-size:13px;border-radius:8px;text-align:center;text-decoration:none;font-family:Arial,sans-serif">📲 Enviar por WhatsApp</a>'
-    +'<button onclick="window.print()" style="flex:1;padding:12px;background:#A8FF00;color:#1A2E05;font-weight:900;font-size:13px;border-radius:8px;border:none;cursor:pointer;font-family:Arial,sans-serif">🖨️ Imprimir</button>'
-    +'</div>'
-    +'<div class="footer">'
-  );
-  const w=window.open('','_blank');
-  if(w){w.document.write(pdfConWA);w.document.close();}
-  else{
-    // Fallback: abrir WA directamente si popups bloqueados
-    window.open(waURL,'_blank');
+  if(!window._pdfHTML){window._pdfHTML=generarPDFHTML();}
+  var blob=new Blob([window._pdfHTML],{type:'text/html;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var w=window.open(url,'_blank');
+  if(!w){
+    var a=document.createElement('a');
+    a.href=url;a.download='boleta-buneo.html';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
   }
 }
 
-$('ticket-overlay').addEventListener('click',e=>{if(e.target===$('ticket-overlay'))$('ticket-overlay').classList.remove('open');});
+function verPDFyWA(){
+  if(!window._pdfHTML){window._pdfHTML=generarPDFHTML();}
+  if(typeof html2canvas==='undefined'){enviarWATexto();return;}
+  toast('Generando imagen...','spin',0);
+  var ticketEl=$('ticket-content');
+  var actions=ticketEl.querySelector('.ticket-actions');
+  if(actions)actions.style.display='none';
+  html2canvas(ticketEl,{backgroundColor:'#ffffff',scale:2,useCORS:true,logging:false}).then(function(canvas){
+    if(actions)actions.style.display='';
+    canvas.toBlob(function(blob){
+      var imgUrl=URL.createObjectURL(blob);
+      var msg='Hola! Gracias por tu compra en Buneo.cl. Tu pedido esta siendo preparado con mucho cuidado. Total a pagar: '+fmtCLP(state._finalTotal)+'. Cualquier consulta estamos aqui para ayudarte. Buneo.cl';
+      var waURL='https://wa.me/?text='+encodeURIComponent(msg);
+      var actDiv=ticketEl.querySelector('.ticket-actions');
+      if(actDiv){
+        actDiv.innerHTML=
+          '<a href="'+imgUrl+'" download="boleta-buneo.png" style="display:block;padding:11px;background:#A8FF00;color:#1A2E05;font-weight:900;font-size:13px;border-radius:7px;text-align:center;text-decoration:none;width:100%">1. Guardar imagen boleta</a>'+
+          '<a href="'+waURL+'" target="_blank" style="display:block;padding:11px;background:#25D366;color:#fff;font-weight:900;font-size:13px;border-radius:7px;text-align:center;text-decoration:none;width:100%">2. Abrir WhatsApp</a>'+
+          '<p style="font-size:11px;color:#888;text-align:center;font-weight:600">Guarda la imagen y adjuntala en WhatsApp</p>'+
+          '<button onclick="verPDF()" style="display:block;padding:9px;background:#253348;color:#a8c4a8;font-weight:800;font-size:12px;border:none;border-radius:7px;cursor:pointer;width:100%;font-family:inherit">Ver / Imprimir PDF</button>'+
+          '<button onclick="document.getElementById(\'ticket-overlay\').classList.remove(\'open\')" style="display:block;padding:9px;background:#162032;color:#6a9070;font-weight:800;font-size:12px;border:none;border-radius:7px;cursor:pointer;width:100%;font-family:inherit">Cerrar</button>';
+      }
+      toast('Imagen lista - guardala y compartela','ok',4000);
+    },'image/png');
+  })['catch'](function(){
+    if(actions)actions.style.display='';
+    enviarWATexto();
+  });
+}
 
-// ===== PORTAFOLIO =====
+function enviarWATexto(){
+  var msg='Hola! Gracias por tu compra en Buneo.cl. Tu pedido esta siendo preparado. Total a pagar: '+fmtCLP(state._finalTotal)+'. Buneo.cl';
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+}
+
 function renderPortafolio(){
-  const lista=$('port-lista'),empty=$('port-empty');
+  var lista=$('port-lista'),empty=$('port-empty');
   if(!state.portafolio.length){lista.innerHTML='';empty.style.display='block';return;}
   empty.style.display='none';
-  lista.innerHTML=state.portafolio.map((p,idx)=>`
-    <div class="port-card">
-      <div class="port-info">
-        <h4>${esc(p.nombre)}</h4>
-        <p>${p.peso}g · ${p.horas}h · Fil.${p.filamento}${p.adicionales&&p.adicionales.length?' · +'+p.adicionales.map(a=>a.nombre+'×'+a.cantidad).join(', '):''}${p.notas?' · '+esc(p.notas):''}</p>
-      </div>
-      <div class="port-actions">
-        <button class="btn btn-primary btn-sm" onclick="addPortToPedido(${idx})">➕ Al pedido</button>
-        <button class="btn btn-secondary btn-icon btn-sm" onclick="abrirModalPortEdit(${idx})">✏️</button>
-        <button class="btn btn-danger btn-icon btn-sm" onclick="rmPort(${idx})">🗑</button>
-      </div>
-    </div>
-  `).join('');
+  var html='';
+  for(var idx=0;idx<state.portafolio.length;idx++){
+    var p=state.portafolio[idx];
+    var ads=(p.adicionales&&p.adicionales.length)?(' - +'+p.adicionales.map(function(a){return a.nombre+'x'+a.cantidad;}).join(', ')):'';
+    html+='<div class="port-card"><div class="port-info"><h4>'+esc(p.nombre)+'</h4>'+
+      '<p>'+p.peso+'g - '+p.horas+'h - Fil.'+p.filamento+ads+(p.notas?(' - '+esc(p.notas)):'')+'</p></div>'+
+      '<div class="port-actions">'+
+      '<button class="btn btn-primary btn-sm" onclick="addPortToPedido('+idx+')">+ Al pedido</button>'+
+      '<button class="btn btn-secondary btn-icon btn-sm" onclick="abrirModalPortEdit('+idx+')">E</button>'+
+      '<button class="btn btn-danger btn-icon btn-sm" onclick="rmPort('+idx+')">X</button>'+
+      '</div></div>';
+  }
+  lista.innerHTML=html;
 }
 
 function addPortToPedido(idx){
-  const p=state.portafolio[idx];
-  const peso=p.peso||0,h=p.horas||0,fil=p.filamento||1,ads=p.adicionales||[];
-  const {neto}=calcNeto(fil===1?peso:0,fil===2?peso:0,h,ads);
-  const mn=gv('minP',1000);
+  var p=state.portafolio[idx];
+  var peso=p.peso||0,h=p.horas||0,fil=p.filamento||1,ads=p.adicionales||[];
+  var r=calcNeto(fil===1?peso:0,fil===2?peso:0,h,ads);
+  var mn=gv('minP',1000);
   state.pedido.push({
-    id:state.nextPedId++,nombre:p.nombre,qty:1,peso,horas:h,filamento:fil,adicionales:ads,
-    p1:Math.max(neto*gv('mult1',3),mn),p2:Math.max(neto*gv('mult2',4),mn),p3:Math.max(neto*gv('mult3',5),mn),
+    id:state.nextPedId++,nombre:p.nombre,qty:1,peso:peso,horas:h,filamento:fil,adicionales:ads,
+    p1:Math.max(r.neto*gv('mult1',3),mn),p2:Math.max(r.neto*gv('mult2',4),mn),p3:Math.max(r.neto*gv('mult3',5),mn),
     fecha:new Date().toLocaleString('es-CL')
   });
-  save();autoSync();toast('✅ '+p.nombre+' agregado al pedido','ok',2000);
+  save();autoSync();toast(p.nombre+' agregado al pedido','ok',2000);
   showSection('pedidos');
 }
 
 function abrirModalPortEdit(idx){
-  const p=idx!==null&&idx!==undefined?state.portafolio[idx]:null;
+  var p=(idx!==null&&idx!==undefined)?state.portafolio[idx]:null;
   $('m-port-title').textContent=p?'Editar producto':'Nuevo producto';
-  $('port-id').value=p!==null?idx:'';
+  $('port-id').value=(idx!==null&&idx!==undefined)?idx:'';
   $('port-nombre').value=p?p.nombre:'';
   $('port-peso').value=p?p.peso:'';
   $('port-horas').value=p?p.horas:'';
   $('port-fil').value=p?p.filamento:1;
-  $('port-notas').value=p?p.notas||'':'';
-  // Preservar adicionales existentes
-  state._portEditAds=p&&p.adicionales?[...p.adicionales]:[];
+  $('port-notas').value=p?(p.notas||''):'';
+  state._portEditAds=(p&&p.adicionales)?p.adicionales.slice():[];
   abrirModal('modal-port');
 }
+
 function guardarPortafolio(){
-  const nombre=$('port-nombre').value.trim();if(!nombre)return alert('Nombre obligatorio');
-  const idx=$('port-id').value!==''?parseInt($('port-id').value):null;
-  const ads=idx!==null?(state._portEditAds||[]):[];
-  const data={nombre,peso:parseFloat($('port-peso').value)||0,horas:parseFloat($('port-horas').value)||0,filamento:parseInt($('port-fil').value)||1,notas:$('port-notas').value.trim(),adicionales:ads};
-  if(idx!==null){state.portafolio[idx]={...state.portafolio[idx],...data};}
-  else state.portafolio.push({id:state.nextPortId++,...data});
+  var nombre=$('port-nombre').value.trim();
+  if(!nombre)return alert('Nombre obligatorio');
+  var idxVal=$('port-id').value;
+  var idx=idxVal!==''?parseInt(idxVal):null;
+  var ads=idx!==null?(state._portEditAds||[]):[];
+  var data={nombre:nombre,peso:parseFloat($('port-peso').value)||0,
+    horas:parseFloat($('port-horas').value)||0,
+    filamento:parseInt($('port-fil').value)||1,
+    notas:$('port-notas').value.trim(),adicionales:ads};
+  if(idx!==null){
+    data.id=state.portafolio[idx].id;
+    state.portafolio[idx]=data;
+  }else{
+    data.id=state.nextPortId++;
+    state.portafolio.push(data);
+  }
   save();autoSync();cerrarModal('modal-port');renderPortafolio();
 }
-function rmPort(idx){if(!confirm('¿Eliminar del portafolio?'))return;state.portafolio.splice(idx,1);save();autoSync();renderPortafolio();}
 
-// ===== MODAL UTILS =====
+function rmPort(idx){
+  if(!confirm('Eliminar del portafolio?'))return;
+  state.portafolio.splice(idx,1);save();autoSync();renderPortafolio();
+}
+
 function abrirModal(id){$(id).classList.add('open');}
 function cerrarModal(id){$(id).classList.remove('open');}
-document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
 
-// ===== INIT =====
+var _modals=document.querySelectorAll('.modal-overlay');
+for(var i=0;i<_modals.length;i++){
+  _modals[i].addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
+}
+$('ticket-overlay').addEventListener('click',function(e){
+  if(e.target===$('ticket-overlay'))$('ticket-overlay').classList.remove('open');
+});
+
 calcular();
 cargarDesdeSheets();
 </script>
