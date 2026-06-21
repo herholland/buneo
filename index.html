@@ -646,7 +646,7 @@ function calcNeto(f1,f2,h,ads){
   var cDesg=h*gv('costoDesg',30);
   var cAds=0;for(var i=0;i<ads.length;i++)cAds+=ads[i].precio*ads[i].cantidad;
   var sub=cFil+cElec+cDesg+cAds;
-  var mg=gv('margen',25)/100;
+  var mg=gv('margen',29)/100;
   return{cFil:cFil,cElec:cElec,cDesg:cDesg,cAds:cAds,sub:sub,mgVal:sub*mg,neto:sub*(1+mg)};
 }
 function calcular(){
