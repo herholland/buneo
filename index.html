@@ -646,7 +646,7 @@ function calcNeto(f1,f2,h,ads){
   var cDesg=h*gv('costoDesg',30);
   var cAds=0;for(var i=0;i<ads.length;i++)cAds+=ads[i].precio*ads[i].cantidad;
   var sub=cFil+cElec+cDesg+cAds;
-  var mg=gv('margen',29)/100;
+  var mg=gv('margen',25)/100;
   return{cFil:cFil,cElec:cElec,cDesg:cDesg,cAds:cAds,sub:sub,mgVal:sub*mg,neto:sub*(1+mg)};
 }
 function calcular(){
@@ -767,7 +767,7 @@ function renderInventario(){
       '<td style="text-align:right;color:var(--text2)">'+(it.costoLote?fmtCLP(it.costoLote*IVA):'-')+'</td>'+
       '<td style="text-align:right;font-weight:800;color:var(--lima)">'+fmtCLP(it.precio)+'</td>'+
       '<td style="text-align:center"><div style="display:flex;gap:3px;justify-content:center">'+
-      '<button class="btn btn-secondary btn-icon btn-sm" onclick="abrirModalItem('+it.id+')">E</button>'+
+      '<button class="btn btn-secondary btn-icon btn-sm" onclick="abrirModalItem('+it.id+')">✏️</button>'+
       '<button class="btn btn-danger btn-icon btn-sm" onclick="rmItem('+it.id+')">X</button></div></td></tr>';
   }
   body.innerHTML=html;
@@ -843,7 +843,7 @@ function renderPedido(){
       '<div><div class="pedido-item-name">'+esc(p.nombre)+'</div>'+
       '<div class="pedido-item-detail">'+p.peso+'g - '+p.horas+'h - Fil.'+p.filamento+ads+'</div></div>'+
       '<div style="display:flex;gap:3px;flex-shrink:0">'+
-      '<button class="btn btn-secondary btn-icon btn-sm" onclick="editPed('+idx+')">E</button>'+
+      '<button class="btn btn-secondary btn-icon btn-sm" onclick="editPed('+idx+')">✏️</button>'+
       '<button class="btn btn-danger btn-icon btn-sm" onclick="rmPed('+idx+')">X</button></div></div>'+
       '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.4rem">'+
       '<div class="pedido-qty"><button class="qty-btn" onclick="chQty('+idx+',-1)">-</button>'+
@@ -1242,7 +1242,7 @@ function renderPortafolio(){
       '<p>'+p.peso+'g - '+p.horas+'h - Fil.'+p.filamento+ads+(p.notas?(' - '+esc(p.notas)):'')+'</p></div>'+
       '<div class="port-actions">'+
       '<button class="btn btn-primary btn-sm" onclick="addPortToPedido('+idx+')">+ Al pedido</button>'+
-      '<button class="btn btn-secondary btn-icon btn-sm" onclick="abrirModalPortEdit('+idx+')">E</button>'+
+      '<button class="btn btn-secondary btn-icon btn-sm" onclick="abrirModalPortEdit('+idx+')">✏️</button>'+
       '<button class="btn btn-danger btn-icon btn-sm" onclick="rmPort('+idx+')">X</button>'+
       '</div></div>';
   }
